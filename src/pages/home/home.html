@@ -1,18 +1,28 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu"></ion-icon> 
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Dashboard</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+ <ion-grid>
+   <ion-row>
+     <ion-col col-md-3 col-lg-3 col-xs-6 col-sm-6 align-self-center >
+       <ion-card>
+         <ion-col col-12 align-self-center>
+            <img src="../assets/imgs/track.png" class="dashboard-icons"/>
+         </ion-col>
+        
+         <ion-card-content>
+           <ion-card-title>
+           <button ion-button block><h2 ion-text color="secondary" text-center (click)="getOrderDetails()">Track Orders</h2></button> 
+           </ion-card-title>
+         </ion-card-content>
+       </ion-card>
+     </ion-col>
+   </ion-row>
+ </ion-grid>
 </ion-content>

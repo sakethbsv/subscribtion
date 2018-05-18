@@ -1,7 +1,11 @@
-<ion-menu [content]="content">
+<ion-menu persistent="true" [content]="content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-avatar item-left>
+        <img src="../assets/imgs/admin.png" class="dashboard-icons">
+      </ion-avatar>
+      <p ion-text text-center color="secondary"><b>{{admin.adminName}}</b></p>
+      <p ion-text text-center color="light"><b>{{admin.emailId}}</b></p>
     </ion-toolbar>
   </ion-header>
 
@@ -11,9 +15,14 @@
         {{p.title}}
       </button>
     </ion-list>
+    <ion-footer>
+      <button ion-button block (click)="logout()">Logout</button>
+    </ion-footer>
   </ion-content>
 
 </ion-menu>
+
+
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -1,0 +1,95 @@
+<!--
+  Generated template for the OrdersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Orders</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding >
+ 
+  <ion-grid >
+      <ion-title ion-text text-left margin-top>Track Orders</ion-title>
+    <ion-row>
+      <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList"  >
+        <ion-list radio-group [(ngModel)]="shopSelected" >
+        <ion-item>
+          <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
+          <ion-label><p>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p></ion-label>
+        </ion-item>
+      </ion-list>
+      </ion-col>
+     
+    </ion-row>
+   
+  </ion-grid>
+  
+  <ion-grid >
+    <ion-title ion-text>Subscribtion Details</ion-title>
+      <ion-card >
+        <!-- <ion-searchbar [(ngModel)]="searchItem" (ionInput)="filter()"></ion-searchbar> -->
+          <ion-card-header color="secondary" class="orderlist">
+              <ion-row justify-content-center>
+                  <ion-col>
+                      Shop Id
+                    </ion-col>
+                    <ion-col >
+                      Customer Id
+                      <!-- <ion-searchbar [(ngModel)]="searchItem" (ionInput)="filter1()"></ion-searchbar> -->
+                    </ion-col>
+                    <ion-col >
+                      Subscribtion Id
+                    </ion-col>
+                    <ion-col >
+                      Delivery Date
+                    </ion-col>
+                    <ion-col >
+                      Status
+                    </ion-col>
+              </ion-row>
+          </ion-card-header>
+          <ion-card-content color="primary" *ngFor="let order of orderList">
+              <ion-row  justify-content-center>
+                  <ion-col align-self-center >
+                    {{order.shopId}}
+                  </ion-col>
+                  <ion-col align-self-center >
+                    {{order.customerId}}
+                  </ion-col>
+                  <ion-col align-self-center >
+                    {{order.subscriptionId}}
+                  </ion-col>
+                  <ion-col align-self-center >
+                    {{order.deliveryDate}}
+                  </ion-col>
+                  <ion-col align-self-center >
+                   <button ion-button block small round outline color="secondary">{{order.status}}</button>
+                   <button ion-button block small round color="secondary">DONE</button>
+                   
+                  </ion-col>
+                </ion-row>
+          </ion-card-content>
+        </ion-card>  
+  </ion-grid>
+
+  
+
+ 
+</ion-content>
+
+
+
+
+
+<ion-footer>
+    <button *ngIf="orderList.length<1" no-padding no-margin ion-button block round  (click)="search()">SEARCH</button>
+    <button *ngIf="orderList.length>0" no-padding no-margin ion-button block round  (click)="back()">BACK</button>    
+</ion-footer>

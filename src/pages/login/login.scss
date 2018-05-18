@@ -1,0 +1,56 @@
+page-login {
+    .login-outer-page{
+        background : color($colors,light);
+        }
+        .mobile-login-page{
+            background-color: color($colors,primary);
+           background-blend-mode:color( $colors,primary);
+            
+        }
+        .card{
+            background-color: color($colors,primary);
+            border-radius:15px;
+            margin:auto;
+            padding:0px 10px;
+        }
+        ion-card-content{
+            
+            color : color($colors,light);
+            margin:0px 0px;
+        }
+    
+        
+        .perpule-logo{
+            border:0px;
+        }
+        ion-list{
+            margin:0px;
+        }
+        .item ,.item-md,.item-ios,.item-wp{
+            background: none;
+            border: 1px solid color($colors,light);
+            border-radius: 64px;
+            margin-bottom:10px;
+            
+        }
+        #non-rounded{
+            border:0px;
+            
+        }
+    
+    
+        .item-input .label{
+            color: color($colors,light);
+        }
+        .card h2{
+            color : color($colors,primary);
+        }
+        .text-input:input-placeholder {
+          color: light;
+        }
+    
+        .button-md,.button-ios {
+              text-transform: capitalize;
+              color:color($colors,light);
+        }
+}

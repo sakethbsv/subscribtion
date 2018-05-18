@@ -34,18 +34,39 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
+  primary:    #15112F,
+  secondary:  #F79420,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
 );
 
+.toolbar-background{
+  background: color($colors,primary) !important;
+}
+
+.dashboard-icons{
+  margin: auto;
+  width: 50%;
+}
+
+.ion-title{
+  color: color($colors,secondary);
+}
+
+.ion-item:active{
+  color: color($colors,secondary);
+}
+
+$toolbar-md-title-text-color:color($colors,secondary);
+$button-md-text-color:color($colors,secondary);
+
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
+$toolbar-ios-title-text-color:color($colors,secondary);
+$button-ios-text-color:color($colors,secondary);
 
 
 
@@ -53,7 +74,9 @@ $colors: (
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
+.button:active{
+  color: color($colors,secondary);
+}
 
 
 // App Windows Variables
