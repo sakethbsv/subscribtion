@@ -11,9 +11,10 @@ import { NavController } from 'ionic-angular';
 
 export class HomePage {
   ordersList : any[];
-
+  settings:any;
+  data:any;
   constructor(public navCtrl: NavController) {
-
+  
   }
 
   getOrderDetails(){

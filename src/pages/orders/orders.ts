@@ -21,9 +21,29 @@ export class OrdersPage {
   shopList:any[];
   orderList:any[]=[];
   searchItem:any;
+  settings:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public storage:StorageProvider,private orders:FulfillmentDetailsProvider) {
-    this.orderList = [];
+    this.settings = {
+      columns: {
+        shopId: {
+          title: 'Shop Id'
+        },
+        subscriptionId: {
+          title: 'Subscribtion Id'
+        },
+        customerId: {
+          title: 'Customer Id'
+        },
+        deliveryDate: {
+          title: 'Delivery Date'
+        },
+        status:{
+          title:'Status'
+        }
+      }
+    };
+
   }
 
   ionViewDidLoad() {

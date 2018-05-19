@@ -21,6 +21,8 @@ import { ErrorHandlerServiceProvider } from '../providers/error-handler-service/
 import { InterceptorProvider } from '../providers/interceptor/interceptor';
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { StorageProvider } from '../providers/storage/storage';
+import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
+
 
 
 
@@ -40,7 +42,8 @@ import { StorageProvider } from '../providers/storage/storage';
       name: '__mydb',
       driverOrder: ['localstorage','websql', 'sqlite', 'indexeddb']
     }),
-    HttpClientModule
+    HttpClientModule,
+    Ng2SmartTableModule
     
   ],
   bootstrap: [IonicApp],
