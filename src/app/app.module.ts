@@ -22,6 +22,8 @@ import { InterceptorProvider } from '../providers/interceptor/interceptor';
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { StorageProvider } from '../providers/storage/storage';
 import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
+import { CatalogPage } from '../pages/catalog/catalog';
+import { CatalogProvider } from '../providers/catalog/catalog';
 
 
 
@@ -33,7 +35,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
     HomePage,
     ListPage,
     LoginPage,
-    OrdersPage
+    OrdersPage,
+    CatalogPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
     HomePage,
     ListPage,
     LoginPage,
-    OrdersPage
+    OrdersPage,
+    CatalogPage
 
   ],
   providers: [
@@ -69,7 +73,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
       provide:HTTP_INTERCEPTORS,
       useClass:InterceptorProvider,
       multi:true
-    }
+    },
+    CatalogProvider
     
   ]
 })

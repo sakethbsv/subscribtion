@@ -1,6 +1,6 @@
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { LoginServiceProvider } from '../../providers/login-service/login-service';
 import {  HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';

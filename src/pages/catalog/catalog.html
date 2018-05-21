@@ -1,0 +1,60 @@
+<!--
+  Generated template for the CatalogPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>catalog</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+      <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+          <ion-list radio-group [(ngModel)]="shopSelected">
+            <ion-item>
+              <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
+              <ion-label>
+                <p>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+  </ion-row>
+
+  <ion-row>
+      <ion-col col-6>
+          <button ion-button block (click)="viewProduct()">View Product</button>
+      </ion-col>
+      <!-- <ion-col col-6 >
+          <button ion-button block (click)="uploadCatalog()">Upload Catalog</button>
+      </ion-col> -->
+     
+  </ion-row>
+
+ <ion-grid>
+    <ion-title ion-text text-center>Product Details</ion-title>
+    <ion-row id="viewProduct">
+
+      <ion-col col-12>
+       <ion-searchbar (ionInput)="search"></ion-searchbar>
+      </ion-col>
+      <ion-col >
+         <button ion-button (click)="uploadCatalog()">Upload Catalog</button>
+        <button ion-button (click)="save()" >Save</button>
+          <ion-card>
+              <ng2-smart-table [settings]="settings"  [source]="productList" ></ng2-smart-table>
+            </ion-card>
+      </ion-col>
+    </ion-row>
+  
+ </ion-grid>
+ 
+ 
+ 
+</ion-content>

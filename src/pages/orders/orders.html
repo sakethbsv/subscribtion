@@ -30,7 +30,7 @@
         </ion-list>
       </ion-col> -->
 
-      <ion-col col-md-6 col-lg-6  >
+      <ion-col col-md-6 col-lg-6  align-self-center>
           <ion-item>
               <ion-img width="80" height="80" src="../assets/imgs/shop.png"></ion-img>
               <ion-label>Select Shop</ion-label>
@@ -44,7 +44,7 @@
       <ion-col col-md-6 col-lg-6>
         <ion-row>
           <ion-col >
-            <button ion-button block >Search</button>
+            <button ion-button block (click)="search()">Search</button>
           </ion-col>
           <ion-col >
             <button ion-button outline >Reset</button>
@@ -75,7 +75,7 @@
 
 
 
-<ion-footer>
+<!-- <ion-footer>
   <button *ngIf="orderList.length<1" no-padding no-margin ion-button block round (click)="search()">SEARCH</button>
   <button *ngIf="orderList.length>0" no-padding no-margin ion-button block round (click)="back()">BACK</button>
-</ion-footer>
+</ion-footer> -->
