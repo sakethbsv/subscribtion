@@ -7,6 +7,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { StorageProvider } from '../providers/storage/storage';
+import { SplitpaneProvider } from '../providers/splitpane/splitpane';
+import { OrdersPage } from '../pages/orders/orders';
+import { DaterangepickerConfig } from 'ng2-daterangepicker';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,15 +23,22 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig ) {
     this.initializeApp();
     this.admin={}
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Orders', component: OrdersPage }
     ];
+
+
+    // configuring date range
+    this.daterangepickerOptions.settings = {
+      locale: { format: 'YYYY-MM-DD' },
+      alwaysShowCalendars: false
+  };
 
   }
 
@@ -51,5 +61,6 @@ export class MyApp {
 
   logout(){
     this.storage.clearItem();
+    this.nav.setRoot(LoginPage);
   }
 }

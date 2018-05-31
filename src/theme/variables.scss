@@ -73,9 +73,57 @@ $button-ios-text-color:color($colors,secondary);
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
+.text-input{
+  color: color($colors,secondary);
+}
+.header-bar{
+  background:color($colors,primary);
+  padding: 10px 0px;
+}
+.sub-heading{
+  font-size: 18px;
+  color: color($colors,secondary);
+}
+.item.item-block.item-md{
+  background: none;
+  border: 0px;
+}
 
 .button:active{
   color: color($colors,secondary);
+}
+
+tbody {
+  text-align:center;
+  font-size: 14px;
+  color: color($colors,primary);
+  
+
+ 
+}
+thead>tr{
+  font-size: 14px;
+  color: color($colors,primary);
+ 
+}
+tbody>td{
+  margin: 5px;
+}
+
+ng2-smart-table-pager{
+  font-size: 18px;
+  font-weight: bold;
+  color: color($colors,primary);
+
+}
+nav.ng2-smart-pagination-nav{
+margin: auto;
+}
+
+a.ng2-smart-page-link.page-link{
+  margin: auto;
+  padding: 5px;
+  color: color($colors,dark);
 }
 
 

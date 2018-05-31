@@ -1,5 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpServiceProvider } from '../http-service/http-service';
+import * as Constants from '../../config'
 
 
 
@@ -12,59 +14,56 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class FulfillmentDetailsProvider {
+  ordersTableData:any;
 
-  constructor(public http: HttpClient) {
+  constructor(public http:HttpServiceProvider) {
     console.log('Hello FulfillmentDetailsProvider Provider');
+    this.ordersTableData = []; 
   }
 
 
-  getFulfillmentDetails(){
-    let dummy_data = [{
-      fulfilmentId:11,
-      subscriptionId:10098766,
-      shopId:11,
-      customerId :1,
-      deliveryDate:'2018-05-15',
-      status:'PENDING'
-    },{
-      fulfilmentId:11,
-      subscriptionId:100,
-      shopId:11,
-      customerId :1,
-      deliveryDate:'2018-05-15',
-      status:'PENDING'
-    },
+  getFulfillmentDetails(object){
+  
+   return this.http.post(Constants.URL+"/v2/dashboard/subscription/fetchFulfillments",object)
+
+    
+  }
+
+  generateFulfillmentTableData(fulfilmentList){
+   
+    
+    fulfilmentList.forEach(data => {
+      let obj:any = {};
+      obj.shopId = data.fulfillment.shopId;
+      obj.customerId = data.fulfillment.customerId;
+      obj.customerName = data.customerName;
+      obj.mobileNumber = data.mobileNumber;
+      obj.status = data.fulfillment.status;
+      obj.deliveryDate = data.fulfillment.deliveryDate;
+      obj.slot = data.fulfillment.slotFrom +" to "+data.fulfillment.slotTo;
+      obj.city = data.address.city;
+      obj.subscriptionId = data.fulfillment.subscriptionId;
+      obj.address = data.address;
+      obj.subscriptionOrderItems = data.subscriptionOrderItems;
+      obj.fulfillmentId = data.fulfillment.id;
+      this.ordersTableData.push(obj);
+
+    });
+
+    return this.ordersTableData;
+  }
+
+  updateFulfillmentStatus(order){
+    return this.http.post(Constants.URL+"/v2/dashboard/subscription/fulfillment/update/"+order.fulfillmentId+"/"+order.status,{})
+    .map((res:any)=>
     {
-      fulfilmentId:11,
-      subscriptionId:1050,
-      shopId:11,
-      customerId :1999,
-      deliveryDate:'2018-05-15',
-      status:'PENDING'
-    }];
-
-    return dummy_data;
-  }
-
-  filterOrdersList(searchItem,serachList){
-    console.log('serach Item',searchItem)
-   return  serachList.filter((item)=>{
-     console.log(item);
-       if(item.hasOwnProperty(searchItem)){
-        console.log(item);
-         return item;
-       }
+      console.log('res',res);
+      return res
     })
   }
 
-  filterOrdersList1(searchItem,serachList){
-    console.log('serach Item',searchItem)
-   return  serachList.filter((item)=>{
-     console.log(item);
-     if(item.customerId==searchItem){
-       return item;
-     }
-    })
-  }
+
+
+
 
 }

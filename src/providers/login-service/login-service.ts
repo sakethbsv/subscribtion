@@ -34,6 +34,7 @@ export class LoginServiceProvider {
     
     
     return this.httpService.post(Constants.URL +"/v2/dashboard/admin/login",data)
+  
       
   }
 

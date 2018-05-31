@@ -7,6 +7,8 @@ import { ErrorHandlerServiceProvider } from '../../providers/error-handler-servi
 import { StorageProvider } from '../../providers/storage/storage';
 import 'rxjs/add/operator/map';
 import { MyApp } from '../../app/app.component';
+import { SplitpaneProvider } from '../../providers/splitpane/splitpane';
+import { LoaderProvider } from '../../providers/loader/loader';
 
 /**
  * Generated class for the LoginPage page.
@@ -25,7 +27,7 @@ export class LoginPage {
   password:string;
   admin:any;
 
-  constructor(public navCtrl:NavController, public loginService:LoginServiceProvider,public errorService:ErrorHandlerServiceProvider,public storage:StorageProvider,public app:MyApp) {
+  constructor(public navCtrl:NavController, public loginService:LoginServiceProvider,public errorService:ErrorHandlerServiceProvider,public storage:StorageProvider,public app:MyApp,public splitPane:SplitpaneProvider,public loader:LoaderProvider) {
     this.username = 'focus@perpule.com';
     this.password = 'focus';
   }
@@ -33,7 +35,12 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-
+  ionViewWillEnter(){
+   this.splitPane.setSplitPane(false);
+  }
+  ionViewWillLeave(){
+   this.splitPane.setSplitPane(true);
+  }
   login(){
     let loginData ={
       emailId:this.username,
@@ -48,7 +55,10 @@ export class LoginPage {
       this.app.admin = response.admin;
     },(err:HttpErrorResponse)=>{
         console.log('err',err);
+        this.loader.hide();
         this.errorService.error(err);
+    },()=>{
+        this.loader.hide();
     })
   }
 

@@ -24,6 +24,8 @@ export class ErrorHandlerServiceProvider {
      return alert('Please check the request !');
     }else if(err.status==401){
     // return this.navCtrl.setRoot(LoginPage);
+    }else if(err.status==0){
+      return alert('Please check your internet !');
     }
    
   }

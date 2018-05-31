@@ -24,6 +24,12 @@ import { StorageProvider } from '../providers/storage/storage';
 import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
 import { CatalogPage } from '../pages/catalog/catalog';
 import { CatalogProvider } from '../providers/catalog/catalog';
+import { ButtonViewPage } from '../pages/button-view/button-view';
+import { SplitpaneProvider } from '../providers/splitpane/splitpane';
+import { SubscribtiondetailPage } from '../pages/subscribtiondetail/subscribtiondetail';
+import { Daterangepicker } from 'ng2-daterangepicker';
+import { FulfillmentDetailPage } from '../pages/fulfillment-detail/fulfillment-detail';
+import { LoaderProvider } from '../providers/loader/loader';
 
 
 
@@ -36,10 +42,14 @@ import { CatalogProvider } from '../providers/catalog/catalog';
     ListPage,
     LoginPage,
     OrdersPage,
-    CatalogPage
+    CatalogPage,
+    ButtonViewPage,
+    SubscribtiondetailPage,
+    FulfillmentDetailPage
   ],
   imports: [
     BrowserModule,
+    Daterangepicker,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
       name: '__mydb',
@@ -56,7 +66,10 @@ import { CatalogProvider } from '../providers/catalog/catalog';
     ListPage,
     LoginPage,
     OrdersPage,
-    CatalogPage
+    ButtonViewPage,
+    CatalogPage,
+    SubscribtiondetailPage,
+    FulfillmentDetailPage
 
   ],
   providers: [
@@ -74,7 +87,9 @@ import { CatalogProvider } from '../providers/catalog/catalog';
       useClass:InterceptorProvider,
       multi:true
     },
-    CatalogProvider
+    CatalogProvider,
+    SplitpaneProvider,
+    LoaderProvider
     
   ]
 })
