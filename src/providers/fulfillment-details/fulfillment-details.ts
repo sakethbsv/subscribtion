@@ -2,6 +2,8 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { HttpServiceProvider } from '../http-service/http-service';
 import * as Constants from '../../config'
+import { IfObservable } from 'rxjs/observable/IfObservable';
+import { Observable } from 'rxjs/Observable';
 
 
 
@@ -55,10 +57,11 @@ export class FulfillmentDetailsProvider {
 
   updateFulfillmentStatus(order){
     return this.http.post(Constants.URL+"/v2/dashboard/subscription/fulfillment/update/"+order.fulfillmentId+"/"+order.status,{})
-    .map((res:any)=>
-    {
-      console.log('res',res);
-      return res
+    .map((res:Response)=>{
+      return res;
+    })
+    .catch(err=>{
+      return Observable.throw(err); 
     })
   }
 

@@ -13,36 +13,33 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
   <ion-card>
     <ion-card-header>
-      <!-- <ion-item>
-            <p ion-text color="secondary">
-              <b>{{customerName}}</b>
-            </p>
-            <br>
-            <p>{{mobileNumber}}</p>
-          </ion-item>
-          <ion-item >
-           <button ion-button outline color="secondary">Slot {{slot}}</button>
-          </ion-item> -->
-      <ion-row>
-        <ion-col col-md-6 col-lg-6>
-          <ion-item >
-            <h1><ion-icon name="contact"></ion-icon></h1>
+      <ion-row align-items-center>
+        <ion-col col-md-6 col-lg-6 align-self-center class="highlight-card">
+          <ion-item>
+            
+              <ion-avatar>
+                <img src="../assets/imgs/admin.png">
+              </ion-avatar>
+           
           </ion-item>
           <ion-item>
             <p ion-text color="secondary">
               <b>{{customerName}}</b>
             </p>
             <br>
-            <p>{{mobileNumber}}</p>
+            <p ion-text color="light">{{mobileNumber}}</p>
+          </ion-item>
+          <ion-item >
+            <p ion-text color="secondary">Fulfillment Id : #{{fulfillmentId}}</p>
           </ion-item>
           <ion-item>
             <button ion-button outline color="secondary">Slot {{slot}}</button>
           </ion-item>
         </ion-col>
-        <ion-col>
+        <ion-col  col-md-6 col-lg-6 align-self-center>
           <ion-list>
             <ion-item>
               <p item-start>Address Line 1 : {{address.addressLine1}}</p>
@@ -65,7 +62,7 @@
     </ion-card-header>
     <ion-card-content>
 
-      <ng2-smart-table [settings]="settings" [source]="subscriptionOrderItems"></ng2-smart-table>
+      <ng2-smart-table [settings]="settings" [source]="subscriptionOrderItems" style="overflow-x: auto"></ng2-smart-table>
 
 
     </ion-card-content>

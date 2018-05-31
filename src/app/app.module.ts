@@ -30,7 +30,8 @@ import { SubscribtiondetailPage } from '../pages/subscribtiondetail/subscribtion
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { FulfillmentDetailPage } from '../pages/fulfillment-detail/fulfillment-detail';
 import { LoaderProvider } from '../providers/loader/loader';
-
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { ScrollProvider } from '../providers/scroll/scroll';
 
 
 
@@ -56,7 +57,8 @@ import { LoaderProvider } from '../providers/loader/loader';
       driverOrder: ['localstorage','websql', 'sqlite', 'indexeddb']
     }),
     HttpClientModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    ScrollToModule.forRoot()
     
   ],
   bootstrap: [IonicApp],
@@ -89,7 +91,8 @@ import { LoaderProvider } from '../providers/loader/loader';
     },
     CatalogProvider,
     SplitpaneProvider,
-    LoaderProvider
+    LoaderProvider,
+    ScrollProvider
     
   ]
 })

@@ -11,10 +11,11 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content no-padding id="menu">
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+      <button menuClose color="{{p.color}}" ion-item *ngFor="let p of pages" (click)="openPage(p)">
+       <p ion-text text-left color="secondary"><ion-icon name="{{p.icon}}"></ion-icon>&nbsp;
+        {{p.title}} </p> 
       </button>
     </ion-list>
     <ion-footer>

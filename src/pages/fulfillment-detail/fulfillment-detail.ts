@@ -21,6 +21,7 @@ export class FulfillmentDetailPage {
   mobileNumber:any;
   settings : any;
   slot:any;
+  fulfillmentId:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.settings = {
@@ -56,6 +57,7 @@ export class FulfillmentDetailPage {
    this.customerName = data.customerName;
    this.mobileNumber = data.mobileNumber;
    this.slot = data.slot;
+   this.fulfillmentId = data.fulfillmentId;
   }
 
   ionViewDidLoad() {

@@ -67,7 +67,9 @@ $button-md-text-color:color($colors,secondary);
 // iOS only Sass variables can go here
 $toolbar-ios-title-text-color:color($colors,secondary);
 $button-ios-text-color:color($colors,secondary);
-
+.card-content-ios{
+  overflow: auto;
+}
 
 
 // App Material Design Variables
@@ -80,6 +82,9 @@ $button-ios-text-color:color($colors,secondary);
   background:color($colors,primary);
   padding: 10px 0px;
 }
+#menu{
+  background: rgba(21, 17, 47, 0.9);
+}
 .sub-heading{
   font-size: 18px;
   color: color($colors,secondary);
@@ -88,15 +93,43 @@ $button-ios-text-color:color($colors,secondary);
   background: none;
   border: 0px;
 }
+.highlight-card{
+  background:color($colors,primary);
+}
 
 .button:active{
   color: color($colors,secondary);
 }
 
+.menu .content .content-md{
+  background: rgba(21, 17, 47, 0.95);
+}
+.item-md ion-avatar img {
+  margin: auto;
+}
+
+.pending-btn{
+  border: 2px solid color($colors,secondary);
+  $button-ios-background-color:color($colors,light);
+  $button-md-background-color:color($colors,light);
+}
+
+.fulfilled-btn{
+  background:color($colors,secondary);
+  color: color($colors,secondary);
+}
+
+.scroll-content{
+  overflow: auto !important;
+}
+
+.smart-table-container{ 
+  overflow-x: scroll;
+}
 tbody {
-  text-align:center;
+  text-align:start;
   font-size: 14px;
-  color: color($colors,primary);
+  color: color($colors,dark);
   
 
  
@@ -126,6 +159,9 @@ a.ng2-smart-page-link.page-link{
   color: color($colors,dark);
 }
 
+.card-content-md{
+  overflow: auto;
+}
 
 // App Windows Variables
 // --------------------------------------------------

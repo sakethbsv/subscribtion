@@ -9,6 +9,7 @@ import { DaterangePickerComponent } from 'ng2-daterangepicker';
 import * as moment from 'moment';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ScrollProvider } from '../../providers/scroll/scroll';
 
 
 /**
@@ -30,8 +31,8 @@ export class OrdersPage {
   private picker: DaterangePickerComponent;
 
  daterange: any = {
-    start: Date.now(),
-    end: Date.now(),
+    start: moment(),
+    end:moment(),
     label: ''
   };
 
@@ -44,7 +45,7 @@ export class OrdersPage {
   settings: any;
   selectedShopId: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, private orders: FulfillmentDetailsProvider,private loader:LoaderProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, private orders: FulfillmentDetailsProvider,private loader:LoaderProvider,private scroll:ScrollProvider) {
     this.settings = {
       columns: {
         shopId: {
@@ -108,7 +109,7 @@ export class OrdersPage {
   }
 
   search() {
-    console.log(this.daterange.start.toDate());
+   this.fulfillmentData =[];
     let obj = {
       "shopIds": [
         this.selectedShopId
@@ -119,18 +120,12 @@ export class OrdersPage {
     this.orders.getFulfillmentDetails(obj).subscribe((data: any) => {
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);
+      this.scroll.scrollTo('#order-detail');
     },(err:HttpErrorResponse)=>{
 
     },()=>{
       this.loader.hide();
     })
-
-    this.content.resize();
-
-    // document.getElementById("orders-table").scrollIntoView(true);
-    let yOffset = document.getElementById("orders-table").offsetTop;
-    console.log(yOffset);
-    this.content.scrollTo(0, yOffset);
 
 
 

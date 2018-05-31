@@ -38,16 +38,24 @@ export class ButtonViewPage implements ViewCell, OnInit{
     console.log(this.rowData);
     if(this.rowData.status=="PENDING"){
       this.rowData.status="FULFILLED";
-      
+      this.value = this.rowData.status;
     }
     
-    this.fulfillmentService.updateFulfillmentStatus(this.rowData).subscribe((data:any)=>{  
-      this.value = this.rowData.status;
+    this.fulfillmentService.updateFulfillmentStatus(this.rowData).subscribe(data=>{  
       console.log(this.value);
       this.save.emit(this.rowData);
     },(err:HttpErrorResponse)=>{
-
+      console.log('err');
+      if(err.status==200){
+        console.log(this.value);
+        
+      }else{
+        this.value ='PENDING';
+      }
+      this.save.emit(this.rowData);
+      this.loader.hide();
     },()=>{
+      console.log('Completed');
       this.loader.hide();
     })
     

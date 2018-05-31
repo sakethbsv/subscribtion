@@ -9,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Orders</ion-title>
+    <ion-title><ion-icon name="cart"></ion-icon> Orders</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -42,13 +42,6 @@
 
         </div>
       </ion-col>
-      <ion-col>
-        <div> &nbsp;</div>
-        <button ion-button (click)="search()" [disabled]="!selectedShopId">SEARCH</button>
-        <button ion-button outline color="secondary" (click)="reset()">RESET</button>
-      </ion-col>
-    </ion-row>
-    <ion-row padding>
       <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12>
         <ion-list radio-group [(ngModel)]="selectedShopId">
 
@@ -61,15 +54,19 @@
                 </ion-label>
               </ion-item>
             </ion-col>
+            <ion-col>
+              <button ion-button (click)="search()" [disabled]="!selectedShopId" margin-top>SEARCH</button>
+              <button ion-button outline color="secondary" (click)="reset()" margin-top>RESET</button>
+            </ion-col>
           </ion-row>
 
 
         </ion-list>
       </ion-col>
-
     </ion-row>
 
-    <ion-row padding >
+
+    <ion-row padding  id="order-detail">
       <ion-col >
           <div class="header-bar">
               <ion-title ion-text>
