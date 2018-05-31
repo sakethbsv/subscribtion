@@ -1,6 +1,6 @@
 export const SERVER_PROD="http://backend.perpule-1248.appspot.com/resources/";
 let SERVER_URL;
-export const SERVICE = "backend.perpule-1248";
+export const SERVICE = "subscription.perpule-dev";
 export const SERVER_PREPROD="http://7.perpule-preprod.appspot.com/resources/";
 
 

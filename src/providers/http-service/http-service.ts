@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { T } from '@angular/core/src/render3';
+
 
 /*
   Generated class for the HttpServiceProvider provider.
@@ -35,5 +34,6 @@ export class HttpServiceProvider {
     const header = this.setHeaders(headers);
     return this.http.post(url, body,header);
   }
+
 
 }

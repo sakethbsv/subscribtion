@@ -22,7 +22,16 @@ import { InterceptorProvider } from '../providers/interceptor/interceptor';
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { StorageProvider } from '../providers/storage/storage';
 import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
-
+import { CatalogPage } from '../pages/catalog/catalog';
+import { CatalogProvider } from '../providers/catalog/catalog';
+import { ButtonViewPage } from '../pages/button-view/button-view';
+import { SplitpaneProvider } from '../providers/splitpane/splitpane';
+import { SubscribtiondetailPage } from '../pages/subscribtiondetail/subscribtiondetail';
+import { Daterangepicker } from 'ng2-daterangepicker';
+import { FulfillmentDetailPage } from '../pages/fulfillment-detail/fulfillment-detail';
+import { LoaderProvider } from '../providers/loader/loader';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { ScrollProvider } from '../providers/scroll/scroll';
 
 
 
@@ -33,17 +42,23 @@ import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
     HomePage,
     ListPage,
     LoginPage,
-    OrdersPage
+    OrdersPage,
+    CatalogPage,
+    ButtonViewPage,
+    SubscribtiondetailPage,
+    FulfillmentDetailPage
   ],
   imports: [
     BrowserModule,
+    Daterangepicker,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
       name: '__mydb',
       driverOrder: ['localstorage','websql', 'sqlite', 'indexeddb']
     }),
     HttpClientModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    ScrollToModule.forRoot()
     
   ],
   bootstrap: [IonicApp],
@@ -52,7 +67,11 @@ import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
     HomePage,
     ListPage,
     LoginPage,
-    OrdersPage
+    OrdersPage,
+    ButtonViewPage,
+    CatalogPage,
+    SubscribtiondetailPage,
+    FulfillmentDetailPage
 
   ],
   providers: [
@@ -69,7 +88,11 @@ import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
       provide:HTTP_INTERCEPTORS,
       useClass:InterceptorProvider,
       multi:true
-    }
+    },
+    CatalogProvider,
+    SplitpaneProvider,
+    LoaderProvider,
+    ScrollProvider
     
   ]
 })

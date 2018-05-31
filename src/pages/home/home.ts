@@ -1,6 +1,7 @@
 import { OrdersPage } from '../../pages/orders/orders';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { CatalogPage } from '../catalog/catalog';
 
 
 
@@ -20,6 +21,10 @@ export class HomePage {
   getOrderDetails(){
      
     this.navCtrl.push(OrdersPage);
+  }
+
+  uploadCatalog(){
+    this.navCtrl.push(CatalogPage);
   }
 
 }
