@@ -143,14 +143,21 @@ tbody>td{
   margin: 5px;
 }
 
+.content-scrolls{
+overflow: auto;
+}
+
 ng2-smart-table-pager{
-  font-size: 18px;
   font-weight: bold;
   color: color($colors,primary);
 
 }
 nav.ng2-smart-pagination-nav{
 margin: auto;
+}
+
+.pagination>.active>.span{
+  background: color($colors,secondary);
 }
 
 a.ng2-smart-page-link.page-link{

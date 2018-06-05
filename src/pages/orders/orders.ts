@@ -116,6 +116,7 @@ export class OrdersPage {
 
   search(shopIds) {
     this.fulfillmentData = [];
+    this.showfilter = false;
     let obj = {
       "shopIds": shopIds,
       "fromDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD"),
@@ -149,5 +150,8 @@ export class OrdersPage {
     this.fulfillmentData = [];
   }
 
+  filter(){
+    this.showfilter = true;
+  }
 
 }

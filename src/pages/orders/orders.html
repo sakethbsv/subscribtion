@@ -70,16 +70,11 @@
       <ion-col >
           <div class="header-bar">
               <ion-title ion-text>
-                <ion-icon name="list-box"></ion-icon>&nbsp; Order Detail</ion-title>
+                <ion-icon name="list-box"></ion-icon>&nbsp; Order Detail
+                <button style="float: right" ion-button small round color="secondary" (click)="filter()">Filter</button>
+              </ion-title>
             </div>
-
-            <ion-card>
-              <ion-card-content>
-                <h2>No Fulfillment's For Today's</h2>
-              </ion-card-content>
-            </ion-card>
-
-            <ion-card>
+            <ion-card class="content-scrolls">
         
               <ng2-smart-table [settings]="settings" [source]="fulfillmentData"></ng2-smart-table>
             </ion-card>
