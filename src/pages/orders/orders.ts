@@ -30,22 +30,23 @@ export class OrdersPage {
 
   private picker: DaterangePickerComponent;
 
- daterange: any = {
+  daterange: any = {
     start: moment(),
-    end:moment(),
+    end: moment(),
     label: ''
   };
 
 
-  
+
 
   shopList: any[];
   fulfillmentData: any;
   searchItem: any;
   settings: any;
   selectedShopId: number;
+  showfilter: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, private orders: FulfillmentDetailsProvider,private loader:LoaderProvider,private scroll:ScrollProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider) {
     this.settings = {
       columns: {
         shopId: {
@@ -103,17 +104,20 @@ export class OrdersPage {
   }
 
   getAllShops() {
+    let shop_ids_list = [];
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
+      this.shopList.forEach(shop => {
+        shop_ids_list.push(shop.shopId);
+      });
+      this.search(shop_ids_list);
     })
   }
 
-  search() {
-   this.fulfillmentData =[];
+  search(shopIds) {
+    this.fulfillmentData = [];
     let obj = {
-      "shopIds": [
-        this.selectedShopId
-      ],
+      "shopIds": shopIds,
       "fromDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD"),
       "toDate": moment(this.daterange.end.toDate()).format("YYYY-MM-DD")
     }
@@ -121,9 +125,10 @@ export class OrdersPage {
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);
       this.scroll.scrollTo('#order-detail');
-    },(err:HttpErrorResponse)=>{
-
-    },()=>{
+      
+    }, (err: HttpErrorResponse) => {
+      alert("Something went wrong !");
+    }, () => {
       this.loader.hide();
     })
 
@@ -136,7 +141,7 @@ export class OrdersPage {
 
     this.daterange.start = value.start;
     this.daterange.end = value.end;
-    console.log('daterange',moment(this.daterange.start.toDate()).format("YYYY-MM-DD"));
+    console.log('daterange', moment(this.daterange.start.toDate()).format("YYYY-MM-DD"));
 
   }
 

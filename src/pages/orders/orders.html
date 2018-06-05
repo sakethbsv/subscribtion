@@ -22,7 +22,7 @@
         <ion-icon name="pin"></ion-icon>&nbsp; Track Orders</ion-title>
     </div>
 
-    <ion-row padding>
+    <ion-row padding *ngIf="showfilter==true">
       <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
         <div>
           <p class="sub-heading" ion-text color="secondary">
@@ -55,7 +55,7 @@
               </ion-item>
             </ion-col>
             <ion-col>
-              <button ion-button (click)="search()" [disabled]="!selectedShopId" margin-top>SEARCH</button>
+              <button ion-button (click)="search([selectedShopId])" [disabled]="!selectedShopId" margin-top>SEARCH</button>
               <button ion-button outline color="secondary" (click)="reset()" margin-top>RESET</button>
             </ion-col>
           </ion-row>
@@ -66,12 +66,19 @@
     </ion-row>
 
 
-    <ion-row padding  id="order-detail">
+    <ion-row padding *ngIf="showfilter==false" id="order-detail">
       <ion-col >
           <div class="header-bar">
               <ion-title ion-text>
                 <ion-icon name="list-box"></ion-icon>&nbsp; Order Detail</ion-title>
             </div>
+
+            <ion-card>
+              <ion-card-content>
+                <h2>No Fulfillment's For Today's</h2>
+              </ion-card-content>
+            </ion-card>
+
             <ion-card>
         
               <ng2-smart-table [settings]="settings" [source]="fulfillmentData"></ng2-smart-table>
@@ -79,6 +86,7 @@
       </ion-col>
         
     </ion-row>
+
   </ion-grid>
 
 
@@ -90,11 +98,3 @@
 
 </ion-content>
 
-
-
-
-
-<ion-footer>
-
-  <!-- <button no-padding no-margin ion-button block round (click)="back()">BACK</button> -->
-</ion-footer>
