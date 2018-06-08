@@ -7,54 +7,81 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>catalog</ion-title>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>
+      <ion-icon name="list">&nbsp;Select Shop</ion-icon>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <div class="header-bar">
+        <ion-title ion-text>
+          <ion-icon name="list"></ion-icon>&nbsp; Catalog</ion-title>
+    </div>
   <ion-row>
-      <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
-          <ion-list radio-group [(ngModel)]="shopSelected">
-            <ion-item>
-              <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
-              <ion-label>
-                <p>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-  </ion-row>
+    <!-- <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+      <ion-list radio-group [(ngModel)]="shopSelected">
+        <ion-item>
+          <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
+          <ion-label>
+            <p>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col> -->
+    <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12>
+        <ion-list radio-group [(ngModel)]="shopSelected">
 
-  <ion-row>
-      <ion-col col-6>
-          <button ion-button block (click)="viewProduct()">View Product</button>
+          <ion-row>
+            <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+              <ion-item>
+                <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
+                <ion-label>
+                  <p ion-text text-left>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <button margin-left ion-button  (click)="viewProduct(shopSelected)" [disabled]="!shopSelected" margin-top>View Product</button>
+            </ion-col>
+          </ion-row>
+
+
+        </ion-list>
       </ion-col>
-      <!-- <ion-col col-6 >
-          <button ion-button block (click)="uploadCatalog()">Upload Catalog</button>
-      </ion-col> -->
-     
   </ion-row>
 
- <ion-grid>
-    <ion-title ion-text text-center>Product Details</ion-title>
+
+
+  <ion-grid>
+      <div class="header-bar">
+          <ion-title ion-text>
+            <ion-icon name="list-box"></ion-icon>&nbsp; Product Details
+            <button style="float: right" ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()">Upload Catalog</button>
+            <button style="float: right" ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button>
+            <!-- <button style="float: right" ion-button small round color="secondary" (click)="delete()">Delete</button> -->
+          </ion-title>
+        </div>
     <ion-row id="viewProduct">
 
-      <ion-col col-12>
-       <ion-searchbar (ionInput)="search"></ion-searchbar>
-      </ion-col>
-      <ion-col >
-         <button ion-button (click)="uploadCatalog()">Upload Catalog</button>
-        <button ion-button (click)="save()" >Save</button>
-          <ion-card>
-              <ng2-smart-table [settings]="settings"  [source]="productList" ></ng2-smart-table>
-            </ion-card>
+      <!-- <ion-col col-12>
+        <ion-searchbar (ionInput)="search"></ion-searchbar>
+      </ion-col> -->
+      <ion-col>
+        <ion-card>
+          <ng2-smart-table [settings]="settings" [source]="productList" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onSaveConfirm($event)"
+            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+        </ion-card>
       </ion-col>
     </ion-row>
-  
- </ion-grid>
- 
- 
- 
+
+  </ion-grid>
+
+
+
 </ion-content>

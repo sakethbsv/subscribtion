@@ -45,6 +45,8 @@ export class OrdersPage {
   settings: any;
   selectedShopId: number;
   showfilter: boolean = false;
+  shopIds:any[]=[];
+  selectedShopIds:any[]=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider) {
     this.settings = {
@@ -104,21 +106,23 @@ export class OrdersPage {
   }
 
   getAllShops() {
-    let shop_ids_list = [];
+    this.shopIds= [];
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
       this.shopList.forEach(shop => {
-        shop_ids_list.push(shop.shopId);
+        this.shopIds.push(shop.shopId);
       });
-      this.search(shop_ids_list);
+      this.selectedShopIds = this.shopIds;
+      this.search(this.shopIds);
     })
   }
 
-  search(shopIds) {
+  search(shopId) {
     this.fulfillmentData = [];
     this.showfilter = false;
+    this.selectedShopIds = [].concat(shopId);
     let obj = {
-      "shopIds": shopIds,
+      "shopIds": shopId,
       "fromDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD"),
       "toDate": moment(this.daterange.end.toDate()).format("YYYY-MM-DD")
     }
@@ -152,6 +156,36 @@ export class OrdersPage {
 
   filter(){
     this.showfilter = true;
+  }
+
+  downloadReport(shopIds){
+    let formData = {
+      "shopIds": shopIds,
+      "fromDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD"),
+      "toDate": moment(this.daterange.end.toDate()).format("YYYY-MM-DD"),
+      "status": "PENDING"
+    }
+
+    this.orders.downloadFullfillmentReport(formData).subscribe((data:any)=>{
+      let csv = 'Name,Title\n';
+      data.forEach(function(row) {
+              csv += row.join(',');
+              csv += "\n";
+      });
+   
+      console.log(csv);
+      let hiddenElement = document.createElement('a');
+      hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+      hiddenElement.target = '_blank';
+      hiddenElement.download = 'people.csv';
+      hiddenElement.click();
+
+    },(err:HttpErrorResponse)=>{
+      console.log(err.error);
+      this.loader.hide();
+    },()=>{
+      this.loader.hide();
+    })
   }
 
 }

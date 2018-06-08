@@ -32,8 +32,10 @@ import { FulfillmentDetailPage } from '../pages/fulfillment-detail/fulfillment-d
 import { LoaderProvider } from '../providers/loader/loader';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ScrollProvider } from '../providers/scroll/scroll';
-
-
+import { AlertProvider } from '../providers/alert/alert';
+import { CsvmodalPage } from '../pages/csvmodal/csvmodal';
+import { ModalProvider } from '../providers/modal/modal';
+import { PapaParseModule } from 'ngx-papaparse';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ScrollProvider } from '../providers/scroll/scroll';
     CatalogPage,
     ButtonViewPage,
     SubscribtiondetailPage,
-    FulfillmentDetailPage
+    FulfillmentDetailPage,
+    CsvmodalPage,
+    
   ],
   imports: [
     BrowserModule,
@@ -58,7 +62,8 @@ import { ScrollProvider } from '../providers/scroll/scroll';
     }),
     HttpClientModule,
     Ng2SmartTableModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    PapaParseModule
     
   ],
   bootstrap: [IonicApp],
@@ -71,7 +76,8 @@ import { ScrollProvider } from '../providers/scroll/scroll';
     ButtonViewPage,
     CatalogPage,
     SubscribtiondetailPage,
-    FulfillmentDetailPage
+    FulfillmentDetailPage,
+    CsvmodalPage
 
   ],
   providers: [
@@ -92,7 +98,10 @@ import { ScrollProvider } from '../providers/scroll/scroll';
     CatalogProvider,
     SplitpaneProvider,
     LoaderProvider,
-    ScrollProvider
+    ScrollProvider,
+    AlertProvider,
+    ModalProvider
+    
     
   ]
 })

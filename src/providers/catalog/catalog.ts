@@ -11,17 +11,41 @@ import { HttpServiceProvider } from '../http-service/http-service';
 @Injectable()
 export class CatalogProvider {
 
-  constructor(public http: HttpClient,private httpService:HttpServiceProvider) {
+  catalogData:any[];
+  selectedShopId:number;
+
+  constructor(private http: HttpServiceProvider) {
     console.log('Hello CatalogProvider Provider');
   }
 
-  getAllProducts(shopId){
-    return this.httpService.get('http://www.mocky.io/v2/5b02b57c3000002900cee2fc')
-    .map(res=>{
-      return res;
-    })
-    
-
+  getAllProducts(shopId) {
+    return this.http.get("v2/dashboard/subscription/getSubscriptionData/shop/"+shopId )
   }
 
+
+  addOrUpdateSubscriptionData(shopId, product_list) {
+    let formData = {
+      "shopId": shopId,
+      "subscriptionProductDataRow": product_list
+    }
+    console.log(formData);
+    return this.http.post('v2/dashboard/subscription/addOrUpdateSubscriptionData', formData)
+  }
+
+  setCatalogData(data){
+    this.catalogData = data;
+  }
+
+  getDataFromCatalog(){
+
+    return this.catalogData;
+  }
+
+  setShopId(shopId){
+    this.selectedShopId = shopId;
+  }
+
+  getShopId(){
+    return this.selectedShopId;
+  }
 }

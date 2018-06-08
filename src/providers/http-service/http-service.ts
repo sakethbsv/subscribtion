@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import * as Constants from '../../config'
 
 /*
   Generated class for the HttpServiceProvider provider.
@@ -16,9 +16,10 @@ export class HttpServiceProvider {
   }
 
   private setHeaders(headers:HttpHeaders | null){
+    
     headers = headers || new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
-    headers = headers.set('Accept', 'application/json');
+    headers = headers.set('Accept', 'application/csv');
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return { headers:headers};
 
@@ -26,14 +27,12 @@ export class HttpServiceProvider {
 
   public get(url:string,headers?:HttpHeaders |null){
     const header = this.setHeaders(headers);
-    return this.http.get(url,header)
+    return this.http.get(Constants.URL+"/"+url,header)
                     
   }
 
   public post(url:string,body, headers?: HttpHeaders | null){
     const header = this.setHeaders(headers);
-    return this.http.post(url, body,header);
+    return this.http.post(Constants.URL+"/"+url, body,header);
   }
-
-
 }
