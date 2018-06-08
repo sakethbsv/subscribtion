@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { StorageProvider } from '../../providers/storage/storage';
 import { CatalogProvider } from '../../providers/catalog/catalog';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LoaderProvider } from '../../providers/loader/loader';
+import { AlertProvider } from '../../providers/alert/alert';
+import { ModalProvider } from '../../providers/modal/modal';
 
 /**
  * Generated class for the CatalogPage page.
@@ -19,44 +23,48 @@ export class CatalogPage {
   shopList: any[] = [];
   settings: any;
   productList: any[] = [];
+  productUpdateList :any[] =[];
+  productListToBeDeleted : any[] = [];
+  shopSelected:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, private catalogService: CatalogProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider,private loader:LoaderProvider,private alert:AlertProvider,public modal:ModalProvider) {
     this.settings = {
+      delete: {
+        confirmDelete: true,
+      },
+      add: {
+        confirmCreate: true,
+      },
+      edit: {
+        confirmSave: true,
+      },
+  
       columns: {
-        productName: {
-          title: 'Product Name'
-        },
-        productDesc: {
-          title: 'Product Description'
-        },
-        category: {
-          title: 'Catagory'
-        },
         sku: {
           title: 'Sku'
         },
         barcodeId: {
-          title: 'BarcodeId'
+          title: 'Barcode Id'
         },
-        productMrp: {
-          title: 'MRP'
+        image: {
+          title: 'Image'
         },
-        shopPrice: {
+        category: {
+          title: 'Category'
+        },
+        categoryImage: {
+          title: 'Category Image'
+        },
+        subCategory: {
+          title: 'Sub Category'
+        },
+        price: {
           title: 'Shop Price'
-        },
-        hsn: {
-          title: 'HSN'
-        },
-        cgst: {
-          title: 'CGST'
-        },
-        sgst: {
-          title: 'SGST'
         }
       },
 
     };
-
+    this.productList = [];
   }
 
   ionViewDidLoad() {
@@ -70,18 +78,76 @@ export class CatalogPage {
     })
   }
 
-  viewProduct() {
-    console.log('product call:');
-    this.catalogService.getAllProducts(4).subscribe((data: any) => {
-      console.log('product :', data);
-      this.productList = data.qsrDataRow;
-    }, err => {
+  viewProduct(shopId) {
+   this.catalogService.getAllProducts(shopId).subscribe((data:any)=>{
+    this.productList = data.subscriptionProductDataRow;
+
+    console.log(this.productList);
+  },(err:HttpErrorResponse)=>{
+    console.log(err.error);
+    this.loader.hide();
+  },()=>{
+    this.loader.hide();
+   })
+  }
+
+  save(){
+    this.updateProductList()
+  }
+
+  updateProductList() {
+   
+    this.catalogService.addOrUpdateSubscriptionData(this.shopSelected,this.productUpdateList).subscribe((data:any)=>{
+      console.log(data)
+      
+      console.log(this.productList);
+    },(err:HttpErrorResponse)=>{
       console.log(err);
+      this.loader.hide();
+    },()=>{
+      this.loader.hide();
     })
   }
 
-  uploadCatalog() {
+  onDeleteConfirm(event) {
+    if (window.confirm('Are you sure you want to delete?')) {
+      console.log(event.data);
+      event.data.delete = true;
+      event.confirm.resolve();
+    } else {
+      event.confirm.reject();
+    }
+    this.productListToBeDeleted.push(event.data);
+  }
 
+  onSaveConfirm(event) {
+    // if (window.confirm('Are you sure you want to save?')) {
+    //   event.newData['name'] += ' + added in code';
+    //   event.confirm.resolve(event.newData);
+    // } else {
+    //   event.confirm.reject();
+    // }
+   
+    event.confirm.resolve(event.newData);
+    this.productUpdateList.push(event.newData);
+    console.log(event.newData);
+
+  }
+
+  onCreateConfirm(event) {
+  
+    event.confirm.resolve(event.newData);
+    this.productUpdateList.push(event.newData);
+    console.log(event.newData);
+  }
+
+  uploadCatalog(){
+    this.catalogService.selectedShopId = this.shopSelected;
+    this.modal.showFileUploadModal(this.shopSelected);
+  }
+
+  delete(){
+    this.alert.deleteConfirmation(this.productListToBeDeleted);
   }
 
 }

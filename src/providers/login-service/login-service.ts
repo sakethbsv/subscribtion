@@ -33,7 +33,7 @@ export class LoginServiceProvider {
 
     
     
-    return this.httpService.post(Constants.URL +"/v2/dashboard/admin/login",data)
+    return this.httpService.post("v2/dashboard/admin/login",data)
   
       
   }
