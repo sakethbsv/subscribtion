@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
+import { CatalogProvider } from '../catalog/catalog';
+import { LoaderProvider } from '../loader/loader';
 
 /*
   Generated class for the AlertProvider provider.
@@ -13,7 +15,7 @@ export class AlertProvider {
 
   dataToBeDeleted : any;
 
-  constructor(public alert: AlertController) {
+  constructor(public alert: AlertController,private catalog:CatalogProvider,private laoder:LoaderProvider) {
     console.log('Hello AlertProvider Provider');
   }
 
@@ -51,11 +53,10 @@ export class AlertProvider {
     alert.present();
   }
 
-  deleteConfirmation(data){
+  deleteConfirmation(shopId,list){
    
     let alert = this.alert.create({
-      title: 'Are you sure you want to delete ?',
-      subTitle:'<ion-list><ion-item *ngFor="let item of data">{{data.name}}</ion-item></ion-list>',
+      title: 'Are you sure you want to delete all the items ?',
       buttons: [{
         text: 'Cancel',
         role: 'cancel',
@@ -71,7 +72,17 @@ export class AlertProvider {
         text: 'Yes',
         handler: data => {
           console.log(data);
-          this.dataToBeDeleted = data;
+          list.forEach(item => {
+            list.delete = true
+          });
+          this.dataToBeDeleted = list;
+          this.catalog.addOrUpdateSubscriptionData(shopId,this.dataToBeDeleted).subscribe((data:any)=>{
+
+          },(err:HttpErrorResponse)=>{
+            this.laoder.hide()
+          },()=>{
+            this.laoder.hide()
+          })
         }
       }]
     });

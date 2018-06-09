@@ -117,17 +117,10 @@ export class CatalogPage {
     } else {
       event.confirm.reject();
     }
-    this.productListToBeDeleted.push(event.data);
+    this.productList.push(event.data);
   }
 
   onSaveConfirm(event) {
-    // if (window.confirm('Are you sure you want to save?')) {
-    //   event.newData['name'] += ' + added in code';
-    //   event.confirm.resolve(event.newData);
-    // } else {
-    //   event.confirm.reject();
-    // }
-   
     event.confirm.resolve(event.newData);
     this.productUpdateList.push(event.newData);
     console.log(event.newData);
@@ -147,7 +140,8 @@ export class CatalogPage {
   }
 
   delete(){
-    this.alert.deleteConfirmation(this.productListToBeDeleted);
+    this.alert.deleteConfirmation(this.productList);
+    
   }
 
 }

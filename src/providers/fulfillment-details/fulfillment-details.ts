@@ -57,16 +57,11 @@ export class FulfillmentDetailsProvider {
 
   updateFulfillmentStatus(order){
     return this.http.post("v2/dashboard/subscription/fulfillment/update/"+order.fulfillmentId+"/"+order.status,{})
-    // .map((res:Response)=>{
-    //   return res;
-    // })
-    // .catch(err=>{
-    //   return Observable.throw(err); 
-    // })
+    
   }
 
   downloadFullfillmentReport(data){
-    return this.http.getCsv("v2/dashboard/subscription/fetchFulfillments/download",data)
+    return this.http.post("v2/dashboard/subscription/fetchFulfillments/download",data)
   }
 
 
