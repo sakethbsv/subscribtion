@@ -117,7 +117,7 @@ export class CatalogPage {
     } else {
       event.confirm.reject();
     }
-    this.productList.push(event.data);
+    this.productUpdateList.push(event.data);
   }
 
   onSaveConfirm(event) {
@@ -140,7 +140,7 @@ export class CatalogPage {
   }
 
   delete(){
-    this.alert.deleteConfirmation(this.productList);
+    this.alert.deleteConfirmation(this.shopSelected,this.productList);
     
   }
 

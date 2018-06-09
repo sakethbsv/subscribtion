@@ -16,7 +16,7 @@
 <ion-content padding>
   <div>
       <ion-input type="file" accept="image/*" (change)="changeListener($event)"></ion-input>
-      <button ion-button [disabled]="!enabledSave" (click)="save()">Save</button>
+      <button ion-button  (click)="save()">Save</button>
       <button ion-button>Sample CSV</button>
   </div>
 </ion-content>
