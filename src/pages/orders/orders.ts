@@ -141,7 +141,7 @@ export class OrdersPage {
 
   }
   public selectedDate(value: any) {
-    // this is the date the iser selected
+    // this is the date the user selected
     console.log(value);
 
     this.daterange.start = value.start;
@@ -162,22 +162,16 @@ export class OrdersPage {
     let formData = {
       "shopIds": shopIds,
       "fromDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD"),
-      "toDate": moment(this.daterange.end.toDate()).format("YYYY-MM-DD"),
-      "status": "PENDING"
+      "toDate": moment(this.daterange.end.toDate()).format("YYYY-MM-DD")
     }
 
     this.orders.downloadFullfillmentReport(formData).subscribe((data:any)=>{
-      let csv = 'Name,Title\n';
-      data.forEach(function(row) {
-              csv += row.join(',');
-              csv += "\n";
-      });
-   
+      let csv = data;
       console.log(csv);
       let hiddenElement = document.createElement('a');
       hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
       hiddenElement.target = '_blank';
-      hiddenElement.download = 'people.csv';
+      hiddenElement.download = 'Subscription-Fulfillment.csv';
       hiddenElement.click();
 
     },(err:HttpErrorResponse)=>{

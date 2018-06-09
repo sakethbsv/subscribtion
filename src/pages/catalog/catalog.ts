@@ -58,7 +58,7 @@ export class CatalogPage {
         subCategory: {
           title: 'Sub Category'
         },
-        price: {
+        amount: {
           title: 'Shop Price'
         }
       },
@@ -80,7 +80,7 @@ export class CatalogPage {
 
   viewProduct(shopId) {
    this.catalogService.getAllProducts(shopId).subscribe((data:any)=>{
-    this.productList = data.subscriptionProductDataRow;
+    this.productList = data.subscriptionProducts;
 
     console.log(this.productList);
   },(err:HttpErrorResponse)=>{

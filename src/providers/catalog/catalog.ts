@@ -26,7 +26,7 @@ export class CatalogProvider {
   addOrUpdateSubscriptionData(shopId, product_list) {
     let formData = {
       "shopId": shopId,
-      "subscriptionProductDataRow": product_list
+      "subscriptionProducts": product_list
     }
     console.log(formData);
     return this.http.post('v2/dashboard/subscription/addOrUpdateSubscriptionData', formData)

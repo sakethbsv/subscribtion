@@ -59,7 +59,7 @@ export class CsvmodalPage {
       obj.category = row[4];
       obj.categoryImage = row[5];
       obj.subCategory = row[6];
-      obj.price = row[7];
+      obj.amount = row[7];
       obj.delete = row[8];
       console.log(obj);
       if(obj.barcodeId!=null && obj.sku!=null && obj.category!=null && obj.subCategory!=null){
