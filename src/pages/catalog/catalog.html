@@ -64,18 +64,18 @@
             <ion-icon name="list-box"></ion-icon>&nbsp; Product Details
             <button style="float: right" ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()">Upload Catalog</button>
             <button style="float: right" ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button>
-            <button style="float: right" ion-button small round color="secondary" (click)="delete()">Delete All</button>
+            <button style="float: right" ion-button small round color="secondary" (click)="delete()">Delete</button>
           </ion-title>
         </div>
     <ion-row id="viewProduct">
 
-      <!-- <ion-col col-12>
-        <ion-searchbar (ionInput)="search"></ion-searchbar>
-      </ion-col> -->
+      <ion-col col-12>
+       <p>Showing {{productList.length}} products</p>
+      </ion-col>
       <ion-col>
         <ion-card>
-          <ng2-smart-table [settings]="settings" [source]="productList" (deleteConfirm)="onDeleteConfirm($event)" (editConfirm)="onSaveConfirm($event)"
-            (createConfirm)="onCreateConfirm($event)"></ng2-smart-table>
+          <ng2-smart-table [settings]="settings" [source]="productList"  (editConfirm)="onSaveConfirm($event)"
+            (createConfirm)="onCreateConfirm($event)" (userRowSelect)="userRowSelect($event)"></ng2-smart-table>
         </ion-card>
       </ion-col>
     </ion-row>

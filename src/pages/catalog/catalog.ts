@@ -29,9 +29,8 @@ export class CatalogPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider,private loader:LoaderProvider,private alert:AlertProvider,public modal:ModalProvider) {
     this.settings = {
-      delete: {
-        confirmDelete: true,
-      },
+      selectMode: 'multi',
+      actions:{delete:false},
       add: {
         confirmCreate: true,
       },
@@ -45,6 +44,9 @@ export class CatalogPage {
         },
         barcodeId: {
           title: 'Barcode Id'
+        },
+        name:{
+          title: 'Name'
         },
         image: {
           title: 'Image'
@@ -109,16 +111,7 @@ export class CatalogPage {
     })
   }
 
-  onDeleteConfirm(event) {
-    if (window.confirm('Are you sure you want to delete?')) {
-      console.log(event.data);
-      event.data.delete = true;
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
-    this.productUpdateList.push(event.data);
-  }
+  
 
   onSaveConfirm(event) {
     event.confirm.resolve(event.newData);
@@ -140,8 +133,25 @@ export class CatalogPage {
   }
 
   delete(){
-    this.alert.deleteConfirmation(this.shopSelected,this.productList);
+  
+      this.productList = this.productList.filter(function(x){
+        return !this.productListToBeDeleted.include(x)
+      })
+
+      console.log(this.productList.length)
+   
     
+  }
+
+  userRowSelect(event){
+    console.log(event);
+   
+    if(event.isSelected){
+      event.selected.forEach(item => {
+        item.delete = true;
+        this.productListToBeDeleted.push(item);
+      });
+    }
   }
 
 }

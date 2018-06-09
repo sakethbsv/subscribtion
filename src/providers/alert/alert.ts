@@ -54,18 +54,17 @@ export class AlertProvider {
   }
 
   deleteConfirmation(shopId,list){
-   
+   let delete_successful=false;
     let alert = this.alert.create({
-      title: 'Are you sure you want to delete all the items ?',
+      title: 'Are you sure you want to delete items ?',
       buttons: [{
         text: 'Cancel',
         role: 'cancel',
         handler: data => {
           console.log('Cancel clicked');
-          data.forEach(item => {
+          list.forEach(item => {
               item.delete = false;
           });
-          this.dataToBeDeleted = data;
         }
       },
       {
@@ -73,20 +72,28 @@ export class AlertProvider {
         handler: data => {
           console.log(data);
           list.forEach(item => {
-            list.delete = true
+            item.delete = true
           });
-          this.dataToBeDeleted = list;
-          this.catalog.addOrUpdateSubscriptionData(shopId,this.dataToBeDeleted).subscribe((data:any)=>{
-
+         
+          this.catalog.addOrUpdateSubscriptionData(shopId,list).subscribe((data:any)=>{
+            delete_successful = true;
           },(err:HttpErrorResponse)=>{
+            if(err.status==200){
+              delete_successful = true;
+            }else{
+              delete_successful = false;
+            }
             this.laoder.hide()
           },()=>{
             this.laoder.hide()
+            return delete_successful;
           })
         }
       }]
     });
     alert.present();
+
+   
   }
 
 }

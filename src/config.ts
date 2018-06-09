@@ -1,29 +1,29 @@
-export const SERVER_PROD="//subscription-dot-perpule-dev.appspot.com/resources/";
-export const SERVICE = "subscription-dot-perpule-dev";
-export const SERVER_PREPROD="//7.perpule-preprod.appspot.com/resources/";
+export const SERVER_PROD="http://backend.perpule-1248.appspot.com/resources/";
 let SERVER_URL;
+export const SERVICE = "subscription.perpule-dev";
+export const SERVER_PREPROD="http://7.perpule-preprod.appspot.com/resources/";
+
 
 if(window.location.host.search("www.perpule.com") > -1){
-	SERVER_URL = SERVER_PREPROD;
+	  SERVER_URL = SERVER_PREPROD;
 }
 else if(window.location.host.search(".perpule.com") > -1){
-	SERVER_URL = SERVER_PROD;
+	  SERVER_URL = SERVER_PROD;
 }
 else if(window.location.host.search("perpule.com") > -1){
-	SERVER_URL = SERVER_PROD;
+	  SERVER_URL = SERVER_PREPROD;
 }
 else if(window.location.host.search("localhost") > -1){
-	SERVER_URL = "//" + SERVICE + ".appspot.com/resources";
+	  SERVER_URL = "http://" + SERVICE + ".appspot.com/resources";
 }
 else if(window.location.host.search("dashboard.perpule-qa") > -1){
-    SERVER_URL = "//"+SERVICE+".appspot.com/resources/";
+      SERVER_URL = "http://"+SERVICE+".appspot.com/resources/";
 }
 else if(window.location.host.search("dashboard-dot-perpule-qa") > -1){
-    SERVER_URL = "//"+SERVICE+".appspot.com/resources/";
+    SERVER_URL = "http://"+SERVICE+".appspot.com/resources/";
 }
 else {
-	SERVER_URL = window.location.origin + "/resources/";
+	 SERVER_URL = window.location.origin + "/resources/";
 }
-SERVER_URL = "http://localhost:8888/resources";
 export const URL = SERVER_URL;
 console.log(URL);
