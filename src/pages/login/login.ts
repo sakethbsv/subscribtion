@@ -28,8 +28,8 @@ export class LoginPage {
   admin:any;
 
   constructor(public navCtrl:NavController, public loginService:LoginServiceProvider,public errorService:ErrorHandlerServiceProvider,public storage:StorageProvider,public app:MyApp,public splitPane:SplitpaneProvider,public loader:LoaderProvider) {
-    this.username = 'raghav@perpule.com';
-    this.password = 'raghav1!';
+    this.username = 'focus@perpule.com';
+    this.password = 'focus';
   }
 
   ionViewDidLoad() {

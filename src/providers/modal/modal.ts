@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ModalController, ViewController } from 'ionic-angular';
 import { CsvmodalPage } from '../../pages/csvmodal/csvmodal';
+import { DeleteconfirmationPage } from '../../pages/deleteconfirmation/deleteconfirmation';
+import { CatalogProvider } from '../catalog/catalog';
 
 /*
   Generated class for the ModalProvider provider.
@@ -12,7 +14,7 @@ import { CsvmodalPage } from '../../pages/csvmodal/csvmodal';
 @Injectable()
 export class ModalProvider {
 
-  constructor(public modal: ModalController) {
+  constructor(public modal: ModalController,public catalogProvider:CatalogProvider) {
     console.log('Hello ModalProvider Provider');
   }
 
@@ -22,6 +24,22 @@ export class ModalProvider {
       console.log(data);
     });
     profileModal.present();
+  }
+
+  deleteConfirmationModal(){
+    let profileModal = this.modal.create(DeleteconfirmationPage);
+    profileModal.onDidDismiss(data => {
+      return false;
+    });
+    profileModal.present();
+
+    
+
+   
+  }
+
+  dismiss(){
+    
   }
   
 

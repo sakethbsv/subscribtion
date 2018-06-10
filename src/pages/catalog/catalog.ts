@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { AlertProvider } from '../../providers/alert/alert';
 import { ModalProvider } from '../../providers/modal/modal';
+import { LocalDataSource } from 'ng2-smart-table';
 
 /**
  * Generated class for the CatalogPage page.
@@ -22,12 +23,13 @@ import { ModalProvider } from '../../providers/modal/modal';
 export class CatalogPage {
   shopList: any[] = [];
   settings: any;
-  productList: any[] = [];
+  productList: any[]=[];
   productUpdateList :any[] =[];
   productListToBeDeleted : any[] = [];
   shopSelected:any;
+  source:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider,private loader:LoaderProvider,private alert:AlertProvider,public modal:ModalProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider,private loader:LoaderProvider,public modal:ModalProvider) {
     this.settings = {
       selectMode: 'multi',
       actions:{delete:false},
@@ -66,7 +68,7 @@ export class CatalogPage {
       },
 
     };
-    this.productList = [];
+    this.source = new LocalDataSource(this.productList);
   }
 
   ionViewDidLoad() {
@@ -82,8 +84,10 @@ export class CatalogPage {
 
   viewProduct(shopId) {
    this.catalogService.getAllProducts(shopId).subscribe((data:any)=>{
+    
     this.productList = data.subscriptionProducts;
-
+    this.catalogService.catalogData = this.productList;
+    this.source.load(this.productList) 
     console.log(this.productList);
   },(err:HttpErrorResponse)=>{
     console.log(err.error);
@@ -133,17 +137,19 @@ export class CatalogPage {
   }
 
   delete(){
-  
-      this.productList = this.productList.filter(function(x){
-        return !this.productListToBeDeleted.include(x)
-      })
+    console.log( this.modal.deleteConfirmationModal().valueOf())
+    this.productListToBeDeleted.forEach(element => {
+      this.source.remove(element);
+    });
+  }
 
-      console.log(this.productList.length)
+  updatedProductList(){
    
     
   }
 
   userRowSelect(event){
+    this.productListToBeDeleted = [];
     console.log(event);
    
     if(event.isSelected){
@@ -151,6 +157,8 @@ export class CatalogPage {
         item.delete = true;
         this.productListToBeDeleted.push(item);
       });
+      this.catalogService.productsDeleted = this.productListToBeDeleted;
+      this.catalogService.selectedShopId = this.shopSelected;
     }
   }
 

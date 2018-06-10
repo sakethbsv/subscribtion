@@ -1,0 +1,33 @@
+<!--
+  Generated template for the DeleteconfirmationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Are you sure you want to delete?</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+<ion-list>
+  <ion-item *ngFor="let product of products_to_delete ; let i = index">
+   <span item-start>{{i+1}}</span>
+   <span item-end>{{product.name}}</span>
+  </ion-item>
+</ion-list>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col >
+      <button ion-button block round (click)="dismiss()">SKIP</button>
+    </ion-col>
+    <ion-col >
+      <button ion-button block (click)="delete()">DELETE</button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

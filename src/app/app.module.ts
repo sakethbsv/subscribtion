@@ -36,6 +36,7 @@ import { AlertProvider } from '../providers/alert/alert';
 import { CsvmodalPage } from '../pages/csvmodal/csvmodal';
 import { ModalProvider } from '../providers/modal/modal';
 import { PapaParseModule } from 'ngx-papaparse';
+import { DeleteconfirmationPage } from '../pages/deleteconfirmation/deleteconfirmation';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { PapaParseModule } from 'ngx-papaparse';
     SubscribtiondetailPage,
     FulfillmentDetailPage,
     CsvmodalPage,
-    
+    DeleteconfirmationPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +78,8 @@ import { PapaParseModule } from 'ngx-papaparse';
     CatalogPage,
     SubscribtiondetailPage,
     FulfillmentDetailPage,
-    CsvmodalPage
+    CsvmodalPage,
+    DeleteconfirmationPage
 
   ],
   providers: [

@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpServiceProvider } from '../http-service/http-service';
+import { AlertProvider } from '../alert/alert';
 
 /*
   Generated class for the CatalogProvider provider.
@@ -13,6 +14,8 @@ export class CatalogProvider {
 
   catalogData:any[];
   selectedShopId:number;
+  productsDeleted:any[]=[];
+  updatedProductList:any[]=[];
 
   constructor(private http: HttpServiceProvider) {
     console.log('Hello CatalogProvider Provider');
@@ -32,20 +35,16 @@ export class CatalogProvider {
     return this.http.post('v2/dashboard/subscription/addOrUpdateSubscriptionData', formData)
   }
 
-  setCatalogData(data){
-    this.catalogData = data;
-  }
+  
 
-  getDataFromCatalog(){
+ 
+  removeProduct(array,element){
+    const index = array.indexOf(element);
+    
+    if (index !== -1) {
+        array.splice(index, 1);
+    }
 
-    return this.catalogData;
-  }
-
-  setShopId(shopId){
-    this.selectedShopId = shopId;
-  }
-
-  getShopId(){
-    return this.selectedShopId;
+    return array;
   }
 }

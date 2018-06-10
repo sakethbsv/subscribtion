@@ -74,7 +74,7 @@
       </ion-col>
       <ion-col>
         <ion-card>
-          <ng2-smart-table [settings]="settings" [source]="productList"  (editConfirm)="onSaveConfirm($event)"
+          <ng2-smart-table [settings]="settings" [source]="source"  (editConfirm)="onSaveConfirm($event)"
             (createConfirm)="onCreateConfirm($event)" (userRowSelect)="userRowSelect($event)"></ng2-smart-table>
         </ion-card>
       </ion-col>

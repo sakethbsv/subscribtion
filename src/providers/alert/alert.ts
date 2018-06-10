@@ -13,13 +13,13 @@ import { LoaderProvider } from '../loader/loader';
 @Injectable()
 export class AlertProvider {
 
-  dataToBeDeleted : any;
+  dataToBeDeleted: any;
 
-  constructor(public alert: AlertController,private catalog:CatalogProvider,private laoder:LoaderProvider) {
+  constructor(public alert: AlertController, public catalog: CatalogProvider, public loader: LoaderProvider) {
     console.log('Hello AlertProvider Provider');
   }
 
-  errorAlert(data){
+  errorAlert(data) {
     let alert = this.alert.create({
       title: 'Error',
       subTitle: data,
@@ -28,14 +28,14 @@ export class AlertProvider {
     alert.present();
   }
 
-  csvAlert(){
+  csvAlert() {
     let alert = this.alert.create({
       title: 'Upload Product',
-     inputs :[{
-       name:'file',
-       placeholder:'Upload Product',
-       type:'file'
-     }],
+      inputs: [{
+        name: 'file',
+        placeholder: 'Upload Product',
+        type: 'file'
+      }],
       buttons: [{
         text: 'Cancel',
         role: 'cancel',
@@ -53,8 +53,7 @@ export class AlertProvider {
     alert.present();
   }
 
-  deleteConfirmation(shopId,list){
-   let delete_successful=false;
+  deleteConfirmation(shopId, list) {
     let alert = this.alert.create({
       title: 'Are you sure you want to delete items ?',
       buttons: [{
@@ -63,37 +62,34 @@ export class AlertProvider {
         handler: data => {
           console.log('Cancel clicked');
           list.forEach(item => {
-              item.delete = false;
+            item.delete = false;
           });
         }
       },
       {
         text: 'Yes',
         handler: data => {
-          console.log(data);
-          list.forEach(item => {
-            item.delete = true
-          });
-         
-          this.catalog.addOrUpdateSubscriptionData(shopId,list).subscribe((data:any)=>{
-            delete_successful = true;
-          },(err:HttpErrorResponse)=>{
-            if(err.status==200){
-              delete_successful = true;
-            }else{
-              delete_successful = false;
-            }
-            this.laoder.hide()
-          },()=>{
-            this.laoder.hide()
-            return delete_successful;
-          })
+          // this.catalog.addOrUpdateSubscriptionData(shopId, list).subscribe((data: any) => {
+
+          // }, (err: HttpErrorResponse) => {
+          //   if (err.status == 200) {
+          //    list.forEach(element => {
+          //      console.log(this.catalog.removeProduct(list,element))
+          //    });
+          //   } else {
+
+          //   }
+          //   this.loader.hide()
+          // }, () => {
+          //   this.loader.hide()
+
+          // })
         }
       }]
     });
     alert.present();
 
-   
+
   }
 
 }
