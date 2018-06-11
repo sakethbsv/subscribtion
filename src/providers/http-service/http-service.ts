@@ -21,6 +21,7 @@ export class HttpServiceProvider {
     headers = headers.set('Content-Type', 'application/json');
     headers = headers.set('Accept', 'application/csv');
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+   
     return { headers:headers};
 
   }
@@ -32,7 +33,15 @@ export class HttpServiceProvider {
   }
 
   public post(url:string,body, headers?: HttpHeaders | null){
+    
     const header = this.setHeaders(headers);
     return this.http.post(Constants.URL+"/"+url, body,header);
+  }
+
+  public put(url:string,body, headers?: HttpHeaders | null){
+    
+    const header = this.setHeaders(headers);
+    const options = {header,responseType: 'text' as 'text'}
+    return this.http.post(Constants.URL+"/"+url, body,options);
   }
 }

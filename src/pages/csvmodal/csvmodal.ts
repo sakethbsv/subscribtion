@@ -5,6 +5,7 @@ import { AlertProvider } from '../../providers/alert/alert';
 import { CatalogProvider } from '../../providers/catalog/catalog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderProvider } from '../../providers/loader/loader';
+import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 
 /**
  * Generated class for the CsvmodalPage page.
@@ -23,7 +24,7 @@ export class CsvmodalPage {
   parsedFileData:any[];
   saveData:boolean;
   enableSave:boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private papa: PapaParseService,private alert:AlertProvider,private catalog:CatalogProvider,private loader:LoaderProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private papa: PapaParseService,private alert:AlertProvider,private catalog:CatalogProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider) {
     this.parsedFileData = [];
     this.saveData=false;
     this.enableSave=false;
@@ -52,15 +53,14 @@ export class CsvmodalPage {
     for(let i=1;i<data.length-1;i++){
       let row = data[i];
       let obj:any={};
-      obj.sku = row[0];
-      obj.barcodeId = row[1];
+      obj.barcodeId = row[0];
+      obj.sku = row[1];
       obj.name = row[2];
-      obj.image = row[3];
+      obj.amount = row[3];
       obj.category = row[4];
       obj.categoryImage = row[5];
       obj.subCategory = row[6];
-      obj.amount = row[7];
-      obj.delete = row[8];
+      obj.img = row[7];
       console.log(obj);
       if(obj.barcodeId!=null && obj.sku!=null && obj.category!=null && obj.subCategory!=null){
         this.parsedFileData.push(obj);
@@ -84,8 +84,9 @@ export class CsvmodalPage {
     this.catalog.addOrUpdateSubscriptionData(this.catalog.selectedShopId,this.parsedFileData).subscribe((data:any)=>{
 
     },(err:HttpErrorResponse)=>{
+      this.errorHandler.error(err);
       this.loader.hide();
-      this.alert.errorAlert("Something went wrong. Check your csv file before uploading!")
+      // this.alert.errorAlert("Something went wrong. Check your csv file before uploading!")
     },()=>{
       this.loader.hide();
     })

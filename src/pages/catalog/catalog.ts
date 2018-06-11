@@ -8,6 +8,7 @@ import { AlertProvider } from '../../providers/alert/alert';
 import { ModalProvider } from '../../providers/modal/modal';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ToastController } from 'ionic-angular';
+import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 
 /**
  * Generated class for the CatalogPage page.
@@ -24,23 +25,23 @@ import { ToastController } from 'ionic-angular';
 export class CatalogPage {
   shopList: any[] = [];
   settings: any;
-  productList: any[]=[];
-  productUpdateList :any[] =[];
-  productListToBeDeleted : any[] = [];
-  shopSelected:any;
-  source:any;
+  productList: any[] = [];
+  productUpdateList: any[] = [];
+  productListToBeDeleted: any[] = [];
+  shopSelected: any;
+  source: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider,private loader:LoaderProvider,public modal:ModalProvider,private toast:ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private toast: ToastController, private errorHandler: ErrorHandlerServiceProvider) {
     this.settings = {
       selectMode: 'multi',
-      actions:{delete:false},
+      actions: { delete: false },
       add: {
         confirmCreate: true,
       },
       edit: {
         confirmSave: true,
       },
-  
+
       columns: {
         sku: {
           title: 'Sku'
@@ -48,7 +49,7 @@ export class CatalogPage {
         barcodeId: {
           title: 'Barcode Id'
         },
-        name:{
+        name: {
           title: 'Name'
         },
         image: {
@@ -84,42 +85,40 @@ export class CatalogPage {
   }
 
   viewProduct(shopId) {
-   this.catalogService.getAllProducts(shopId).subscribe((data:any)=>{
-    
-    this.productList = data.subscriptionProducts;
-    this.catalogService.catalogData = this.productList;
-    this.source.load(this.productList) 
-    console.log(this.productList);
-  },(err:HttpErrorResponse)=>{
-    console.log(err.error);
-    this.loader.hide();
-  },()=>{
-    this.loader.hide();
-   })
-  }
+    this.catalogService.getAllProducts(shopId).subscribe((data: any) => {
 
-  save(){
-    this.updateProductList()
-  }
-
-  updateProductList() {
-   
-    this.catalogService.addOrUpdateSubscriptionData(this.shopSelected,this.productUpdateList).subscribe((data:any)=>{
-      console.log(data)
-      
+      this.productList = data.subscriptionProducts;
+      this.catalogService.catalogData = this.productList;
+      this.source.load(this.productList)
       console.log(this.productList);
-    },(err:HttpErrorResponse)=>{
-      console.log(err);
-      if(err.error.status==200){
-        this.toast.create({message:'Updated Successfully !',duration:3000,position:'top'})
-      }
+    }, (err: HttpErrorResponse) => {
+      this.errorHandler.error(err);
+      console.log(err.error);
       this.loader.hide();
-    },()=>{
+    }, () => {
       this.loader.hide();
     })
   }
 
-  
+  save() {
+    this.updateProductList()
+  }
+
+  updateProductList() {
+
+    this.catalogService.addOrUpdateSubscriptionData(this.shopSelected, this.productUpdateList).subscribe((data: any) => {
+      this.toast.create({ message: 'Updated Successfully !', duration: 3000, position: 'top' }).present();
+    }, (err: HttpErrorResponse) => {
+      console.log(err);
+
+      this.errorHandler.error(err);
+      this.loader.hide();
+    }, () => {
+      this.loader.hide();
+    })
+  }
+
+
 
   onSaveConfirm(event) {
     event.confirm.resolve(event.newData);
@@ -129,45 +128,45 @@ export class CatalogPage {
   }
 
   onCreateConfirm(event) {
-  
+
     event.confirm.resolve(event.newData);
     this.productUpdateList.push(event.newData);
     console.log(event.newData);
   }
 
-  uploadCatalog(){
+  uploadCatalog() {
     this.catalogService.selectedShopId = this.shopSelected;
     this.modal.showFileUploadModal(this.shopSelected);
   }
 
-  delete(){
+  delete() {
     this.catalogService.deleteConfirmed = false;
     this.modal.deleteConfirmationModal(this.source);
-   
-      // this.productListToBeDeleted.forEach(element => {
-      //   this.source.remove(element);
-      // });
+
+    // this.productListToBeDeleted.forEach(element => {
+    //   this.source.remove(element);
+    // });
 
 
   }
-  
 
-  updatedProductList(){
-   
-    
+
+  updatedProductList() {
+
+
   }
 
-  refresh(){
+  refresh() {
     this.catalogService.productsDeleted.forEach(element => {
-        this.source.remove(element);
-      });
+      this.source.remove(element);
+    });
   }
 
-  userRowSelect(event){
+  userRowSelect(event) {
     this.productListToBeDeleted = [];
     console.log(event);
-   
-    if(event.isSelected){
+
+    if (event.isSelected) {
       event.selected.forEach(item => {
         item.delete = true;
         this.productListToBeDeleted.push(item);

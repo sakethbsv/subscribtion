@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpServiceProvider } from '../http-service/http-service';
 import { AlertProvider } from '../alert/alert';
@@ -18,7 +18,7 @@ export class CatalogProvider {
   updatedProductList:any[]=[];
   deleteConfirmed:boolean=false;
 
-  constructor(private http: HttpServiceProvider) {
+  constructor(private http: HttpServiceProvider,private _http:HttpClient) {
     console.log('Hello CatalogProvider Provider');
   }
 
@@ -33,7 +33,7 @@ export class CatalogProvider {
       "subscriptionProducts": product_list
     }
     console.log(formData);
-    return this.http.post('v2/dashboard/subscription/addOrUpdateSubscriptionData', formData)
+    return this.http.put('v2/dashboard/subscription/addOrUpdateSubscriptionData', formData)
   }
 
   
