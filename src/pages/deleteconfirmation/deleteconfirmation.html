@@ -14,20 +14,30 @@
 
 
 <ion-content>
-<ion-list>
+<ion-list  *ngIf="!catalogProvider.deleteConfirmed">
   <ion-item *ngFor="let product of products_to_delete ; let i = index">
    <span item-start>{{i+1}}</span>
-   <span item-end>{{product.name}}</span>
+   <span item-start>{{product.name}}</span>
   </ion-item>
 </ion-list>
+
+<ion-list *ngIf="catalogProvider.deleteConfirmed">
+  <h2 ion-text text-center color="secondary">Items deleted successfully !.Refresh the table.</h2>
+</ion-list>
 </ion-content>
-<ion-footer>
-  <ion-row>
+<ion-footer padding>
+  <ion-row *ngIf="!catalogProvider.deleteConfirmed">
     <ion-col >
-      <button ion-button block round (click)="dismiss()">SKIP</button>
+      <button ion-button block round (click)="close()">SKIP</button>
     </ion-col>
     <ion-col >
-      <button ion-button block (click)="delete()">DELETE</button>
+      <button ion-button block round (click)="delete()">DELETE</button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="catalogProvider.deleteConfirmed">
+    <ion-col >
+      <button ion-button block round (click)="close()">CLOSE</button>
     </ion-col>
   </ion-row>
 </ion-footer>

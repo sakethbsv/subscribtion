@@ -7,6 +7,7 @@ import { LoaderProvider } from '../../providers/loader/loader';
 import { AlertProvider } from '../../providers/alert/alert';
 import { ModalProvider } from '../../providers/modal/modal';
 import { LocalDataSource } from 'ng2-smart-table';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the CatalogPage page.
@@ -29,7 +30,7 @@ export class CatalogPage {
   shopSelected:any;
   source:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider,private loader:LoaderProvider,public modal:ModalProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider,private loader:LoaderProvider,public modal:ModalProvider,private toast:ToastController) {
     this.settings = {
       selectMode: 'multi',
       actions:{delete:false},
@@ -109,6 +110,9 @@ export class CatalogPage {
       console.log(this.productList);
     },(err:HttpErrorResponse)=>{
       console.log(err);
+      if(err.error.status==200){
+        this.toast.create({message:'Updated Successfully !',duration:3000,position:'top'})
+      }
       this.loader.hide();
     },()=>{
       this.loader.hide();
@@ -137,15 +141,26 @@ export class CatalogPage {
   }
 
   delete(){
-    console.log( this.modal.deleteConfirmationModal().valueOf())
-    this.productListToBeDeleted.forEach(element => {
-      this.source.remove(element);
-    });
+    this.catalogService.deleteConfirmed = false;
+    this.modal.deleteConfirmationModal(this.source);
+   
+      // this.productListToBeDeleted.forEach(element => {
+      //   this.source.remove(element);
+      // });
+
+
   }
+  
 
   updatedProductList(){
    
     
+  }
+
+  refresh(){
+    this.catalogService.productsDeleted.forEach(element => {
+        this.source.remove(element);
+      });
   }
 
   userRowSelect(event){

@@ -16,6 +16,7 @@ export class CatalogProvider {
   selectedShopId:number;
   productsDeleted:any[]=[];
   updatedProductList:any[]=[];
+  deleteConfirmed:boolean=false;
 
   constructor(private http: HttpServiceProvider) {
     console.log('Hello CatalogProvider Provider');

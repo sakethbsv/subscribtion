@@ -14,6 +14,8 @@ import { CatalogProvider } from '../catalog/catalog';
 @Injectable()
 export class ModalProvider {
 
+  deleteModal:any;
+
   constructor(public modal: ModalController,public catalogProvider:CatalogProvider) {
     console.log('Hello ModalProvider Provider');
   }
@@ -26,20 +28,20 @@ export class ModalProvider {
     profileModal.present();
   }
 
-  deleteConfirmationModal(){
-    let profileModal = this.modal.create(DeleteconfirmationPage);
-    profileModal.onDidDismiss(data => {
-      return false;
+  deleteConfirmationModal(data){
+    this.deleteModal = this.modal.create(DeleteconfirmationPage,{'data':data});
+    this.deleteModal.onDidDismiss(data => {
+      
     });
-    profileModal.present();
+    this.deleteModal.present();
 
     
 
    
   }
 
-  dismiss(){
-    
+  dismissDeleteModal(){
+    this.deleteModal.dismiss();
   }
   
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { CatalogProvider } from '../../providers/catalog/catalog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderProvider } from '../../providers/loader/loader';
@@ -22,7 +22,7 @@ export class DeleteconfirmationPage {
   shopId: number;
   catalogData: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public catalogProvider: CatalogProvider, public loader: LoaderProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public catalogProvider: CatalogProvider, public loader: LoaderProvider,private viewCtrl:ViewController) {
   }
 
   ionViewDidLoad() {
@@ -52,6 +52,12 @@ export class DeleteconfirmationPage {
       this.loader.hide();
     })
   }
+
+ close(){
+   this.viewCtrl.dismiss({})
+ }
+
+
 
  
 
