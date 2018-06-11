@@ -60,7 +60,8 @@ export class CsvmodalPage {
       obj.category = row[4];
       obj.categoryImage = row[5];
       obj.subCategory = row[6];
-      obj.img = row[7];
+      obj.image = row[7];
+      obj.shopId = this.catalog.selectedShopId;
       console.log(obj);
       if(obj.barcodeId!=null && obj.sku!=null && obj.category!=null && obj.subCategory!=null){
         this.parsedFileData.push(obj);

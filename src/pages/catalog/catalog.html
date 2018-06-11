@@ -11,7 +11,7 @@
           <ion-icon name="menu"></ion-icon>
         </button>
     <ion-title>
-      <ion-icon name="list">&nbsp;Select Shop</ion-icon>
+      <ion-icon name="list">&nbsp;Catalog</ion-icon>
     </ion-title>
   </ion-navbar>
 
@@ -21,7 +21,7 @@
 <ion-content padding>
   <div class="header-bar">
         <ion-title ion-text>
-          <ion-icon name="list"></ion-icon>&nbsp; Catalog</ion-title>
+          <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
     </div>
   <ion-row>
     <!-- <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
@@ -63,16 +63,13 @@
           <ion-title ion-text>
             <ion-icon name="list-box"></ion-icon>&nbsp; Product Details
           </ion-title>
-          <br>
-         
-          
         </div>
     <ion-row id="viewProduct">
       <ion-col >
-        <button style="float: right" ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()">Upload Catalog</button>
-        <button style="float: right" ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button>
-        <button style="float: right" ion-button small round color="secondary" (click)="delete()">Delete</button>
-        <button style="float: right" ion-button small round outline color="secondary" (click)="refresh()">Refresh</button>
+        <button  ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()">Upload Catalog</button>
+        <button  ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button>
+        <button  ion-button small round color="secondary" (click)="delete()">Delete</button>
+        <button  ion-button small round outline color="secondary" (click)="refresh()">Refresh</button>
       </ion-col>
       <ion-col col-12>
        <p>Showing {{productList.length}} products</p>
