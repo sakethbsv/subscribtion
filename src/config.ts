@@ -23,7 +23,7 @@ else if(window.location.host.search("dashboard-dot-perpule-qa") > -1){
     SERVER_URL = "http://"+SERVICE+".appspot.com/resources";
 }
 else {
-	 SERVER_URL = window.location.origin + "/resources";
+	 SERVER_URL = window.location.origin + "/resources"; 
 }
 export const URL = SERVICE;
 console.log(URL);
