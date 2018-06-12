@@ -1,6 +1,6 @@
 export const SERVER_PROD="http://backend.perpule-1248.appspot.com/resources";
 let SERVER_URL;
-export const SERVICE = "subscription.perpule-dev";
+export const SERVICE = "http://subscription.perpule-dev.appspot.com/resources";
 export const SERVER_PREPROD="http://7.perpule-preprod.appspot.com/resources";
 
 
@@ -25,5 +25,5 @@ else if(window.location.host.search("dashboard-dot-perpule-qa") > -1){
 else {
 	 SERVER_URL = window.location.origin + "/resources";
 }
-export const URL = SERVER_URL;
+export const URL = SERVICE;
 console.log(URL);
