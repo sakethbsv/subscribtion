@@ -27,11 +27,11 @@
 
 						      <ion-item>
 						       	 <ion-label><ion-icon name="eye-off"></ion-icon></ion-label>
-						        <ion-input type="password" color="light" [(ngModel)]="password" placeholder="Enter Password"></ion-input>
+						        <ion-input type="password" color="light" [(ngModel)]="password" placeholder="Enter Password" (keyup.enter)="login()"></ion-input>
 						      </ion-item>  
 
 						      <ion-item id="non-rounded">
-						      <button ion-button large round full color="secondary" type="submit" (click)="login()"><h2 ion-text color="light">LOGIN</h2></button>
+						      <button ion-button large round full color="secondary" type="submit"   (click)="login()"><h2 ion-text color="light">LOGIN</h2></button>
 						  	</ion-item>   
 
 						</ion-list>

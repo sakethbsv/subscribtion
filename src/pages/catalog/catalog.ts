@@ -160,6 +160,8 @@ export class CatalogPage {
     this.catalogService.productsDeleted.forEach(element => {
       this.source.remove(element);
     });
+
+   this.source.load(this.catalogService.catalogData);
   }
 
   userRowSelect(event) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { PapaParseService } from 'ngx-papaparse';
 import { AlertProvider } from '../../providers/alert/alert';
 import { CatalogProvider } from '../../providers/catalog/catalog';
@@ -24,7 +24,7 @@ export class CsvmodalPage {
   parsedFileData:any[];
   saveData:boolean;
   enableSave:boolean;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private papa: PapaParseService,private alert:AlertProvider,private catalog:CatalogProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private papa: PapaParseService,private alert:AlertProvider,private catalog:CatalogProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider,private toast:ToastController) {
     this.parsedFileData = [];
     this.saveData=false;
     this.enableSave=false;
@@ -76,14 +76,14 @@ export class CsvmodalPage {
     }
     this.loader.hide();
     if(this.saveData){
-     this.catalog.catalogData = this.parsedFileData;
      this.enableSave = true;
     }
   }
 
   save(){
     this.catalog.addOrUpdateSubscriptionData(this.catalog.selectedShopId,this.parsedFileData).subscribe((data:any)=>{
-
+      this.catalog.catalogData = this.parsedFileData;
+      this.toast.create({ message: 'Updated Successfully !. Refresh the table', duration: 3000, position: 'top' }).present();
     },(err:HttpErrorResponse)=>{
       this.errorHandler.error(err);
       this.loader.hide();
