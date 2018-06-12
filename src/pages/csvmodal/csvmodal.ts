@@ -83,7 +83,8 @@ export class CsvmodalPage {
   save(){
     this.catalog.addOrUpdateSubscriptionData(this.catalog.selectedShopId,this.parsedFileData).subscribe((data:any)=>{
       this.catalog.catalogData = this.parsedFileData;
-      this.toast.create({ message: 'Updated Successfully !. Refresh the table', duration: 3000, position: 'top' }).present();
+      this.toast.create({ message: 'Updated Successfully !. Refresh the table',showCloseButton: true, position: 'top' }).present();
+      this.navCtrl.pop();
     },(err:HttpErrorResponse)=>{
       this.errorHandler.error(err);
       this.loader.hide();

@@ -162,11 +162,16 @@ export class CatalogPage {
     });
 
    this.source.load(this.catalogService.catalogData);
+   this.productList = this.catalogService.catalogData;
   }
 
   userRowSelect(event) {
     this.productListToBeDeleted = [];
     console.log(event);
+    if(event.data==null){
+      event.isSelected = true;
+      event.selected = this.productList;
+    }
 
     if (event.isSelected) {
       event.selected.forEach(item => {
