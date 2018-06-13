@@ -17,3 +17,9 @@
 #menu p{
     font-size: 18px;
 }
+.split-pane-md.split-pane-visible > .split-pane-side {
+    min-width: 270px;
+    max-width: 0%;
+    border-right: 1px solid #dedede;
+    border-left: 0;
+  }

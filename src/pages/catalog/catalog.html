@@ -75,10 +75,10 @@
        <p>Showing {{productList.length}} products</p>
       </ion-col>
       <ion-col>
-        <ion-card>
+       
           <ng2-smart-table [settings]="settings" [source]="source"  (editConfirm)="onSaveConfirm($event)"
             (createConfirm)="onCreateConfirm($event)" (userRowSelect)="userRowSelect($event)"></ng2-smart-table>
-        </ion-card>
+       
       </ion-col>
     </ion-row>
 

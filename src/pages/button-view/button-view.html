@@ -7,5 +7,5 @@
 
 
 
-<button ion-button [color]="value=='FULFILLED'?'dark':'secondary'" [ngClass]="value=='FULFILLED'?'outline':'block'"  (click)="onClick()" >
+<button ion-button [color]="value=='FULFILLED'?'dark':'secondary'" [ngClass]="value=='FULFILLED'?'outline':'block'" [disabled]="value=='FULFILLED' || fulfillmentService.disableFulfillment" (click)="onClick()" >
  <b ion-text color="light">{{value}}</b></button>

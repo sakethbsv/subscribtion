@@ -54,12 +54,15 @@
                 </ion-label>
               </ion-item>
             </ion-col>
-            <ion-col>
+           
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-12>
               <button ion-button (click)="search([selectedShopId])" [disabled]="!selectedShopId" margin-top>SEARCH</button>
               <button ion-button outline color="secondary" (click)="reset()" margin-top>RESET</button>
             </ion-col>
           </ion-row>
-
 
         </ion-list>
       </ion-col>

@@ -17,6 +17,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class FulfillmentDetailsProvider {
   ordersTableData:any;
+  disableFulfillment:boolean=false;
 
   constructor(public http:HttpServiceProvider, public _http : HttpClient) {
     console.log('Hello FulfillmentDetailsProvider Provider');
