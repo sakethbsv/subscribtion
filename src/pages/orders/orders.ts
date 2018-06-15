@@ -128,15 +128,12 @@ export class OrdersPage {
     }
 
     // disable future fulfillment
-    let now = moment();
-   if(moment(this.daterange.end.toDate()).isAfter(now)){
-    this.orders.disableFulfillment = true;
-   }else{
-    this.orders.disableFulfillment = false;
-   }
+   
     this.orders.getFulfillmentDetails(obj).subscribe((data: any) => {
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);
+      
+      
       this.scroll.scrollTo('#order-detail');
       
     }, (err: HttpErrorResponse) => {

@@ -4,7 +4,7 @@ import { HttpServiceProvider } from '../http-service/http-service';
 import * as Constants from '../../config'
 import { IfObservable } from 'rxjs/observable/IfObservable';
 import { Observable } from 'rxjs/Observable';
-
+import * as moment from 'moment';
 
 
 
@@ -36,6 +36,7 @@ export class FulfillmentDetailsProvider {
   generateFulfillmentTableData(fulfilmentList){
    
     this.ordersTableData = [];
+    let now = moment();
     fulfilmentList.forEach(data => {
       let obj:any = {};
       obj.shopId = data.fulfillment.shopId;
@@ -50,6 +51,11 @@ export class FulfillmentDetailsProvider {
       obj.address = data.address;
       obj.subscriptionOrderItems = data.subscriptionOrderItems;
       obj.fulfillmentId = data.fulfillment.id;
+      if(moment(data.fulfillment.deliveryDate).isAfter(now)){
+        obj.disable = true;
+       }else{
+         obj.disable=false;
+       }
       this.ordersTableData.push(obj);
 
     });
