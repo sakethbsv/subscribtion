@@ -33,7 +33,6 @@ export class ButtonViewPage implements ViewCell, OnInit{
   constructor(public fulfillmentService:FulfillmentDetailsProvider,private loader:LoaderProvider){
 
   }
-
   onClick() {
     console.log(this.rowData);
     if(this.rowData.status=="PENDING"){
