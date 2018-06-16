@@ -7,5 +7,8 @@
 
 
 
-<button ion-button [color]="value=='FULFILLED'?'dark':'secondary'"  [disabled]="value=='FULFILLED' || rowData.disable" (click)="onClick()" >
+<button *ngIf="value!='FULFILLED'" ion-button [color]="value=='FULFILLED'?'dark':'secondary'"  [disabled]="rowData.disable" (click)="onClick()" >
  <b ion-text color="light">{{value}}</b></button>
+
+ <button ion-button clear *ngIf="value=='FULFILLED'">
+  <b ion-text color="dark">{{value}}</b></button>
