@@ -5,7 +5,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
-
+import { HotTableModule } from '@handsontable/angular';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -37,6 +37,10 @@ import { CsvmodalPage } from '../pages/csvmodal/csvmodal';
 import { ModalProvider } from '../providers/modal/modal';
 import { PapaParseModule } from 'ngx-papaparse';
 import { DeleteconfirmationPage } from '../pages/deleteconfirmation/deleteconfirmation';
+import { PromotionsProvider } from '../providers/promotions/promotions';
+import { PromotionsPage } from '../pages/promotions/promotions';
+
+
 
 
 @NgModule({
@@ -51,7 +55,8 @@ import { DeleteconfirmationPage } from '../pages/deleteconfirmation/deleteconfir
     SubscribtiondetailPage,
     FulfillmentDetailPage,
     CsvmodalPage,
-    DeleteconfirmationPage
+    DeleteconfirmationPage,
+    PromotionsPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,8 @@ import { DeleteconfirmationPage } from '../pages/deleteconfirmation/deleteconfir
     HttpClientModule,
     Ng2SmartTableModule,
     ScrollToModule.forRoot(),
-    PapaParseModule
+    PapaParseModule,
+    HotTableModule
     
   ],
   bootstrap: [IonicApp],
@@ -79,7 +85,8 @@ import { DeleteconfirmationPage } from '../pages/deleteconfirmation/deleteconfir
     SubscribtiondetailPage,
     FulfillmentDetailPage,
     CsvmodalPage,
-    DeleteconfirmationPage
+    DeleteconfirmationPage,
+    PromotionsPage
 
   ],
   providers: [
@@ -102,7 +109,8 @@ import { DeleteconfirmationPage } from '../pages/deleteconfirmation/deleteconfir
     LoaderProvider,
     ScrollProvider,
     AlertProvider,
-    ModalProvider
+    ModalProvider,
+    PromotionsProvider
     
     
   ]
