@@ -5,7 +5,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { HotTableModule } from '@handsontable/angular';
+import {TableModule} from 'primeng/table';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -68,9 +68,9 @@ import { PromotionsPage } from '../pages/promotions/promotions';
     }),
     HttpClientModule,
     Ng2SmartTableModule,
+    TableModule,
     ScrollToModule.forRoot(),
-    PapaParseModule,
-    HotTableModule
+    PapaParseModule
     
   ],
   bootstrap: [IonicApp],

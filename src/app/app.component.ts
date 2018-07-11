@@ -18,7 +18,7 @@ import { CatalogPage } from '../pages/catalog/catalog';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any;
   admin:any;
   color:any;
  
@@ -28,6 +28,16 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig ) {
     this.initializeApp();
     this.admin={}
+
+    this.storage.getItem('admin').then(data=>{
+      if(data!=null){
+        this.rootPage = HomePage
+      }else{
+        this.rootPage = LoginPage;
+      }
+    },err=>{
+      this.rootPage = LoginPage;
+    })
 
     // used for an example of ngFor and navigation
     this.pages = [

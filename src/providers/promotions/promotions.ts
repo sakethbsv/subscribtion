@@ -12,15 +12,15 @@ import { ErrorHandlerServiceProvider } from '../error-handler-service/error-hand
 @Injectable()
 export class PromotionsProvider {
 
-  constructor(public httpService:HttpServiceProvider,public errorhandler:ErrorHandlerServiceProvider) {
+  constructor(private http: HttpServiceProvider,public errorhandler:ErrorHandlerServiceProvider) {
     console.log('Hello PromotionsProvider Provider');
   }
 
-  getAllPromotions(){
-   return this.httpService.get("http://www.mocky.io/v2/5b459d2b2f00007000420c7f")
+  getAllPromotions(shops){
+   return this.http.get("v2/dashboard/subscription/dataActions/location/SUBSCRIPTION?shopIds="+shops)
   }
 
   updatePromotion(data){
-    return this.httpService.post("v2/dashboard/catalogue/dataAction/add",data)
+    return this.http.post("v2/dashboard/catalogue/dataAction/add",data)
   }
 }
