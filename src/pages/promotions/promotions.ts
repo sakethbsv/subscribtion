@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import * as Handsontable from 'handsontable';
 import { LocalDataSource } from 'ng2-smart-table';
 import { StorageProvider } from '../../providers/storage/storage';
+import { LoaderProvider } from '../../providers/loader/loader';
 /**
  * Generated class for the PromotionsPage page.
  *
@@ -19,52 +20,17 @@ import { StorageProvider } from '../../providers/storage/storage';
   templateUrl: 'promotions.html',
 })
 export class PromotionsPage {
-  dataset:any[];
+  dataset:any[]=[];
   settings : any;
   shopList:any[];
+  shopSelected:any;
   source:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider) {
-    this.settings = {
-      selectMode: 'multi',
-      actions: {add:true},
-      add: {
-        confirmCreate: true,
-      },
-      confirmCreate:{
-        confirmCreate:false
-      },
-      edit: {
-        confirmSave: true,
-      },
-      delete:{
-        confirmDelete:true,
-      },
-      columns: {
-        dataId: {
-          title: 'Data Id'
-        },
-        datatype: {
-          title: 'Data Type'
-        },
-        imageUrl: {
-          title: 'Image Url'
-        },
-        accessibleLocations: {
-          title: 'Locations'
-        },
-        active: {
-          title: 'Active'
-        },
-        text: {
-          title: 'Title'
-        },
-
-        subText: {
-          title: 'Content'
-        },
-      },
-    }; 
-    this.source = new LocalDataSource(this.dataset);
+  create: boolean = false;
+  edit:boolean = false;
+  deactivate:boolean=false;
+  promotionData:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider,private loader:LoaderProvider) {
+    this.promotionData={};
   }
 
   ionViewDidLoad() {
@@ -83,47 +49,35 @@ export class PromotionsPage {
 
 
 
-  viewPromotions(shops){
+  viewPromotions(shops){     
+    this.promotionsProvider.getAllPromotions(shops).subscribe((data:any)=>{
+      console.log("data",data);
+      this.dataset = data;
+      this.loader.hide();
+    },(err:any)=>{
+      this.loader.hide();
+    })
 
-    this.dataset =[{
-      dataId: "SUBSCRIPTIONPROMODUMMY",
-      datatype: "PROMOTION",
-      type: "SUBSCRIPTION_PROMOTION",
-      imageUrl: "https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png",
-      accessibleLocations: [
-      "44",
-      "22"
-      ],
-      active: true,
-      text: "Rs.100 CASHBACK paid via Paytm",
-      subText: "On Subscription of Rs.1000 or above on payment via Paytm. Valid twice for new user."
-      }]
-     
-    // this.promotionsProvider.getAllPromotions(shops).subscribe((data:any)=>{
-    //   console.log("data",data);
-    //   this.dataset = data;
-    // },(err:any)=>{
-
-    // })
-
-    this.source.load(this.dataset)
+    
   }
 
   updatePromotions(data){
+    console.log('Promotion To Update',data);
    
-    this.promotionsProvider.updatePromotion(data).subscribe((data:any)=>{
-      console.log('data',data);
+    this.promotionsProvider.updatePromotion(data).subscribe((promotionData:any)=>{
+      console.log('data',promotionData);
+      this.viewPromotions(this.shopSelected);
+      this.create = false;
+      this.edit = false;
+      this.deactivate = false;
+      this.loader.hide();
     },(err:HttpErrorResponse)=>{
-
+      this.loader.hide();
     })
   }
 
-  onSaveConfirm(event) {
-    event.confirm.resolve(event.newData);
-    this.dataset.push(event.newData);
-    console.log(event.newData);
+  
 
-  }
 
   onDeleteConfirm(event){
     console.log(event);
@@ -135,13 +89,37 @@ export class PromotionsPage {
     this.source.load(this.dataset); 
   }
 
-  onCreateConfirm(event) {
-
-    event.confirm.resolve(event.newData);
-    this.dataset.push(event.newData);
-    console.log(event.newData);
+  editPromotion(promotion){
+    this.edit = true;
+    this.create = false;
+    this.promotionData = promotion;
+    
   }
 
+  deactivatePromotion(promotion){
+    promotion.active = false;
+    this.deactivate = true;
+    this.updatePromotions(promotion);
+  }
+
+  save(promotionData,shops){
+    if(this.create){
+      this.createPromotion(promotionData,shops)
+    }else if(this.edit){
+      this.updatePromotions(promotionData);
+    }
+    
+  }
+
+
+  createPromotion(promotionData,shops){
+    promotionData.dataId="SUBSCRIPTIONPROMODUMMY_"+new Date();
+    promotionData.datatype="NONE";
+    promotionData.type="SUBSCRIPTION";
+    promotionData.accessibleLocations=[shops];
+    promotionData.active=true;
+    this.updatePromotions(promotionData);
+  }
 
 
 

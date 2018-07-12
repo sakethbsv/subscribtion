@@ -11,6 +11,7 @@ import { SplitpaneProvider } from '../providers/splitpane/splitpane';
 import { OrdersPage } from '../pages/orders/orders';
 import { DaterangepickerConfig } from 'ng2-daterangepicker';
 import { CatalogPage } from '../pages/catalog/catalog';
+import { PromotionsPage } from '../pages/promotions/promotions';
 
 @Component({
   templateUrl: 'app.html'
@@ -43,7 +44,8 @@ export class MyApp {
     this.pages = [
       { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
       { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
-      { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' }
+      { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
+      { title: 'Promotions', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' }
     ];
 
 

@@ -21,6 +21,6 @@ export class PromotionsProvider {
   }
 
   updatePromotion(data){
-    return this.http.post("v2/dashboard/catalogue/dataAction/add",data)
+    return this.http.post("/catalogue/dataAction/add",data)
   }
 }
