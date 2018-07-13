@@ -68,6 +68,9 @@ export class CatalogPage {
         },
         amount: {
           title: 'Shop Price'
+        },
+        isPerishable:{
+          title:'Perishable'
         }
       },
 
