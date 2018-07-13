@@ -47,7 +47,7 @@
               </ion-item>
             </ion-col>
             <ion-col col-12>
-              <button margin-left ion-button  (click)="viewProduct(shopSelected)" [disabled]="!shopSelected" margin-top>View Product</button>
+              <button margin-left ion-button  (click)="viewProduct(shopSelected)" [disabled]="!shopSelected" margin-top>View Products</button>
             </ion-col>
           </ion-row>
 
@@ -68,8 +68,8 @@
       <ion-col >
         <button  ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()">Upload Catalog</button>
         <button  ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button>
-        <button  ion-button small round color="secondary" (click)="delete()">Delete</button>
-        <button  ion-button small round outline color="secondary" (click)="refresh()">Refresh</button>
+        <button  ion-button small round color="secondary" [disabled]="!shopSelected"  (click)="delete()">Delete</button>
+        <button  ion-button small round outline color="secondary" [disabled]="!shopSelected"  (click)="refresh()">Refresh</button>
       </ion-col>
       <ion-col col-12>
        <p>Showing {{productList.length}} products</p>

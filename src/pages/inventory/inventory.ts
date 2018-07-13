@@ -7,6 +7,8 @@ import { InventoryProvider } from '../../providers/inventory/inventory';
 import { DaterangePickerComponent } from 'ng2-daterangepicker';
 import * as moment from 'moment';
 import { LoaderProvider } from '../../providers/loader/loader';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 /**
  * Generated class for the InventoryPage page.
  *
@@ -36,7 +38,7 @@ export class InventoryPage {
   source:any;
   inventoryList:any[]=[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private storage:StorageProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private storage:StorageProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider) {
     this.settings = {
       
       columns: {
@@ -94,8 +96,8 @@ export class InventoryPage {
       this.inventoryList = data;
       this.source.load(this.inventoryList);
       this.loader.hide();
-    },(err:any)=>{
-      alert('N')
+    },(err:HttpErrorResponse)=>{
+      this.errorHandler.error(err);
       this.loader.hide();
     })
   }

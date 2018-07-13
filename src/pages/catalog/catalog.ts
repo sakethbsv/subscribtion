@@ -115,7 +115,7 @@ export class CatalogPage {
   updateProductList() {
 
     this.catalogService.addOrUpdateSubscriptionData(this.shopSelected, this.productUpdateList).subscribe((data: any) => {
-      this.toast.create({ message: 'Updated Successfully !', duration: 3000, position: 'top' }).present();
+      this.toast.create({ message: 'Updated Successfully !', duration: 3000, position: 'top',showCloseButton:true }).present();
     }, (err: HttpErrorResponse) => {
       console.log(err);
 
@@ -129,16 +129,27 @@ export class CatalogPage {
 
 
   onSaveConfirm(event) {
-    event.confirm.resolve(event.newData);
-    this.productUpdateList.push(event.newData);
+    
+    if(this.checkData(event.newData)){
+      event.confirm.resolve(event.newData);
+      this.productUpdateList.push(event.newData);
+    }else{
+      this.toast.create({ message: 'BarcodeId,Sku,Category,Sub-Category Are Mandatory', duration: 3000, position: 'top',showCloseButton:true }).present();
+    }
     console.log(event.newData);
 
   }
 
   onCreateConfirm(event) {
 
-    event.confirm.resolve(event.newData);
-    this.productUpdateList.push(event.newData);
+   
+    if(this.checkData(event.newData)){
+      event.confirm.resolve(event.newData);
+      this.productUpdateList.push(event.newData);
+    }else{
+      this.toast.create({ message: 'BarcodeId,Sku,Category,Sub-Category Are Mandatory', duration: 3000, position: 'top',showCloseButton:true }).present();
+    }
+   
     console.log(event.newData);
   }
 
@@ -159,11 +170,14 @@ export class CatalogPage {
   }
 
 
-  updatedProductList() {
-
-
+checkData(element) {
+ 
+   if(element.barcodeId!="" && element.sku!="" && element.category!="" && element.subCategory!=""){
+     return true;
+   }else{
+     return false;
   }
-
+}
   refresh() {
     this.catalogService.productsDeleted.forEach(element => {
       this.source.remove(element);
