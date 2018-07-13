@@ -95,6 +95,7 @@ export class InventoryPage {
       this.source.load(this.inventoryList);
       this.loader.hide();
     },(err:any)=>{
+      alert('N')
       this.loader.hide();
     })
   }

@@ -61,6 +61,12 @@ export class CsvmodalPage {
       obj.categoryImage = row[5];
       obj.subCategory = row[6];
       obj.image = row[7];
+      if(row[8] && row[8]!=null){
+        obj.isPerishable = row[8]
+      }else{
+        obj.isPerishable = false;
+      }
+      
       obj.shopId = this.catalog.selectedShopId;
       console.log(obj);
       if(obj.barcodeId!=null && obj.sku!=null && obj.category!=null && obj.subCategory!=null){

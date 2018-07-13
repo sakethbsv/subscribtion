@@ -91,10 +91,10 @@ export class CatalogPage {
 
   viewProduct(shopId) {
     this.catalogService.getAllProducts(shopId).subscribe((data: any) => {
-      data.subscriptionProducts.forEach(element => {
-        element.image = "<a target='_blank' href='"+element.image+"'>Click to view</a>";
-        element.categoryImage = "<a target='_blank' href='"+element.categoryImage+"'>Click to view</a>";
-      });
+      // data.subscriptionProducts.forEach(element => {
+      //   element.image = "<a target='_blank' href='"+element.image+"'>Click to view</a>";
+      //   element.categoryImage = "<a target='_blank' href='"+element.categoryImage+"'>Click to view</a>";
+      // });
       this.productList = data.subscriptionProducts;
       this.catalogService.catalogData = this.productList;
       this.source.load(this.productList)
