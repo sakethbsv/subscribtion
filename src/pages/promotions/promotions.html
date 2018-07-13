@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Promotions</ion-title>
   </ion-navbar>
 
@@ -14,137 +17,133 @@
 
 
 <ion-content padding>
-    <div class="header-bar">
-        <ion-title ion-text>
-          <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
-    </div>
-    <ion-row>
-        <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12>
-            <ion-list radio-group [(ngModel)]="shopSelected">
-    
-              <ion-row>
-                <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
-                  <ion-item>
-                    <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
-                    <ion-label>
-                      <p ion-text text-left>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
-                    </ion-label>
-                  </ion-item>
-                </ion-col>
-                <ion-col col-12>
-                  <button margin-left ion-button  (click)="viewPromotions(shopSelected)" [disabled]="!shopSelected" margin-top>View Promotions</button>
-                </ion-col>
-              </ion-row>
-    
-    
-            </ion-list>
-          </ion-col>
-      </ion-row>
-      <ion-grid>
-          <div class="header-bar">
-              <ion-title ion-text>
-                <ion-icon name="list-box"></ion-icon>&nbsp; Promotion Details
-              </ion-title>
-            </div>
-    
-      </ion-grid>
-
-      <ion-grid>
-        
+  <div class="header-bar">
+    <ion-title ion-text>
+      <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
+  </div>
+  <ion-row>
+    <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12>
+      <ion-list radio-group [(ngModel)]="shopSelected">
 
         <ion-row>
+          <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+            <ion-item>
+              <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
+              <ion-label>
+                <p ion-text text-left>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
+              </ion-label>
+            </ion-item>
+          </ion-col>
           <ion-col col-12>
-              <button ion-button small round color="secondary" (click)="create = !create;promotionData={}">Add New Promotion</button>
+            <button margin-left ion-button (click)="viewPromotions(shopSelected)" [disabled]="!shopSelected" margin-top>View Promotions</button>
           </ion-col>
         </ion-row>
 
-        <ion-row justify-content-center *ngIf="dataset.length==0" class="no-promotion">
-            <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
-              <div>
-                  <img src="assets/imgs/promotion-search.png" class="dashboard-icons"/>
-                  <button ion-button clear round>No Promotions Available</button>
-              </div>
-            </ion-col>
-        </ion-row>
-          
-          <ion-row *ngIf="create || edit" justify-content-center class="add-promotion">
-            <ion-col col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2>
-              <ion-card>
-                <ion-card-header>
-                 <button ion-button full >Promotion Details</button>
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-list >
-                        <ion-item >
-                            <ion-label fixed>Title</ion-label>
-                            <ion-input type="text" value="" [(ngModel)]="promotionData.text" placeholder="Ex.Rs.100 CASHBACK paid via Paytm"></ion-input>
-                        </ion-item>
-                        <ion-item >
-                            <ion-label fixed>Subtitle</ion-label>
-                            <ion-input type="text" value="" [(ngModel)]="promotionData.subText" placeholder="Ex.On Subscription of Rs.1000 or above on payment via Paytm. Valid twice for new user."></ion-input>
-                        </ion-item>
-                        <ion-item >
-                            <ion-label fixed>Image Url</ion-label>
-                            <ion-input type="text" value="" [(ngModel)]="promotionData.imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png"></ion-input>
-                        </ion-item>
-                        <ion-item ></ion-item>
-                      </ion-list>
 
-                      <button ion-button  round  icon-left (click)="save(promotionData,shopSelected)">
-                          <ion-icon name="add-circle"></ion-icon>
-                          SAVE
-                        </button>
-                        <button ion-button  round  icon-left (click)="create=false">
-                            <ion-icon name="trash"></ion-icon>
-                            DISCARD
-                          </button>
-                </ion-card-content>
-              </ion-card>
-              
-            </ion-col>
-          </ion-row>
- 
- 
-        <ion-row class="show-promotion">
-            
-          <ion-col col-md-3 col-lg-3 *ngFor="let promotion of dataset">
-            <ion-card>
-                <ion-card-header>
-                  <button ion-button full >{{promotion.text}}</button>
-            
-                  </ion-card-header>
-              
-         
-              <img src="{{promotion.imageUrl}}" />
-         
-              <ion-card-content>
-                <strong><p class="ion-text text-center">{{promotion.subText}}</p></strong>
-                <ion-row>
-                
-                    <ion-col col-6>
-                      <button ion-button small round icon-left (click)="editPromotion(promotion)">
-                        <ion-icon name="create"></ion-icon>
-                        <div>Edit</div>
-                      </button>
-                    </ion-col>
-                    <ion-col col-6>
-                      <button ion-button small round icon-left (click)="deactivatePromotion(promotion)">
-                        <ion-icon name="trash"></ion-icon>
-                        <div>Deactivate</div>
-                      </button>
-                    </ion-col>
-                  </ion-row>
-              </ion-card-content>
-         
-              
-         
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <ion-grid>
+    <div class="header-bar">
+      <ion-title ion-text>
+        <ion-icon name="list-box"></ion-icon>&nbsp; Promotion Details
+      </ion-title>
+    </div>
 
-      <!--Card List-->
-      
+  </ion-grid>
+
+  <ion-grid>
+
+
+    <ion-row>
+      <ion-col col-12>
+        <button ion-button small round color="secondary" (click)="create = !create;promotionData={}">Add New Promotion</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center *ngIf="dataset.length==0" class="no-promotion">
+      <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
+        <div>
+          <img src="assets/imgs/promotion-search.png" class="dashboard-icons" />
+          <button ion-button clear round>No Promotions Available</button>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="create || edit" justify-content-center class="add-promotion">
+      <ion-col col-md-4 col-lg-4>
+        <ion-card >
+          <ion-card-header>
+            <button ion-button full>Promotion Details</button>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label fixed>Title</ion-label>
+                <ion-input type="text" value="" [(ngModel)]="promotionData.text" placeholder="Ex.Rs.100 CASHBACK paid via Paytm"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label fixed>Subtitle</ion-label>
+                <ion-input type="text" value="" [(ngModel)]="promotionData.subText" placeholder="Ex.On Subscription of Rs.1000 or above on payment via Paytm. Valid twice for new user."></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label fixed>Image Url</ion-label>
+                <ion-input type="text" value="" [(ngModel)]="promotionData.imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png"></ion-input>
+              </ion-item>
+              <ion-item></ion-item>
+            </ion-list>
+
+            <button ion-button round icon-left (click)="save(promotionData,shopSelected)">
+              <ion-icon name="add-circle"></ion-icon>
+              SAVE
+            </button>
+            <button ion-button round icon-left (click)="create=false">
+              <ion-icon name="trash"></ion-icon>
+              DISCARD
+            </button>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row class="show-promotion">
+
+      <ion-col col-md-3 col-lg-3 *ngFor="let promotion of dataset">
+        <ion-card>
+          <ion-card-header>
+            <button ion-button full>{{promotion.text}}</button>
+
+          </ion-card-header>
+
+
+          <img src="{{promotion.imageUrl}}" />
+
+          <ion-card-content no-padding>
+            <strong>
+              <p class="ion-text text-center">{{promotion.subText}}</p>
+            </strong>
+            <button ion-button small round icon-left float-left (click)="editPromotion(promotion)">
+                <ion-icon name="create"></ion-icon>
+                Edit
+              </button>
+              <button ion-button small round icon-left float-right (click)="deactivatePromotion(promotion)">
+                  <ion-icon name="trash"></ion-icon>
+                  Deactivate
+                </button>
+
+          </ion-card-content>
+
+
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <!--Card List-->
+
 
 </ion-content>

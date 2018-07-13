@@ -5,7 +5,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { StorageProvider } from '../providers/storage/storage';
 import { SplitpaneProvider } from '../providers/splitpane/splitpane';
 import { OrdersPage } from '../pages/orders/orders';
@@ -32,13 +31,15 @@ export class MyApp {
 
     this.storage.getItem('admin').then(data=>{
       if(data!=null){
-        this.rootPage = HomePage
+        //this.openPage(HomePage)
+        this.splitPane.setSplitPane(true);
+        this.nav.push(HomePage);
       }else{
         this.rootPage = LoginPage;
       }
-    },err=>{
-      this.rootPage = LoginPage;
-    })
+    },() => {
+        this.rootPage = LoginPage;
+      })
 
     // used for an example of ngFor and navigation
     this.pages = [

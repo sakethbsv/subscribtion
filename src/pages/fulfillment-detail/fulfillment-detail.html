@@ -14,16 +14,16 @@
 
 
 <ion-content>
-  <ion-card class="content-scrolls">
+  <ion-card class="content-scrolls" no-padding>
     <ion-card-header>
-      <ion-row align-items-center>
+      <ion-row align-items-center no-padding no-margin>
         <ion-col col-md-6 col-lg-6 align-self-center class="highlight-card">
           <ion-item>
-            
-              <ion-avatar>
-                <img src="../assets/imgs/admin.png">
-              </ion-avatar>
-           
+
+            <ion-avatar>
+              <img src="../assets/imgs/admin.png">
+            </ion-avatar>
+
           </ion-item>
           <ion-item>
             <p ion-text color="secondary">
@@ -32,39 +32,36 @@
             <br>
             <p ion-text color="light">{{mobileNumber}}</p>
           </ion-item>
-          <ion-item >
+          <ion-item>
             <p ion-text color="secondary">Fulfillment Id : #{{fulfillmentId}}</p>
           </ion-item>
           <ion-item>
             <button ion-button outline color="secondary">Slot {{slot}}</button>
           </ion-item>
         </ion-col>
-        <ion-col  col-md-6 col-lg-6 align-self-center>
+        <ion-col col-md-6 col-lg-6 align-self-center>
           <ion-list>
             <ion-item>
-              <p item-start>Address Line 1 : {{address.addressLine1}}</p>
+              <p item-start text-wrap>Line 1 : <b ion-text text-capitalize color="primary">{{address.addressLine1}}</b></p>
             </ion-item>
             <ion-item>
-              <p item-start>Address Line 2 : {{address.addressLine2}}</p>
+              <p item-start text-wrap>Line 2 : <b ion-text text-capitalize color="primary">{{address.addressLine2}}</b></p>
             </ion-item>
             <ion-item>
-              <p item-start>Landmark : {{landMark}}</p>
+              <p item-start text-warp>Landmark : <b ion-text text-capitalize color="primary">{{landMark}}</b></p>
             </ion-item>
             <ion-item>
-              <p item-start>City : {{city}}</p>
+              <p item-start text-wrap>City : <b ion-text text-capitalize color="primary">{{city}}</b></p>
             </ion-item>
             <ion-item>
-              <p item-start>State : {{state}}</p>
+              <p item-start text-wrap>State : <b ion-text text-capitalize color="primary">{{state}}</b></p>
             </ion-item>
           </ion-list>
         </ion-col>
       </ion-row>
     </ion-card-header>
     <ion-card-content>
-
       <ng2-smart-table [settings]="settings" [source]="subscriptionOrderItems" style="overflow-x: auto"></ng2-smart-table>
-
-
     </ion-card-content>
   </ion-card>
 </ion-content>

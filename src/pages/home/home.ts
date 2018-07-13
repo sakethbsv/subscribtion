@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { CatalogPage } from '../catalog/catalog';
 import { PromotionsPage } from '../promotions/promotions';
+import { InventoryPage } from '../inventory/inventory';
 
 
 
@@ -30,6 +31,10 @@ export class HomePage {
 
   promotions(){
     this.navCtrl.push(PromotionsPage);
+  }
+
+  inventory(){
+    this.navCtrl.push(InventoryPage);
   }
 
 }

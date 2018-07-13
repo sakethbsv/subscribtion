@@ -63,8 +63,19 @@ export class PromotionsPage {
 
   updatePromotions(data){
     console.log('Promotion To Update',data);
+    let formData = {};
+    formData = {
+      "dataId":data.dataId,
+      "datatype":data.datatype,
+      "type":data.type, 
+      "imageUrl":data.imageUrl,
+      "accessibleLocations":data.accessibleLocations,
+      "active":data.active,
+      "text": data.text,
+      "subText":data.subText
+  }
    
-    this.promotionsProvider.updatePromotion(data).subscribe((promotionData:any)=>{
+    this.promotionsProvider.updatePromotion(formData).subscribe((promotionData:any)=>{
       console.log('data',promotionData);
       this.viewPromotions(this.shopSelected);
       this.create = false;
@@ -92,6 +103,8 @@ export class PromotionsPage {
   editPromotion(promotion){
     this.edit = true;
     this.create = false;
+    let data = {};
+    
     this.promotionData = promotion;
     
   }
@@ -113,7 +126,7 @@ export class PromotionsPage {
 
 
   createPromotion(promotionData,shops){
-    promotionData.dataId="SUBSCRIPTIONPROMODUMMY_"+new Date();
+    promotionData.dataId="SUBSCRIPTIONPROMODUMMY_"+new Date().getTime();
     promotionData.datatype="NONE";
     promotionData.type="SUBSCRIPTION";
     promotionData.accessibleLocations=[shops];

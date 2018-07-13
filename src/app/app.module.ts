@@ -39,6 +39,7 @@ import { PapaParseModule } from 'ngx-papaparse';
 import { DeleteconfirmationPage } from '../pages/deleteconfirmation/deleteconfirmation';
 import { PromotionsProvider } from '../providers/promotions/promotions';
 import { PromotionsPage } from '../pages/promotions/promotions';
+import { InventoryPage } from '../pages/inventory/inventory';
 
 
 
@@ -56,7 +57,8 @@ import { PromotionsPage } from '../pages/promotions/promotions';
     FulfillmentDetailPage,
     CsvmodalPage,
     DeleteconfirmationPage,
-    PromotionsPage
+    PromotionsPage,
+    InventoryPage
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,8 @@ import { PromotionsPage } from '../pages/promotions/promotions';
     FulfillmentDetailPage,
     CsvmodalPage,
     DeleteconfirmationPage,
-    PromotionsPage
+    PromotionsPage,
+    InventoryPage
 
   ],
   providers: [

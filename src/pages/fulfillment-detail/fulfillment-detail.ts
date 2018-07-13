@@ -26,11 +26,8 @@ export class FulfillmentDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.settings = {
       columns: {
-        shopId: {
-          title: 'Shop Id'
-        },
         subscriptionId: {
-          title: 'Subscribtion Id'
+          title: 'Subscription Id'
         },
         barcodeId: {
           title: 'Barcode Id'
