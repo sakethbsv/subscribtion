@@ -56,6 +56,7 @@ export class FulfillmentDetailsProvider {
        }else{
          obj.disable=false;
        }
+       obj.orderSentToMerchant = data.fulfillment.orderSentToMerchant;
       this.ordersTableData.push(obj);
 
     });

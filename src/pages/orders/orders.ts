@@ -82,6 +82,12 @@ export class OrdersPage {
         city: {
           title: 'City'
         },
+        isPerishable:{
+          title:'Peridhable'
+        },
+        orderSentToMerchant:{
+          title:'Order Sent To Merchant'
+        },
         status: {
           title: 'Status',
           type: 'custom',

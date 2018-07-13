@@ -40,6 +40,7 @@ import { DeleteconfirmationPage } from '../pages/deleteconfirmation/deleteconfir
 import { PromotionsProvider } from '../providers/promotions/promotions';
 import { PromotionsPage } from '../pages/promotions/promotions';
 import { InventoryPage } from '../pages/inventory/inventory';
+import { InventoryProvider } from '../providers/inventory/inventory';
 
 
 
@@ -113,7 +114,8 @@ import { InventoryPage } from '../pages/inventory/inventory';
     ScrollProvider,
     AlertProvider,
     ModalProvider,
-    PromotionsProvider
+    PromotionsProvider,
+    InventoryProvider
     
     
   ]

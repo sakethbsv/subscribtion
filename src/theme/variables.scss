@@ -128,45 +128,46 @@ $toast-md-background:color($colors,secondary);
 .smart-table-container{ 
   overflow-x: scroll;
 }
-tbody {
-  text-align:start;
+table{
+  color:color($colors,'primary');
+  text-align: center;
   font-size: 14px;
-  color: color($colors,dark);
+  overflow-x: auto;
+  overflow-y: auto;
+ 
   
+}
 
+table>thead,table>th{
+  color:color($colors,'secondary');
+  font-weight: bold;
+  border: 2px solid;
  
 }
-thead>tr{
-  font-size: 14px;
-  color: color($colors,primary);
+table>tr{
  
 }
-tbody>td{
-  margin: 5px;
+
+ng2-smart-table-pager{
+  color:color($colors,'secondary');
+  font-size: 20px;
+  padding: 5px;
+  font-weight: bold;
+}
+a.ng2-smart-page-link.page-link{
+  color:color($colors,'primary');
+  margin: 3px;
+}
+ng2-smart-table-pager>nav{
+  margin: auto;
+  padding: 10px;
 }
 
 .content-scrolls{
 overflow: auto;
 }
 
-ng2-smart-table-pager{
-  font-weight: bold;
-  color: color($colors,primary);
 
-}
-nav.ng2-smart-pagination-nav{
-margin: auto;
-}
-
-.pagination>.active>.span{
-  background: color($colors,secondary);
-}
-
-a.ng2-smart-page-link.page-link{
-  margin: auto;
-  padding: 5px;
-  color: color($colors,dark);
-}
 
 .card-content-md{
   overflow: auto;

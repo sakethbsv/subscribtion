@@ -20,10 +20,29 @@
   </div>
   <ion-grid>
     <ion-row>
+        <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
+            <div>
+              <p class="sub-heading" ion-text color="secondary">
+                <ion-icon name="calendar"></ion-icon> &nbsp; Select Date</p>
+            </div>
+            <div class="form-group">
+              <div class="input-group" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event)">
+                <span class="form-control uneditable-input">
+                  {{ daterange.start | date:'dd/MM/yyyy' }} - {{ daterange.end| date:'dd/MM/yyyy' }}
+                </span>
+                <span class="input-group-btn">
+                  <a type="button" class="btn btn-default">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                  </a>
+                </span>
+              </div>
+    
+            </div>
+          </ion-col>
       <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12>
         <ion-list radio-group [(ngModel)]="shopSelected">
 
-          <ion-row>
+          <ion-row >
             <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
               <ion-item>
                 <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
@@ -33,7 +52,7 @@
               </ion-item>
             </ion-col>
             <ion-col col-12>
-              <button margin-left ion-button (click)="viewInventory(shopSelected)" [disabled]="!shopSelected" margin-top>View Promotions</button>
+              <button margin-left ion-button (click)="viewInventory(shopSelected)" [disabled]="!shopSelected" margin-top>View Inventory</button>
             </ion-col>
           </ion-row>
 
@@ -49,9 +68,11 @@
         <ion-icon name="list-box"></ion-icon>&nbsp; Inventory Details
       </ion-title>
     </div>
-    <ion-row>
-
-      <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+    <ion-row justify-content-center>
+      <ion-col align-self-center>
+          <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+      </ion-col>
+     
     </ion-row>
   </ion-grid>
 </ion-content>

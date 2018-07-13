@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { StorageProvider } from '../../providers/storage/storage';
 import { LocalDataSource } from 'ng2-smart-table';
+import { InventoryProvider } from '../../providers/inventory/inventory';
 
+import { DaterangePickerComponent } from 'ng2-daterangepicker';
+import * as moment from 'moment';
+import { LoaderProvider } from '../../providers/loader/loader';
 /**
  * Generated class for the InventoryPage page.
  *
@@ -16,13 +20,23 @@ import { LocalDataSource } from 'ng2-smart-table';
   templateUrl: 'inventory.html',
 })
 export class InventoryPage {
+  @ViewChild(Content) content: Content;
+  @ViewChild(DaterangePickerComponent)
+
+  private picker: DaterangePickerComponent;
+
+  daterange: any = {
+    start: moment(),
+    end: moment(),
+    label: ''
+  };
 
   shopList:any[]=[];
   settings:any;
   source:any;
   inventoryList:any[]=[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private storage:StorageProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private storage:StorageProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider) {
     this.settings = {
       
       columns: {
@@ -39,6 +53,10 @@ export class InventoryPage {
           title: 'Quantity'
         }
       },
+      pager:{
+        display:true,
+      },
+      actions:false
   
 
     };
@@ -56,9 +74,29 @@ export class InventoryPage {
     })
   
   }
+  public selectedDate(value: any) {
+    // this is the date the user selected
+    console.log(value);
 
-  viewInventory(){
+    this.daterange.start = value.start;
+    this.daterange.end = value.end;
+    console.log('daterange', moment(this.daterange.start.toDate()).format("YYYY-MM-DD"));
 
+  }
+
+  viewInventory(shopId){
+    console.log('shopid...')
+    let from = moment(this.daterange.start.toDate()).format("YYYY-MM-DD");
+    let to = moment(this.daterange.end.toDate()).format("YYYY-MM-DD");
+    let page = 1;
+    this.inventoryProvider.getInventory(shopId,from,to).subscribe((data:any)=>{
+      console.log(data);
+      this.inventoryList = data;
+      this.source.load(this.inventoryList);
+      this.loader.hide();
+    },(err:any)=>{
+      this.loader.hide();
+    })
   }
 
 }
