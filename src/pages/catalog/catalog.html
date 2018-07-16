@@ -66,24 +66,18 @@
     </div>
     <ion-row id="viewProduct">
       <ion-col>
-        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()">Upload Catalog</button>
-        <button ion-button small round color="primary" (click)="showDialogToAdd()">Add</button>
+        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()"><ion-icon icon-left name="cloud-upload"></ion-icon> Upload Catalog</button>
+        <button ion-button small round color="primary" (click)="showDialogToAdd()"><ion-icon name="add-circle" icon-left></ion-icon> Add</button>
         <!-- <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button> -->
-        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="deleteAll()">Delete All</button>
-        <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="refresh()">Refresh</button>
+        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="deleteSelected()"><ion-icon name="trash" icon-left></ion-icon> Delete</button>
+        <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="refresh()"><ion-icon name="refresh" icon-left></ion-icon> Refresh</button>
         
       </ion-col>
-      <!-- <ion-col>
-       
-          <ng2-smart-table [settings]="settings" [source]="source"  (editConfirm)="onSaveConfirm($event)"
-            (createConfirm)="onCreateConfirm($event)" (userRowSelect)="userRowSelect($event)"></ng2-smart-table>
-       
-      </ion-col> -->
     </ion-row>
 
   </ion-grid>
 
-  <p-table #dt [columns]="cols" [value]="productList" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event)"
+  <p-table #dt [columns]="cols" [value]="productList" selectionMode="multiple" [(selection)]="selectedProduct"
     [paginator]="true" [rows]="15">
     <ng-template pTemplate="caption">
       <div style="text-align: right">
@@ -91,16 +85,25 @@
         <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
           style="width:auto">
       </div>
+      <div style="text-align: left">
+         <button ion-button small (click)="deleteAll()"><ion-icon icon-left name="trash"></ion-icon>Delete Catalog</button>
+        </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
       <tr>
+          <th>Action</th>
         <th *ngFor="let col of columns">
           {{col.header}}
         </th>
+        
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr [pSelectableRow]="rowData">
+        <td>
+          <button ion-button small (click)="deleteProduct(rowData)"><ion-icon name="trash"></ion-icon></button>
+          <button ion-button small (click)="editProduct(rowData)"><ion-icon name="create"></ion-icon></button>
+        </td>
         <td>{{rowData.barcodeId}}</td>
         <td>{{rowData.sku}}</td>
         <td>{{rowData.name}}</td>

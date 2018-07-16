@@ -38,7 +38,7 @@ module.exports = {
       dest: '{{BUILD}}/assets/css'
     },
     copyFontAwesome: {
-      src: ["{{ROOT}}/node_modules/@fortawesome/fontawesome-free/fonts/**/*"],
-      dest: "{{BUILD}}/assets/fonts"
+      src: ["{{ROOT}}/node_modules/font-awesome/font-awesome.min.css"],
+      dest: "{{BUILD}}/assets/css"
       }
   }

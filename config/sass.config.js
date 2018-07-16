@@ -48,7 +48,7 @@ module.exports = {
     'node_modules/@swimlane/ngx-datatable/release/',
     "node_modules/primeicons/",
   "node_modules/primeng/",
-  "node_modules/@fortawesome/fontawesome-free/fonts/**/*"
+  "node_modules/font-awesome/"
   ],
 
   /**

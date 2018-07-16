@@ -91,8 +91,9 @@ export class OrdersPage {
         { field: 'deliveryDate', header: 'Delivery Date' },
         { field: 'slot', header: 'Slot' },
         { field: 'city', header: 'City'},
-        { field: 'orderSentToMerchant', header: 'Order Sent To Merchant' },
+        { field: 'orderSentToMerchant', header:'Order Sent To Merchant'},
         { field: 'status', header: 'Status' }
+        
     ];
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);
