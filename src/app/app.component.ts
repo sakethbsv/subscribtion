@@ -47,8 +47,8 @@ export class MyApp {
       { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
       { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
       { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
-      { title: 'Promotions', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' },
-      { title: 'Inventory', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
+      { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' },
+      { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
     ];
 
 

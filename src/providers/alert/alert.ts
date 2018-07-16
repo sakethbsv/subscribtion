@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { CatalogProvider } from '../catalog/catalog';
 import { LoaderProvider } from '../loader/loader';
+import { text } from '@angular/core/src/render3/instructions';
 
 /*
   Generated class for the AlertProvider provider.
@@ -92,4 +93,31 @@ export class AlertProvider {
 
   }
 
+  // Catalog Page - Add Product
+  addNewProduct(data){
+    let alert = this.alert.create(
+      {
+        title:'Edit',
+        inputs:[
+          {
+            name:'BarcodeId',
+            type:'text'
+          },
+          {
+            name:'Sku',
+            type:'text'
+          },
+          {
+            name:'Product Name',
+            type:'text'
+          },{
+            name:'Category',
+            type:'text'
+          }
+        ]
+      }
+    )
+
+    return alert.present();
+  }
 }

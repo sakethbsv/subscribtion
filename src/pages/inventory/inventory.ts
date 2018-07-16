@@ -1,14 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { StorageProvider } from '../../providers/storage/storage';
-import { LocalDataSource } from 'ng2-smart-table';
 import { InventoryProvider } from '../../providers/inventory/inventory';
-
 import { DaterangePickerComponent } from 'ng2-daterangepicker';
 import * as moment from 'moment';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
 /**
  * Generated class for the InventoryPage page.
  *
@@ -37,32 +37,11 @@ export class InventoryPage {
   settings:any;
   source:any;
   inventoryList:any[]=[];
+  rows:any[]=[];
+  columns:any[]=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private storage:StorageProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider) {
-    this.settings = {
-      
-      columns: {
-        sku: {
-          title: 'Sku'
-        },
-        barcodeId: {
-          title: 'Barcode Id'
-        },
-        name: {
-          title: 'Name'
-        },
-        quantity: {
-          title: 'Quantity'
-        }
-      },
-      pager:{
-        display:true,
-      },
-      actions:false
-  
-
-    };
-    this.source = new LocalDataSource(this.inventoryList)
+    
   }
 
   ionViewDidLoad() {
@@ -92,9 +71,14 @@ export class InventoryPage {
     let to = moment(this.daterange.end.toDate()).format("YYYY-MM-DD");
     let page = 1;
     this.inventoryProvider.getInventory(shopId,from,to).subscribe((data:any)=>{
+      // this.columns = [
+      //   { prop: 'barcodeId' },
+      //   { name: 'Sku' },
+      //   { name: 'Name' },
+      //   { name: 'Quantity' }
+      // ];
+      this.rows = data;
       console.log(data);
-      this.inventoryList = data;
-      this.source.load(this.inventoryList);
       this.loader.hide();
     },(err:HttpErrorResponse)=>{
       this.errorHandler.error(err);

@@ -1,14 +1,6 @@
 page-catalog {
 
-    table{
-        color:color($colors,'primary');
-        text-align: center;
-        font-size: 14px;
-        overflow-x: auto;
-        overflow-y: auto;
-       
-        
-    }
+
 
    ion-card{
         overflow: scroll;
@@ -16,29 +8,10 @@ page-catalog {
 
 
 
-    table>thead,table>th{
-        color:color($colors,'secondary');
-        font-weight: bold;
-        border: 2px solid;
-       
-    }
-    table>tr{
-       
-    }
 
-    ng2-smart-table-pager{
-        color:color($colors,'secondary');
-        font-size: 20px;
-        padding: 5px;
-        font-weight: bold;
-    }
-   a.ng2-smart-page-link.page-link{
-        color:color($colors,'primary');
-        margin: 5px;
-    }
-  ng2-smart-table-pager>nav{
-        margin: auto;
-        padding: 10px;
+
+    .seleted{
+        background: color($colors,secondary);
     }
 
 }

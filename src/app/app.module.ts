@@ -1,11 +1,13 @@
 
 import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import {TableModule} from 'primeng/table';
+
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -41,8 +43,9 @@ import { PromotionsProvider } from '../providers/promotions/promotions';
 import { PromotionsPage } from '../pages/promotions/promotions';
 import { InventoryPage } from '../pages/inventory/inventory';
 import { InventoryProvider } from '../providers/inventory/inventory';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-
+import {DialogModule} from 'primeng/dialog';
 
 
 @NgModule({
@@ -63,6 +66,8 @@ import { InventoryProvider } from '../providers/inventory/inventory';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    DialogModule,
     Daterangepicker,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot({
@@ -73,7 +78,8 @@ import { InventoryProvider } from '../providers/inventory/inventory';
     Ng2SmartTableModule,
     TableModule,
     ScrollToModule.forRoot(),
-    PapaParseModule
+    PapaParseModule,
+    NgxDatatableModule
     
   ],
   bootstrap: [IonicApp],
