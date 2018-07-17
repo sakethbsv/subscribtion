@@ -26,11 +26,11 @@ export class ErrorHandlerServiceProvider {
     }else if(err.status==500){
      return this.alert.errorAlert('Internal Server Error !');
     }else if(err.status==400){
-     return this.alert.errorAlert(errMsg);
+     return this.alert.errorAlert(err.statusText);
     }else if(err.status==401){
      //return this.navCtrl.setRoot(LoginPage);
     }else if(err.status==0){
-      return this.alert.errorAlert('Please check your internet !');
+      return this.alert.errorAlert('Something went wrong !');
     }else if(err.status==400){
       return this.alert.errorAlert(errMsg);
     }

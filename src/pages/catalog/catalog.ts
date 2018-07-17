@@ -40,7 +40,7 @@ export class CatalogPage {
   cols: any[] = [];
   msgs: any[] = [];
   rowData: any;
-  uploadCatalog:boolean=false;
+  uploadCatalog: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider) {
   }
 
@@ -66,7 +66,7 @@ export class CatalogPage {
         { field: 'subCategory', header: 'Sub Category' },
         { field: 'categoryImage', header: 'Category Image' },
         { field: 'amount', header: 'Amount' },
-        { field: 'isPerishable', header: 'Persihable' }
+        { field: 'isPerishable', header: 'Perishable' }
       ];
 
       //this.dataset = data;
@@ -87,14 +87,12 @@ export class CatalogPage {
 
 
   updateProductList(list) {
-    let updateSuccessful = false;
+
     console.log('Products to be updates', list);
     let promise = new Promise((resolve, reject) => {
 
 
       this.catalogService.addOrUpdateSubscriptionData(this.shopSelected, list).subscribe(() => {
-        //this.toast.create({ message: 'Updated Successfully !', duration: 3000, position: 'top',showCloseButton:true }).present();
-        updateSuccessful = true;
         this.loader.hide();
         resolve();
       }, (err: HttpErrorResponse) => {
@@ -102,10 +100,9 @@ export class CatalogPage {
 
         this.errorHandler.error(err);
         this.loader.hide();
-        updateSuccessful = false;
-        reject();
+        reject(err);
       })
-      console.log('operation status', updateSuccessful);
+
 
     })
 
@@ -114,26 +111,18 @@ export class CatalogPage {
   }
 
 
-
-  // uploadCatalog() {
-  //   this.catalogService.selectedShopId = this.shopSelected;
-  //   this.modal.showFileUploadModal(this.shopSelected);
-  // }
-
-
   checkData(element) {
 
-    if (element.barcodeId != "" && element.sku != "" && element.category != "" && element.subCategory != "" && !isNaN(element.amount)) {
+    if (element.barcodeId != null && element.sku != null && element.category != null && element.subCategory != null && element.amount!=null) {
       return true;
     } else {
+      this.alert.errorAlert('BarcodeId,SKU,Category,Subcategory,Amount')
       return false;
     }
   }
   refresh() {
     this.viewProduct(this.shopSelected);
   }
-
-
 
   showDialogToAdd() {
     this.newProduct = true;
@@ -142,24 +131,35 @@ export class CatalogPage {
   }
 
   save() {
-    console.log(this.selectedProduct)
     this.productListToUpdate = [];
     this.msgs = [];
     let products = this.productList;
-    if (this.newProduct)
-      products.push(this.product);
-    else
-      products[this.productList.indexOf(this.editedProduct)] = this.product;
-    this.productListToUpdate.push(this.product);
-
+    if (this.newProduct){
+        if(this.checkData(this.product)){
+          
+              this.updateProductList([this.product]).then(() => {  
+                  products.push(this.product);          
+                }, (err) => {
+                  console.log(err);
+                  
+                })
+        }
+        
+    }else{
+      this.updateProductList([this.product]).then(() => {  
+        products[this.productList.indexOf(this.editedProduct)] = this.product;        
+      }, (err) => {
+        console.log(err);
+        
+      })
+      
+    }
+    
     this.productList = products;
-    this.product = null;
+    this.product = {};
     this.displayDialog = false;
-    console.log(this.productList);
-    this.updateProductList(this.productListToUpdate).then(() => {
-      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Updated !' });
 
-    })
+
   }
 
   delete() {
@@ -174,6 +174,8 @@ export class CatalogPage {
 
     this.updateProductList(this.productListToUpdate).then(() => {
       this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
+    },()=>{
+
     })
 
 
@@ -200,22 +202,31 @@ export class CatalogPage {
       element.delete = true;
       this.productListToUpdate.push(element);
     });
-    this.updateProductList(this.productListToUpdate).then(() => {
-      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Catalog Deleted !' });
+    this.alert.deleteConfirmation(this.shopSelected, this.productListToUpdate).then(() => {
+      this.updateProductList(this.productListToUpdate).then(() => {
+        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Catalog Deleted !' });
+        this.productList = [];
+      })
+    }, () => {
+
     })
+
 
 
   }
 
   deleteProduct(data) {
+    this.productListToUpdate = [];
     this.msgs = [];
-    let index = this.productList.indexOf(data);
-    this.productList = this.productList.filter((i) => i != index);
     data.delete = true;
     this.productListToUpdate.push(data);
-    this.product = null;
+    this.displayDialog = false;
     this.updateProductList(this.productListToUpdate).then(() => {
       this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
+      let index = this.productList.indexOf(data);
+      this.productList = this.productList.filter((val, i) => i != index);
+    }, () => {
+
     })
   }
 
@@ -231,15 +242,17 @@ export class CatalogPage {
     this.alert.deleteConfirmation(this.shopSelected, this.productListToUpdate).then(() => {
       console.log(this.alert.productDeleted);
       if (this.alert.productDeleted) {
-        this.productListToUpdate.forEach(element => {
-          let index = this.productList.indexOf(element);
-          this.productList = this.productList.filter((i) => i != index);
-        });
+
 
         // update products
         this.updateProductList(this.productListToUpdate).then(() => {
           this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
-
+          this.productListToUpdate.forEach(element => {
+            let index = this.productList.indexOf(element);
+            this.productList = this.productList.filter((val, i) => i != index);
+          });
+        },()=>{
+          
         })
 
 
@@ -262,16 +275,18 @@ export class CatalogPage {
     this.displayDialog = true;
   }
 
-  myUploader(event){
+  myUploader(event) {
     console.log(event.files);
-  
-    
-    this.catalogService.convertCatalogCsvToJson(event.files[0],this.shopSelected).then((data:any)=>{
-      this.updateProductList(data).then(()=>{
+
+
+    this.catalogService.convertCatalogCsvToJson(event.files[0], this.shopSelected).then((data: any) => {
+      this.updateProductList(data).then(() => {
+        this.uploadCatalog = false;
         this.productList.push(data);
         this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Products Uploaded !' });
-      },()=>{
-        
+        this.viewProduct(this.shopSelected);
+      }, () => {
+
       })
     })
 
