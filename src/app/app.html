@@ -1,7 +1,7 @@
 
 <ion-split-pane [when]="splitPane.getSplitPane()">
 <ion-menu persistent="true" [content]="content">
-  <ion-header>
+  <!-- <ion-header>
     <ion-toolbar>
       <ion-avatar item-left>
         <img src="../assets/imgs/admin.png" class="dashboard-icons">
@@ -9,10 +9,17 @@
       <p ion-text text-center color="secondary"><b>{{admin.adminName}}</b></p>
       <p ion-text text-center color="light"><b>{{admin.emailId}}</b></p>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
   <ion-content no-padding id="menu">
     <ion-list>
+        <ion-toolbar>
+            <ion-avatar item-left>
+              <img src="../assets/imgs/admin.png" class="dashboard-icons">
+            </ion-avatar>
+            <p ion-text text-center color="secondary"><b>{{admin.adminName}}</b></p>
+            <p ion-text text-center color="light"><b>{{admin.emailId}}</b></p>
+          </ion-toolbar>
       <button menuClose color="{{p.color}}" ion-item *ngFor="let p of pages" (click)="openPage(p)">
        <p ion-text text-left color="secondary"><ion-icon name="{{p.icon}}"></ion-icon>&nbsp;
         {{p.title}} </p> 

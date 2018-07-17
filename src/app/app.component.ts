@@ -36,8 +36,9 @@ export class MyApp {
         this.admin=data.admin;
         console.log(this.admin);
         console.log(data);
+        this.rootPage=HomePage;
         this.splitPane.setSplitPane(true);
-        this.rootPage = HomePage;
+        
       }else{
         this.rootPage = LoginPage;
       }
