@@ -51,6 +51,8 @@ export class FulfillmentDetailsProvider {
       obj.address = data.address;
       obj.subscriptionOrderItems = data.subscriptionOrderItems;
       obj.fulfillmentId = data.fulfillment.id;
+      obj.paymentMethod = data.paymentMethod;
+      obj.subscriptionOrderId = data.subscriptionOrderId;
       if(moment(data.fulfillment.deliveryDate).isAfter(now)){
         obj.disable = true;
        }else{

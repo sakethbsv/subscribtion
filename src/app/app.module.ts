@@ -46,7 +46,7 @@ import { InventoryProvider } from '../providers/inventory/inventory';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import {DialogModule} from 'primeng/dialog';
-
+import {GrowlModule} from 'primeng/growl';
 
 @NgModule({
   declarations: [
@@ -79,7 +79,8 @@ import {DialogModule} from 'primeng/dialog';
     TableModule,
     ScrollToModule.forRoot(),
     PapaParseModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    GrowlModule
     
   ],
   bootstrap: [IonicApp],

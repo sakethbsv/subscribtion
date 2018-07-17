@@ -22,30 +22,16 @@ export class FulfillmentDetailPage {
   settings : any;
   slot:any;
   fulfillmentId:any;
+  cols:any[]=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.settings = {
-      columns: {
-       
-        barcodeId: {
-          title: 'Barcode Id'
-        },
-        sku: {
-          title: 'SKU'
-        },
-        name: {
-          title: 'Product Name'
-        },
-        quantity: {
-          title: 'Quantity'
-        },
-
-        amount: {
-          title: 'Amount'
-        },
-      },
-      actions: false
-    }; 
+    this.cols = [
+      { field: 'barcodeId', header: 'Barcode Id'},
+      { field: 'sku', header:'Sku'},
+      { field: 'name', header:'name'},
+      { field: 'quantity', header: 'quantity'},
+      { field: 'amount', header: 'amount' }
+  ];
    let data = navParams.get('fulfillmentDetail');
    this.subscriptionOrderItems = data.subscriptionOrderItems;
    this.address = data.address;

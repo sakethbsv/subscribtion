@@ -38,7 +38,7 @@ export class InventoryPage {
   source:any;
   inventoryList:any[]=[];
   rows:any[]=[];
-  columns:any[]=[];
+  cols:any[]=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private storage:StorageProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider) {
     
@@ -71,13 +71,16 @@ export class InventoryPage {
     let to = moment(this.daterange.end.toDate()).format("YYYY-MM-DD");
     let page = 1;
     this.inventoryProvider.getInventory(shopId,from,to).subscribe((data:any)=>{
-      // this.columns = [
-      //   { prop: 'barcodeId' },
-      //   { name: 'Sku' },
-      //   { name: 'Name' },
-      //   { name: 'Quantity' }
-      // ];
-      this.rows = data;
+      this.cols = [
+        { field: 'barcodeId', header: 'Barcode ID'},
+        { field: 'sku', header:'SKU'},
+        { field: 'name', header:'Product Name'},
+        { field: 'category', header: 'Category' },
+        { field: 'subCategory', header: 'Subcataegory'},
+        { field: 'quantity', header: 'Quantity'}
+        
+    ];
+      this.inventoryList = data;
       console.log(data);
       this.loader.hide();
     },(err:HttpErrorResponse)=>{

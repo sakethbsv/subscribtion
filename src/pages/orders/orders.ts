@@ -11,6 +11,7 @@ import { LoaderProvider } from '../../providers/loader/loader';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ScrollProvider } from '../../providers/scroll/scroll';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
+import { ModalProvider } from '../../providers/modal/modal';
 
 
 /**
@@ -49,7 +50,7 @@ export class OrdersPage {
   shopIds:any[]=[];
   selectedShopIds:any[]=[];
   cols:any[]=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider) {
     this.fulfillmentData = [];
 
   }
@@ -86,10 +87,12 @@ export class OrdersPage {
     this.orders.getFulfillmentDetails(obj).subscribe((data: any) => {
       this.cols = [
         { field: 'subscriptionId', header: 'ID'},
+        { field: 'subscriptionOrderId',header:'Order Id'},
         { field: 'customerName', header:'Customer Name'},
         { field: 'mobileNumber', header:'Mobile Number'},
-        { field: 'deliveryDate', header: 'Delivery Date' },
+        { field: 'deliveryDate', header: 'Delivery Date'},
         { field: 'slot', header: 'Slot' },
+        { field: 'paymentMethod', header: 'Payment Method'},
         { field: 'city', header: 'City'},
         { field: 'orderSentToMerchant', header:'Order Sent To Merchant'},
         { field: 'status', header: 'Status' }
@@ -155,7 +158,7 @@ export class OrdersPage {
 
 
   onClick(fulfillment) {
-    console.log(fulfillment);
+    console.log('...',fulfillment);
     if(fulfillment.status=="PENDING"){
       fulfillment.status="FULFILLED";
      
@@ -180,6 +183,11 @@ export class OrdersPage {
       this.loader.hide();
     })
     
+  }
+
+  onRowSelect(data){
+    console.log(data)
+   this.modal.showSubscriptionDetails(data);
   }
 
 }

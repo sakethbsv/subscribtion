@@ -4,6 +4,7 @@ import { ModalController, ViewController } from 'ionic-angular';
 import { CsvmodalPage } from '../../pages/csvmodal/csvmodal';
 import { DeleteconfirmationPage } from '../../pages/deleteconfirmation/deleteconfirmation';
 import { CatalogProvider } from '../catalog/catalog';
+import { FulfillmentDetailPage } from '../../pages/fulfillment-detail/fulfillment-detail';
 
 /*
   Generated class for the ModalProvider provider.
@@ -34,9 +35,6 @@ export class ModalProvider {
       
     });
     this.deleteModal.present();
-
-    
-
    
   }
 
@@ -44,5 +42,14 @@ export class ModalProvider {
     this.deleteModal.dismiss();
   }
   
+  showSubscriptionDetails(data){
+    console.log(data);
+    let subscriptionModal = this.modal.create(FulfillmentDetailPage,{'fulfillmentDetail':data});
+    subscriptionModal.onDidDismiss(data=>{
+
+    })
+
+    subscriptionModal.present();
+  }
 
 }

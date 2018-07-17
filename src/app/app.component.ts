@@ -33,8 +33,9 @@ export class MyApp {
     this.storage.getItem('admin').then(data=>{
       if(data!=null){
         //this.openPage(HomePage)
+        this.admin=data;
         this.splitPane.setSplitPane(true);
-        this.nav.push(HomePage);
+        this.rootPage = HomePage;
       }else{
         this.rootPage = LoginPage;
       }

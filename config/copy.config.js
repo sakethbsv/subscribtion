@@ -19,26 +19,18 @@ module.exports = {
       src: ['{{ROOT}}/node_modules/sw-toolbox/sw-toolbox.js'],
       dest: '{{BUILD}}'
     },
-    copyNgxFont: {
-        src: ['{{ROOT}}/node_modules/@swimlane/ngx-datatable/release/assets/fonts/data-table.ttf',
-        '{{ROOT}}/node_modules/@swimlane/ngx-datatable/release/assets/fonts/data-table.woff'],
-        dest: '{{BUILD}}/fonts'
-    },
-    copyNgxCSS: {
-        src: ['{{ROOT}}/node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css',
-        '{{ROOT}}/node_modules/@swimlane/ngx-datatable/release/themes/dark.css',
-        '{{ROOT}}/node_modules/@swimlane/ngx-datatable/release/themes/material.css',
-        '{{ROOT}}/node_modules/@swimlane/ngx-datatable/release/index.css'],
-        dest: '{{BUILD}}/assets/css'
-    },
     copyPrimeNgCSS:{
       src:['{{ROOT}}/node_modules/primeicons/primeicons.css',
       '{{ROOT}}/node_modules/primeng/resources/themes/omega/theme.css',
       '{{ROOT}}/node_modules/primeng/resources/primeng.min.css'],
       dest: '{{BUILD}}/assets/css'
     },
-    copyFontAwesome: {
-      src: ["{{ROOT}}/node_modules/font-awesome/font-awesome.min.css"],
-      dest: "{{BUILD}}/assets/css"
-      }
+    copyPrimengFonts: {
+      src: ['{{ROOT}}/node_modules/primeicons/fonts/**'],
+      dest: '{{BUILD}}/assets/css/fonts'
+    },
+    // copyFontAwesome: {
+    //   src: ["{{ROOT}}/node_modules/font-awesome/fonts/**/*"],
+    //   dest: "{{BUILD}}/assets/fonts"
+    // }
   }

@@ -82,7 +82,7 @@
         </div>
         <ion-card class="content-scrolls">
 
-          <p-table #dt [columns]="cols" [value]="fulfillmentData" [paginator]="true" [rows]="20">
+          <p-table #dt [columns]="cols" [value]="fulfillmentData" [(selection)]="selectedFulfillment" [paginator]="true" [rows]="20"  [scrollable]="true">
             <ng-template pTemplate="caption">
               <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -95,16 +95,18 @@
                 <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                   {{col.header}}
                 </th>
+                <th>Detail</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-fulfillment>
               <tr>
                 <td>{{fulfillment.subscriptionId}}</td>
+                <td>{{fulfillment.subscriptionOrderId}}</td>
                 <td>{{fulfillment.customerName}}</td>
                 <td>{{fulfillment.mobileNumber}}</td>
                 <td>{{fulfillment.deliveryDate | date}}</td>
-                <td>{{fulfillment.payment}}</td>
                 <td>{{fulfillment.slot}}</td>
+                <td>{{fulfillment.paymentMethod}}</td>
                 <td>{{fulfillment.city}}</td>
                 <td>
                   <span *ngIf="fulfillment.orderSentToMerchant">
@@ -115,13 +117,16 @@
                   </span>
                   <td>
                     <button *ngIf="fulfillment.status=='PENDING'" ion-button [color]="fulfillment.status=='FULFILLED'?'dark':'secondary'" [disabled]="fulfillment.disable"
-                      (click)="onClick(fulfillment)">
+                      (click)="onClick(fulfillment.status)">
                       <b ion-text color="light">{{fulfillment.status}}</b>
                     </button>
 
                     <button ion-button clear *ngIf="fulfillment.status!='PENDING'">
                       <b ion-text color="dark">{{fulfillment.status}}</b>
                     </button>
+                  </td>
+                  <td>
+                    <button ion-button small clear (click)="onRowSelect(fulfillment)" ><ion-icon name="eye"></ion-icon>View</button>
                   </td>
                  
               </tr>

@@ -66,11 +66,11 @@
     </div>
     <ion-row id="viewProduct">
       <ion-col>
-        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()"><ion-icon icon-left name="cloud-upload"></ion-icon> Upload Catalog</button>
-        <button ion-button small round color="primary" (click)="showDialogToAdd()"><ion-icon name="add-circle" icon-left></ion-icon> Add</button>
+        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()"><ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
+        <button ion-button small round color="primary" (click)="showDialogToAdd()"><ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
         <!-- <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button> -->
-        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="deleteSelected()"><ion-icon name="trash" icon-left></ion-icon> Delete</button>
-        <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="refresh()"><ion-icon name="refresh" icon-left></ion-icon> Refresh</button>
+        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="deleteSelected()"><ion-icon name="trash" icon-left></ion-icon>&nbsp; Delete</button>
+        <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="refresh()"><ion-icon name="refresh" icon-left></ion-icon> &nbsp;Refresh</button>
         
       </ion-col>
     </ion-row>
@@ -127,66 +127,66 @@
   <div class="ui-g ui-fluid" *ngIf="product">
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="vin">BarcodeId</label>
+        <label for="barcodeId">BarcodeId</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="vin" [(ngModel)]="product.barcodeId" />
+        <input type="text" id="barcodeId" [(ngModel)]="product.barcodeId" />
       </div>
     </div>
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="year">Sku</label>
+        <label for="sku">Sku</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="year" [(ngModel)]="product.sku" />
+        <input type="text" id="sku" [(ngModel)]="product.sku" />
       </div>
     </div>
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="brand">Product Name</label>
+        <label for="name">Product Name</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="brand" [(ngModel)]="product.name" />
+        <input type="text" id="name" [(ngModel)]="product.name" />
       </div>
     </div>
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="color">Image Url</label>
+        <label for="image">Image Url</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="color" [(ngModel)]="product.image" />
+        <input type="text" id="image" [(ngModel)]="product.image" />
       </div>
     </div>
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="color">Category</label>
+        <label for="category">Category</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="color" [(ngModel)]="product.category" />
+        <input type="text" id="category" [(ngModel)]="product.category" />
       </div>
     </div>
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="color">Sub Category</label>
+        <label for="subCategory">Sub Category</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="color" [(ngModel)]="product.subCategory" />
+        <input type="text" id="subCategory" [(ngModel)]="product.subCategory" />
       </div>
     </div>
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="color">Category Image</label>
+        <label for="catImg">Category Image</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="color" [(ngModel)]="product.categoryImage" />
+        <input type="text" id="catImg" [(ngModel)]="product.categoryImage" />
       </div>
     </div>
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="color">Amount</label>
+        <label for="amount">Amount</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="color" [(ngModel)]="product.amount" />
+        <input type="number" id="amount" [(ngModel)]="product.amount" />
       </div>
     </div>
     <div class="ui-g-12">
@@ -194,12 +194,12 @@
         <label for="color">isPerishable</label>
       </div>
       <div class="ui-g-8">
-        <input pInputText id="color" [(ngModel)]="product.isPerishable" />
+        <input type="checkbox" id="color" [(ngModel)]="product.isPerishable" />
       </div>
     </div>
     <div class="ui-g-12" style="display: none">
         <div class="ui-g-4">
-          <label for="color">isPerishable</label>
+          <label for="color">delete</label>
         </div>
         <div class="ui-g-8">
           <input pInputText id="color" [(ngModel)]="product.delete" />
@@ -208,8 +208,9 @@
   </div>
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
-      <button ion-button (click)="delete()">Delete</button>
       <button ion-button (click)="save()">Save</button>
     </div>
   </p-footer>
 </p-dialog>
+
+<p-growl [(value)]="msgs"></p-growl>

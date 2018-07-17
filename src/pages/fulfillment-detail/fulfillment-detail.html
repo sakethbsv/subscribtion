@@ -62,7 +62,31 @@
       </ion-row>
     </ion-card-header>
     <ion-card-content>
-      <ng2-smart-table [settings]="settings" [source]="subscriptionOrderItems" style="overflow-x: auto"></ng2-smart-table>
+      <p-table #dt [columns]="cols" [value]="subscriptionOrderItems">
+        <ng-template pTemplate="caption">
+          <div style="text-align: right">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
+              style="width:auto">
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-fulfillment>
+          <tr>
+            <td>{{fulfillment.barcodeId}}</td>
+            <td>{{fulfillment.sku}}</td>
+            <td>{{fulfillment.name}}</td>
+            <td>{{fulfillment.quantity}}</td>
+            <td>Rs.{{fulfillment.amount}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </ion-card-content>
   </ion-card>
 </ion-content>

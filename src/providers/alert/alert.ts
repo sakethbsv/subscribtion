@@ -64,10 +64,7 @@ export class AlertProvider {
           text: 'Cancel',
           role: 'cancel',
           handler: data => {
-            console.log('Cancel clicked');
-            list.forEach(item => {
-              item.delete = false;
-            });
+           reject();
           }
         },
         {
@@ -75,6 +72,8 @@ export class AlertProvider {
           handler: data => {
             console.log(shopId,list);
             this.productDeleted=true;
+            resolve();
+            
             // this.catalog.addOrUpdateSubscriptionData(shopId, list).subscribe((data: any) => {
   
             // }, (err: HttpErrorResponse) => {

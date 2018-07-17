@@ -9,7 +9,7 @@ import { ModalProvider } from '../../providers/modal/modal';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ToastController } from 'ionic-angular';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
-
+import { Message } from 'primeng/api';
 /**
  * Generated class for the CatalogPage page.
  *
@@ -27,22 +27,24 @@ export class CatalogPage {
   selected = [];
   shopList: any[] = [];
   settings: any;
-  
- 
+
+
   shopSelected: any;
- 
-  rows:any[]=[];
-  
-  displayDialog:boolean=false;
-  product:any={}; 
-  selectedProduct:any;
-  newProduct:boolean=false;
+
+  rows: any[] = [];
+
+  displayDialog: boolean = false;
+  product: any = {};
+  selectedProduct: any;
+  newProduct: boolean = false;
   productList: any[] = [];
-  productListToUpdate:any[]=[];
-  cols:any[]=[];
+  productListToUpdate: any[] = [];
+  editedProduct: any = {};
+  cols: any[] = [];
+  msgs: any[] = [];
+  rowData: any;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private toast: ToastController, private errorHandler: ErrorHandlerServiceProvider,private alert:AlertProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private toast: ToastController, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider) {
   }
 
   ionViewDidLoad() {
@@ -59,21 +61,21 @@ export class CatalogPage {
   viewProduct(shopId) {
     this.catalogService.getAllProducts(shopId).subscribe((data: any) => {
       this.cols = [
-        { field: 'barcodeId', header: 'BarcodeId'},
-        { field: 'sku', header:'sku'},
-        { field: 'name', header:'Name'},
+        { field: 'barcodeId', header: 'BarcodeId' },
+        { field: 'sku', header: 'sku' },
+        { field: 'name', header: 'Name' },
         { field: 'image', header: 'Image' },
         { field: 'category', header: 'Category' },
-        { field: 'subCategory', header: 'Sub Category'},
+        { field: 'subCategory', header: 'Sub Category' },
         { field: 'categoryImage', header: 'Category Image' },
         { field: 'amount', header: 'Amount' },
-        {field:'isPerishable',header:'Persihable'}
-    ];
-      
+        { field: 'isPerishable', header: 'Persihable' }
+      ];
+
       //this.dataset = data;
       this.productList = data.subscriptionProducts;
       //this.catalogService.catalogData = this.productList;
-     // this.rows = this.productList;
+      // this.rows = this.productList;
       // this.source.load(this.productList)
       console.log(this.productList);
     }, (err: HttpErrorResponse) => {
@@ -85,195 +87,182 @@ export class CatalogPage {
     })
   }
 
-  // save() {
-  //   this.updateProductList()
-  // }
+
 
   updateProductList(list) {
+    let updateSuccessful = false;
+    console.log('Products to be updates', list);
+    let promise = new Promise((resolve, reject) => {
 
-    console.log('Products to be updates',list);
 
-    // this.catalogService.addOrUpdateSubscriptionData(this.shopSelected, list).subscribe((data: any) => {
-    //   this.toast.create({ message: 'Updated Successfully !', duration: 3000, position: 'top',showCloseButton:true }).present();
-    // }, (err: HttpErrorResponse) => {
-    //   console.log(err);
+      this.catalogService.addOrUpdateSubscriptionData(this.shopSelected, list).subscribe((data: any) => {
+        //this.toast.create({ message: 'Updated Successfully !', duration: 3000, position: 'top',showCloseButton:true }).present();
+        updateSuccessful = true;
+        this.loader.hide();
+        resolve();
+      }, (err: HttpErrorResponse) => {
+        console.log(err);
 
-    //   this.errorHandler.error(err);
-    //   this.loader.hide();
-    // }, () => {
-    //   this.loader.hide();
-    // })
+        this.errorHandler.error(err);
+        this.loader.hide();
+        updateSuccessful = false;
+        reject();
+      })
+      console.log('operation status', updateSuccessful);
+
+    })
+
+
+    return promise;
   }
 
 
-
-  // onSaveConfirm(event) {
-    
-  //   if(this.checkData(event.newData)){
-  //     event.confirm.resolve(event.newData);
-  //     this.productUpdateList.push(event.newData);
-  //   }else{
-  //     this.toast.create({ message: 'BarcodeId,Sku,Category,Sub-Category Are Mandatory', duration: 3000, position: 'top',showCloseButton:true }).present();
-  //   }
-  //   console.log(event.newData);
-
-  // }
-
-  // onCreateConfirm(event) {
-
-   
-  //   if(this.checkData(event.newData)){
-  //     event.confirm.resolve(event.newData);
-  //     this.productUpdateList.push(event.newData);
-  //   }else{
-  //     this.toast.create({ message: 'BarcodeId,Sku,Category,Sub-Category Are Mandatory', duration: 3000, position: 'top',showCloseButton:true }).present();
-  //   }
-   
-  //   console.log(event.newData);
-  // }
 
   uploadCatalog() {
     this.catalogService.selectedShopId = this.shopSelected;
     this.modal.showFileUploadModal(this.shopSelected);
   }
 
-  // delete() {
-  //   this.catalogService.deleteConfirmed = false;
-  //   this.modal.deleteConfirmationModal(this.source);
 
-  //   // this.productListToBeDeleted.forEach(element => {
-  //   //   this.source.remove(element);
-  //   // });
+  checkData(element) {
 
-
-  // }
-
-
-checkData(element) {
- 
-   if(element.barcodeId!="" && element.sku!="" && element.category!="" && element.subCategory!=""){
-     return true;
-   }else{
-     return false;
+    if (element.barcodeId != "" && element.sku != "" && element.category != "" && element.subCategory != "" && !isNaN(element.amount)) {
+      return true;
+    } else {
+      return false;
+    }
   }
-}
   refresh() {
-  //   this.catalogService.productsDeleted.forEach(element => {
-  //     this.source.remove(element);
-  //   });
-
-  //  this.source.load(this.catalogService.catalogData);
-  //  this.productList = this.catalogService.catalogData;
+    this.viewProduct(this.shopSelected);
   }
 
-  // userRowSelect(event) {
-  //   this.productListToBeDeleted = [];
-  //   console.log(event);
-  //   if(event.data==null){
-  //     event.isSelected = true;
-  //     event.selected = this.productList;
-  //   }
 
-  //   if (event.isSelected) {
-  //     event.selected.forEach(item => {
-  //       item.delete = true;
-  //       this.productListToBeDeleted.push(item);
-  //     });
-  //     this.catalogService.productsDeleted = this.productListToBeDeleted;
-  //     this.catalogService.selectedShopId = this.shopSelected;
-  //   }
-  // }
 
   showDialogToAdd() {
     this.newProduct = true;
     this.product = {};
     this.displayDialog = true;
-}
+  }
 
-save() {
+  save() {
+    console.log(this.selectedProduct)
+    this.productListToUpdate = [];
+    this.msgs = [];
     let products = this.productList;
     if (this.newProduct)
-        products.push(this.product);        
+      products.push(this.product);
     else
-        products[this.productList.indexOf(this.selectedProduct)] = this.product;
-        this.productListToUpdate.push(this.product);
+      products[this.productList.indexOf(this.editedProduct)] = this.product;
+    this.productListToUpdate.push(this.product);
+
     this.productList = products;
     this.product = null;
     this.displayDialog = false;
-    this.updateProductList(this.productListToUpdate);
-}
+    console.log(this.productList);
+    this.updateProductList(this.productListToUpdate).then(() => {
+      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Updated !' });
 
-delete() {
+    })
+  }
+
+  delete() {
+    this.productListToUpdate = [];
+    this.msgs = [];
     let index = this.productList.indexOf(this.selectedProduct);
     this.productList = this.productList.filter((val, i) => i != index);
     this.product.delete = true;
     this.productListToUpdate.push(this.product);
     this.product = null;
-    this.displayDialog = false;  
-    
-    this.updateProductList(this.productListToUpdate);
-}
+    this.displayDialog = false;
 
-onRowSelect(event) {
-    this.newProduct = false;
-    this.product = this.cloneCar(event.data);
-    this.displayDialog = true;
-}
+    this.updateProductList(this.productListToUpdate).then(() => {
+      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
+    })
 
-cloneCar(c: any): any {
-    let product = {};
-    for (let prop in c) {
-        product[prop] = c[prop];
-    }
-    return product;
-}
 
-deleteAll(){
- this.productListToUpdate =[];
-  this.productList.forEach(element => {
-    element.delete = true;
-    this.productListToUpdate.push(element);
-  });
-  this.updateProductList(this.productListToUpdate);
-} 
-
-deleteProduct(data){
-  let index = this.productList.indexOf(data);
-  this.productList = this.productList.filter((val, i) => i != index);
-  data.delete = true;
-  this.productListToUpdate.push(data);
-  this.product = null;  
-  this.updateProductList(this.productListToUpdate);
-}
-
-deleteSelected(){
-  this.productListToUpdate=[];
-  console.log(this.selectedProduct)
-  this.selectedProduct.forEach(element => {
-    element.delete = true;
-    this.productListToUpdate.push(element);
-  });
-
-  this.alert.deleteConfirmation(this.shopSelected,this.productListToUpdate).then(() => {
-    console.log(this.alert.productDeleted);
-    if (this.alert.productDeleted) {
-      this.productListToUpdate.forEach(element => {
-        let index = this.productList.indexOf(element);
-        this.productList = this.productList.filter((val, i) => i != index);
-      });
-    }
-  });
- 
   }
 
- 
+  onRowSelect(event) {
+    this.newProduct = false;
+    this.product = this.cloneProduct(event.data);
+    this.displayDialog = true;
+  }
+
+  cloneProduct(c: any): any {
+    let product = {};
+    for (let prop in c) {
+      product[prop] = c[prop];
+    }
+    return product;
+  }
+
+  deleteAll() {
+    this.productListToUpdate = [];
+    this.msgs = [];
+    this.productList.forEach(element => {
+      element.delete = true;
+      this.productListToUpdate.push(element);
+    });
+    this.updateProductList(this.productListToUpdate).then(() => {
+      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Catalog Deleted !' });
+    })
 
 
-editProduct(data){
-  console.log(data);
-  this.newProduct = false;
-  this.product = this.cloneCar(data);
-  this.displayDialog = true;
-}
+  }
+
+  deleteProduct(data) {
+    this.msgs = [];
+    let index = this.productList.indexOf(data);
+    this.productList = this.productList.filter((val, i) => i != index);
+    data.delete = true;
+    this.productListToUpdate.push(data);
+    this.product = null;
+    this.updateProductList(this.productListToUpdate).then(() => {
+      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
+    })
+  }
+
+  deleteSelected() {
+    this.productListToUpdate = [];
+    this.msgs = [];
+    console.log(this.selectedProduct)
+    this.selectedProduct.forEach(element => {
+      element.delete = true;
+      this.productListToUpdate.push(element);
+    });
+
+    this.alert.deleteConfirmation(this.shopSelected, this.productListToUpdate).then(() => {
+      console.log(this.alert.productDeleted);
+      if (this.alert.productDeleted) {
+        this.productListToUpdate.forEach(element => {
+          let index = this.productList.indexOf(element);
+          this.productList = this.productList.filter((val, i) => i != index);
+        });
+
+        // update products
+        this.updateProductList(this.productListToUpdate).then(() => {
+          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
+
+        })
+
+
+      }
+    }, () => {
+      console.log('Delete Cancelled');
+      this.msgs.push({ severity: 'info', summary: 'Aborted', detail: 'Canceled !' });
+    });
+
+  }
+
+
+
+
+  editProduct(rowData) {
+    console.log(rowData);
+    this.editedProduct = rowData;
+    this.newProduct = false;
+    this.product = this.cloneProduct(rowData);
+    this.displayDialog = true;
+  }
 
 }

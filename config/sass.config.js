@@ -46,9 +46,9 @@ module.exports = {
     'node_modules/ionic-angular/fonts',
     'node_modules/@swimlane/ngx-datatable/release/themes',
     'node_modules/@swimlane/ngx-datatable/release/',
-    "node_modules/primeicons/",
-  "node_modules/primeng/",
-  "node_modules/font-awesome/"
+    "node_modules/primeicons/fonts",
+    "node_modules/primeng/",
+    "node_modules/font-awesome/css"
   ],
 
   /**

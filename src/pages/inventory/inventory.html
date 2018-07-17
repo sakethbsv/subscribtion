@@ -70,29 +70,37 @@
     </div>
     <ion-row justify-content-center>
       <ion-col align-self-center>
-        <ngx-datatable class="bootstrap ngx-datatable fixed-header" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [rows]="rows"
-          [columnMode]="'force'" [limit]="10">
-          <ngx-datatable-column name="BarcodeId">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-              {{value}}
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="SKU">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              {{value}}
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Name">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-              {{value}}
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Quantity">
-            <ng-template let-value="value" ngx-datatable-cell-template>
-              {{value}}
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
+        <p-table #dt [columns]="cols" [value]="inventoryList" [paginator]="true" [rows]="20">
+          <ng-template pTemplate="caption">
+            <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
+                style="width:auto">
+            </div>
+            <div style="text-align: left">
+              <button ion-button small round (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-inventory>
+            <tr>
+              <td>{{inventory.barcodeId}}</td>
+              <td>{{inventory.sku}}</td>
+              <td>{{inventory.name}}</td>
+              <td>{{inventory.category}}</td>
+              <td>{{inventory.subCategory}}</td>
+              <td>{{inventory.quantity}}</td>
+              
+               
+            </tr>
+          </ng-template>
+        </p-table>
       </ion-col>
 
     </ion-row>
