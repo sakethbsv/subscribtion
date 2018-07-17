@@ -41,6 +41,10 @@ import { InventoryPage } from '../pages/inventory/inventory';
 import { InventoryProvider } from '../providers/inventory/inventory';
 import {DialogModule} from 'primeng/dialog';
 import {GrowlModule} from 'primeng/growl';
+import {FileUploadModule} from 'primeng/fileupload';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { ScrollProvider } from '../providers/scroll/scroll';
+
 
 @NgModule({
   declarations: [
@@ -70,7 +74,9 @@ import {GrowlModule} from 'primeng/growl';
     HttpClientModule,
     TableModule,
     PapaParseModule,
-    GrowlModule
+    GrowlModule,
+    FileUploadModule,
+    ScrollToModule.forRoot(),
     
   ],
   bootstrap: [IonicApp],
@@ -107,6 +113,7 @@ import {GrowlModule} from 'primeng/growl';
     CatalogProvider,
     SplitpaneProvider,
     LoaderProvider,
+    ScrollProvider,
     AlertProvider,
     ModalProvider,
     PromotionsProvider,

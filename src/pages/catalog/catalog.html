@@ -66,12 +66,16 @@
     </div>
     <ion-row id="viewProduct">
       <ion-col>
-        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog()"><ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
+          
+        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog=!uploadCatalog"><ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
         <button ion-button small round color="primary" (click)="showDialogToAdd()"><ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
         <!-- <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button> -->
         <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="deleteSelected()"><ion-icon name="trash" icon-left></ion-icon>&nbsp; Delete</button>
         <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="refresh()"><ion-icon name="refresh" icon-left></ion-icon> &nbsp;Refresh</button>
         
+      </ion-col>
+      <ion-col *ngIf="uploadCatalog" >
+          <p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
       </ion-col>
     </ion-row>
 

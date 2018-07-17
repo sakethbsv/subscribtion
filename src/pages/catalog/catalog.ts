@@ -40,7 +40,7 @@ export class CatalogPage {
   cols: any[] = [];
   msgs: any[] = [];
   rowData: any;
-
+  uploadCatalog:boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider) {
   }
 
@@ -115,10 +115,10 @@ export class CatalogPage {
 
 
 
-  uploadCatalog() {
-    this.catalogService.selectedShopId = this.shopSelected;
-    this.modal.showFileUploadModal(this.shopSelected);
-  }
+  // uploadCatalog() {
+  //   this.catalogService.selectedShopId = this.shopSelected;
+  //   this.modal.showFileUploadModal(this.shopSelected);
+  // }
 
 
   checkData(element) {
@@ -260,6 +260,21 @@ export class CatalogPage {
     this.newProduct = false;
     this.product = this.cloneProduct(rowData);
     this.displayDialog = true;
+  }
+
+  myUploader(event){
+    console.log(event.files);
+  
+    
+    this.catalogService.convertCatalogCsvToJson(event.files[0],this.shopSelected).then((data:any)=>{
+      this.updateProductList(data).then(()=>{
+        this.productList.push(data);
+        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Products Uploaded !' });
+      },()=>{
+        
+      })
+    })
+
   }
 
 }
