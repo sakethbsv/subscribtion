@@ -1,11 +1,7 @@
-import { Component, ViewChild, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { StorageProvider } from '../../providers/storage/storage';
 import { FulfillmentDetailsProvider } from '../../providers/fulfillment-details/fulfillment-details';
-import { ViewCell } from '../../../node_modules/ng2-smart-table';
-import { ButtonViewPage } from '../button-view/button-view';
-import { SubscribtiondetailPage } from '../subscribtiondetail/subscribtiondetail';
-import { DaterangePickerComponent } from 'ng2-daterangepicker';
 import * as moment from 'moment';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -28,9 +24,6 @@ import { ModalProvider } from '../../providers/modal/modal';
 })
 export class OrdersPage {
   @ViewChild(Content) content: Content;
-  @ViewChild(DaterangePickerComponent)
-
-  private picker: DaterangePickerComponent;
 
   daterange: any = {
     start: moment(),

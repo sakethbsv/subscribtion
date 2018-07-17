@@ -6,10 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { AlertProvider } from '../../providers/alert/alert';
 import { ModalProvider } from '../../providers/modal/modal';
-import { LocalDataSource } from 'ng2-smart-table';
-import { ToastController } from 'ionic-angular';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
-import { Message } from 'primeng/api';
 /**
  * Generated class for the CatalogPage page.
  *
@@ -44,7 +41,7 @@ export class CatalogPage {
   msgs: any[] = [];
   rowData: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private toast: ToastController, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider) {
   }
 
   ionViewDidLoad() {
@@ -95,7 +92,7 @@ export class CatalogPage {
     let promise = new Promise((resolve, reject) => {
 
 
-      this.catalogService.addOrUpdateSubscriptionData(this.shopSelected, list).subscribe((data: any) => {
+      this.catalogService.addOrUpdateSubscriptionData(this.shopSelected, list).subscribe(() => {
         //this.toast.create({ message: 'Updated Successfully !', duration: 3000, position: 'top',showCloseButton:true }).present();
         updateSuccessful = true;
         this.loader.hide();
@@ -169,7 +166,7 @@ export class CatalogPage {
     this.productListToUpdate = [];
     this.msgs = [];
     let index = this.productList.indexOf(this.selectedProduct);
-    this.productList = this.productList.filter((val, i) => i != index);
+    this.productList = this.productList.filter((i) => i != index);
     this.product.delete = true;
     this.productListToUpdate.push(this.product);
     this.product = null;
@@ -213,7 +210,7 @@ export class CatalogPage {
   deleteProduct(data) {
     this.msgs = [];
     let index = this.productList.indexOf(data);
-    this.productList = this.productList.filter((val, i) => i != index);
+    this.productList = this.productList.filter((i) => i != index);
     data.delete = true;
     this.productListToUpdate.push(data);
     this.product = null;
@@ -236,7 +233,7 @@ export class CatalogPage {
       if (this.alert.productDeleted) {
         this.productListToUpdate.forEach(element => {
           let index = this.productList.indexOf(element);
-          this.productList = this.productList.filter((val, i) => i != index);
+          this.productList = this.productList.filter((i) => i != index);
         });
 
         // update products

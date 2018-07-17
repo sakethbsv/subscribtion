@@ -7,7 +7,6 @@ import * as moment from 'moment';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 /**
  * Generated class for the InventoryPage page.

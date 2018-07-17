@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PromotionsProvider } from '../../providers/promotions/promotions';
-import { HttpErrorResponse } from '@angular/common/http';
-import * as Handsontable from 'handsontable';
-import { LocalDataSource } from 'ng2-smart-table';
 import { StorageProvider } from '../../providers/storage/storage';
 import { LoaderProvider } from '../../providers/loader/loader';
 /**
@@ -54,9 +51,9 @@ export class PromotionsPage {
       console.log("data",data);
       this.dataset = data;
       this.loader.hide();
-    },(err:any)=>{
-      this.loader.hide();
-    })
+    },() => {
+        this.loader.hide();
+      })
 
     
   }
@@ -82,9 +79,9 @@ export class PromotionsPage {
       this.edit = false;
       this.deactivate = false;
       this.loader.hide();
-    },(err:HttpErrorResponse)=>{
-      this.loader.hide();
-    })
+    },() => {
+        this.loader.hide();
+      })
   }
 
   
@@ -103,7 +100,6 @@ export class PromotionsPage {
   editPromotion(promotion){
     this.edit = true;
     this.create = false;
-    let data = {};
     
     this.promotionData = promotion;
     

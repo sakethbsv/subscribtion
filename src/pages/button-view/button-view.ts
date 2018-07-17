@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 import {ViewCell} from 'ng2-smart-table';
 import { FulfillmentDetailsProvider } from '../../providers/fulfillment-details/fulfillment-details';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -40,7 +40,7 @@ export class ButtonViewPage implements ViewCell, OnInit{
       this.value = this.rowData.status;
     }
     
-    this.fulfillmentService.updateFulfillmentStatus(this.rowData).subscribe(data=>{  
+    this.fulfillmentService.updateFulfillmentStatus(this.rowData).subscribe(() => {
       console.log(this.value);
       this.save.emit(this.rowData);
     },(err:HttpErrorResponse)=>{

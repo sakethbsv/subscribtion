@@ -1,7 +1,5 @@
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpServiceProvider } from '../http-service/http-service';
-import { AlertProvider } from '../alert/alert';
 
 /*
   Generated class for the CatalogProvider provider.
@@ -18,7 +16,7 @@ export class CatalogProvider {
   updatedProductList:any[]=[];
   deleteConfirmed:boolean=false;
 
-  constructor(private http: HttpServiceProvider,private _http:HttpClient) {
+  constructor(private http: HttpServiceProvider) {
     console.log('Hello CatalogProvider Provider');
   }
 

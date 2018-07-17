@@ -30,10 +30,12 @@ export class MyApp {
     this.initializeApp();
     this.admin={}
 
-    this.storage.getItem('admin').then(data=>{
+    this.storage.getItem('admin').then((data:any)=>{
       if(data!=null){
         //this.openPage(HomePage)
-        this.admin=data;
+        this.admin=data.admin;
+        console.log(this.admin);
+        console.log(data);
         this.splitPane.setSplitPane(true);
         this.rootPage = HomePage;
       }else{

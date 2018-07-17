@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CatalogProvider } from '../../providers/catalog/catalog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderProvider } from '../../providers/loader/loader';
@@ -23,7 +23,7 @@ export class DeleteconfirmationPage {
   shopId: number;
   catalogData: any[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public catalogProvider: CatalogProvider, public loader: LoaderProvider,private viewCtrl:ViewController,private errorHandler:ErrorHandlerServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public catalogProvider: CatalogProvider, public loader: LoaderProvider,private errorHandler:ErrorHandlerServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -37,15 +37,12 @@ export class DeleteconfirmationPage {
   }
 
   delete() {
-    this.catalogProvider.addOrUpdateSubscriptionData(this.shopId, this.products_to_delete).subscribe((data: any) => {
-      
-        for (let i = this.products_to_delete.length; i >=0; i--) {
-          const element = this.products_to_delete[i];
-         this.catalogProvider.catalogData = this.catalogProvider.removeProduct(this.catalogData,element);
-          
-        }
-        this.catalogProvider.deleteConfirmed=true;
-
+    this.catalogProvider.addOrUpdateSubscriptionData(this.shopId, this.products_to_delete).subscribe(() => {
+      for (let i = this.products_to_delete.length; i >= 0; i--) {
+        const element = this.products_to_delete[i];
+        this.catalogProvider.catalogData = this.catalogProvider.removeProduct(this.catalogData, element);
+      }
+      this.catalogProvider.deleteConfirmed = true;
     }, (err: HttpErrorResponse) => {
       this.errorHandler.error(err);
       this.loader.hide();

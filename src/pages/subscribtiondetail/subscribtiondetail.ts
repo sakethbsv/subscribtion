@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, ModalController } from 'ionic-angular';
 import { ViewCell } from 'ng2-smart-table';
 import { FulfillmentDetailPage } from '../fulfillment-detail/fulfillment-detail';
 

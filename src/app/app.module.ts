@@ -11,7 +11,6 @@ import {TableModule} from 'primeng/table';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { OrdersPage } from '../pages/orders/orders';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -23,7 +22,6 @@ import { ErrorHandlerServiceProvider } from '../providers/error-handler-service/
 import { InterceptorProvider } from '../providers/interceptor/interceptor';
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { StorageProvider } from '../providers/storage/storage';
-import { Ng2SmartTableModule } from 'ng2-smart-table/ng2-smart-table.module';
 import { CatalogPage } from '../pages/catalog/catalog';
 import { CatalogProvider } from '../providers/catalog/catalog';
 import { ButtonViewPage } from '../pages/button-view/button-view';
@@ -32,8 +30,6 @@ import { SubscribtiondetailPage } from '../pages/subscribtiondetail/subscribtion
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { FulfillmentDetailPage } from '../pages/fulfillment-detail/fulfillment-detail';
 import { LoaderProvider } from '../providers/loader/loader';
-import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { ScrollProvider } from '../providers/scroll/scroll';
 import { AlertProvider } from '../providers/alert/alert';
 import { CsvmodalPage } from '../pages/csvmodal/csvmodal';
 import { ModalProvider } from '../providers/modal/modal';
@@ -43,8 +39,6 @@ import { PromotionsProvider } from '../providers/promotions/promotions';
 import { PromotionsPage } from '../pages/promotions/promotions';
 import { InventoryPage } from '../pages/inventory/inventory';
 import { InventoryProvider } from '../providers/inventory/inventory';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
 import {DialogModule} from 'primeng/dialog';
 import {GrowlModule} from 'primeng/growl';
 
@@ -52,7 +46,6 @@ import {GrowlModule} from 'primeng/growl';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     LoginPage,
     OrdersPage,
     CatalogPage,
@@ -75,11 +68,8 @@ import {GrowlModule} from 'primeng/growl';
       driverOrder: ['localstorage','websql', 'sqlite', 'indexeddb']
     }),
     HttpClientModule,
-    Ng2SmartTableModule,
     TableModule,
-    ScrollToModule.forRoot(),
     PapaParseModule,
-    NgxDatatableModule,
     GrowlModule
     
   ],
@@ -87,7 +77,6 @@ import {GrowlModule} from 'primeng/growl';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     LoginPage,
     OrdersPage,
     ButtonViewPage,
@@ -118,7 +107,6 @@ import {GrowlModule} from 'primeng/growl';
     CatalogProvider,
     SplitpaneProvider,
     LoaderProvider,
-    ScrollProvider,
     AlertProvider,
     ModalProvider,
     PromotionsProvider,

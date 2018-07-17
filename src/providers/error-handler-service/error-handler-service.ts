@@ -28,9 +28,11 @@ export class ErrorHandlerServiceProvider {
     }else if(err.status==400){
      return this.alert.errorAlert(errMsg);
     }else if(err.status==401){
-     // return this.navCtrl.setRoot(LoginPage);
+     //return this.navCtrl.setRoot(LoginPage);
     }else if(err.status==0){
       return this.alert.errorAlert('Please check your internet !');
+    }else if(err.status==400){
+      return this.alert.errorAlert(errMsg);
     }
    
   }

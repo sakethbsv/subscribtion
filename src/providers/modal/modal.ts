@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ModalController, ViewController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { CsvmodalPage } from '../../pages/csvmodal/csvmodal';
 import { DeleteconfirmationPage } from '../../pages/deleteconfirmation/deleteconfirmation';
 import { CatalogProvider } from '../catalog/catalog';
@@ -31,8 +30,7 @@ export class ModalProvider {
 
   deleteConfirmationModal(data){
     this.deleteModal = this.modal.create(DeleteconfirmationPage,{'data':data});
-    this.deleteModal.onDidDismiss(data => {
-      
+    this.deleteModal.onDidDismiss(() => {
     });
     this.deleteModal.present();
    
@@ -45,8 +43,7 @@ export class ModalProvider {
   showSubscriptionDetails(data){
     console.log(data);
     let subscriptionModal = this.modal.create(FulfillmentDetailPage,{'fulfillmentDetail':data});
-    subscriptionModal.onDidDismiss(data=>{
-
+    subscriptionModal.onDidDismiss(() => {
     })
 
     subscriptionModal.present();

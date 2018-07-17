@@ -1,7 +1,6 @@
 import {  HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpServiceProvider } from '../http-service/http-service';
-import * as Constants from '../../config';
 import { ErrorHandlerServiceProvider } from '../error-handler-service/error-handler-service';
 import 'rxjs/add/operator/map';
 

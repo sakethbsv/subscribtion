@@ -1,9 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { CatalogProvider } from '../catalog/catalog';
 import { LoaderProvider } from '../loader/loader';
-import { text } from '@angular/core/src/render3/instructions';
 
 /*
   Generated class for the AlertProvider provider.
@@ -15,7 +13,7 @@ import { text } from '@angular/core/src/render3/instructions';
 export class AlertProvider {
 
   dataToBeDeleted: any;
-  productDeleted:boolean;
+  productDeleted: boolean;
 
   constructor(public alert: AlertController, public catalog: CatalogProvider, public loader: LoaderProvider) {
     console.log('Hello AlertProvider Provider');
@@ -41,7 +39,7 @@ export class AlertProvider {
       buttons: [{
         text: 'Cancel',
         role: 'cancel',
-        handler: data => {
+        handler: () => {
           console.log('Cancel clicked');
         }
       },
@@ -57,38 +55,22 @@ export class AlertProvider {
 
   deleteConfirmation(shopId, list) {
     this.productDeleted = false;
-    let promise = new Promise(((resolve,reject)=>{
+    let promise = new Promise(((resolve, reject) => {
       let alert = this.alert.create({
         title: 'Are you sure you want to delete items ?',
         buttons: [{
           text: 'Cancel',
           role: 'cancel',
-          handler: data => {
-           reject();
+          handler: () => {
+            reject();
           }
         },
         {
           text: 'Yes',
-          handler: data => {
-            console.log(shopId,list);
-            this.productDeleted=true;
+          handler: () => {
+            console.log(shopId, list);
+            this.productDeleted = true;
             resolve();
-            
-            // this.catalog.addOrUpdateSubscriptionData(shopId, list).subscribe((data: any) => {
-  
-            // }, (err: HttpErrorResponse) => {
-            //   if (err.status == 200) {
-            //    list.forEach(element => {
-            //      console.log(this.catalog.removeProduct(list,element))
-            //    });
-            //   } else {
-  
-            //   }
-            //   this.loader.hide()
-            // }, () => {
-            //   this.loader.hide()
-  
-            // })
           }
         }]
       });
@@ -100,25 +82,25 @@ export class AlertProvider {
   }
 
   // Catalog Page - Add Product
-  addNewProduct(data){
+  addNewProduct() {
     let alert = this.alert.create(
       {
-        title:'Edit',
-        inputs:[
+        title: 'Edit',
+        inputs: [
           {
-            name:'BarcodeId',
-            type:'text'
+            name: 'BarcodeId',
+            type: 'text'
           },
           {
-            name:'Sku',
-            type:'text'
+            name: 'Sku',
+            type: 'text'
           },
           {
-            name:'Product Name',
-            type:'text'
-          },{
-            name:'Category',
-            type:'text'
+            name: 'Product Name',
+            type: 'text'
+          }, {
+            name: 'Category',
+            type: 'text'
           }
         ]
       }
