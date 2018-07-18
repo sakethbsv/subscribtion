@@ -65,7 +65,7 @@
         <button ion-button small round color="primary" [disabled]="!viewProductSelected" (click)="showDialogToAdd()">
           <ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
         <!-- <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button> -->
-        <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="deleteSelected()">
+        <button ion-button small round color="secondary" [disabled]="!viewProductSelected || !activateDeleteButton" (click)="deleteSelected()">
           <ion-icon name="trash" icon-left></ion-icon>&nbsp; Delete</button>
         <button ion-button small round outline color="secondary" [disabled]="!viewProductSelected" (click)="refresh()">
           <ion-icon name="refresh" icon-left></ion-icon> &nbsp;Refresh</button>
@@ -90,7 +90,7 @@
   </ion-grid>
 
   <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" sortMode="multiple" selectionMode="multiple" [(selection)]="selectedProduct"
-    [paginator]="true" [rows]="15">
+    [paginator]="true" [rows]="15" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
     <ng-template pTemplate="caption">
       <div style="text-align: right">
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>

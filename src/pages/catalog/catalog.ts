@@ -43,6 +43,7 @@ export class CatalogPage {
   msgs: any[] = [];
   rowData: any;
   uploadCatalog: boolean = false;
+  activateDeleteButton:boolean=false;
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider, public modalCtrl: ModalController) {
   }
 
@@ -54,9 +55,9 @@ export class CatalogPage {
   getAllShops() {
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
-      if (this.shopList != undefined && this.shopList != null && this.shopList.length > 0) {
+      // if (this.shopList != undefined && this.shopList != null && this.shopList.length > 0) {
         this.shopSelected = this.shopList[0].shopId;
-      }
+      // }
     })
   }
 
@@ -197,9 +198,7 @@ export class CatalogPage {
   }
 
   onRowSelect(event) {
-    this.newProduct = false;
-    this.product = this.cloneProduct(event.data);
-    this.displayDialog = true;
+   this.activateDeleteButton=true;
   }
 
   cloneProduct(c: any): any {
@@ -316,6 +315,18 @@ export class CatalogPage {
   presentErrorModal() {
     let profileModal = this.modalCtrl.create(ErrorPage, { errors: this.errorData });
     profileModal.present();
+  }
+
+
+
+  onRowUnselect(event){
+    console.log(event.data);
+    console.log(this.selectedProduct)
+    if(this.selectedProduct.length>0){
+      this.activateDeleteButton=true;
+    }else{
+      this.activateDeleteButton=false;
+    }
   }
 
 }

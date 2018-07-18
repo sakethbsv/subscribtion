@@ -27,9 +27,10 @@ export class PromotionsPage {
   edit:boolean = false;
   deactivate:boolean=false;
   promotionData:any;
+  showEditPanel = false;
   viewPromotionsFlag : boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider,private loader:LoaderProvider, public alert : AlertProvider) {
-    this.promotionData={};
+   
   }
 
   ionViewDidLoad() {
@@ -42,7 +43,7 @@ export class PromotionsPage {
   getAllShops() {
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
-      if(this.shopList != undefined && this.shopList != null && this.shopList.length > 0){
+      if (this.shopList != undefined && this.shopList != null && this.shopList.length > 0) {
         this.shopSelected = this.shopList[0].shopId;
       }
     })
@@ -140,10 +141,18 @@ export class PromotionsPage {
     this.updatePromotions(promotionData);
   }
 
+  clearPromoion(promotionData){
+    promotionData.text="";
+    promotionData.subText="";
+    promotionData.imageUrl="";
+  }
 
 
-
-
+addPromotion(){
+  this.create = true;
+  this.showEditPanel = !this.showEditPanel;
+  this.promotionData={};
+}
 
 
 

@@ -57,7 +57,7 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button small round color="secondary" [disabled]="!viewPromotionsFlag" (click)="create = !create;showEditPanel = true;promotionData={}">Add New Promotion</button>
+        <button ion-button small round color="secondary" [disabled]="!viewPromotionsFlag" (click)="addPromotion()">Add New Promotion</button>
       </ion-col>
     </ion-row>
 
@@ -77,36 +77,35 @@
             <button ion-button full>Promotion Details</button>
           </ion-card-header>
           <ion-card-content>
-              <!-- <ion-fab right top>
-                  <button ion-fab color="secondary" (click)="showEditPanel=!showEditPanel">
-                    <ion-icon name="close-circle"></ion-icon>
-                  </button>
-                </ion-fab> -->
             <ion-list>
               <ion-item>
                 <ion-label fixed>Title</ion-label>
-                <ion-input type="text" value="" [(ngModel)]="promotionData.text" placeholder="Ex.Rs.100 CASHBACK paid via Paytm"></ion-input>
+                <ion-input type="text" [(ngModel)]="promotionData.text" placeholder="Ex.Rs.100 CASHBACK paid via Paytm"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label fixed>Subtitle</ion-label>
-                <ion-input type="text" value="" [(ngModel)]="promotionData.subText" placeholder="Ex.On Subscription of Rs.1000 or above on payment via Paytm. Valid twice for new user."></ion-input>
+                <ion-input type="text"  [(ngModel)]="promotionData.subText" placeholder="Ex.On Subscription of Rs.1000 or above on payment via Paytm. Valid twice for new user."></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label fixed>Image Url</ion-label>
-                <ion-input type="text" value="" [(ngModel)]="promotionData.imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png"></ion-input>
+                <ion-input type="text" [(ngModel)]="promotionData.imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png"></ion-input>
               </ion-item>
-              <ion-item></ion-item>
+              <ion-item>
+                  <button ion-button small round icon-left (click)="save(promotionData,shopSelected)">
+                      <ion-icon name="add-circle"></ion-icon>
+                      SAVE
+                    </button>
+                   
+                  <button ion-button small round outline (click)="clearPromoion(promotionData)">CLEAR</button>
+                  
+              </ion-item>
             </ion-list>
-
-            <button ion-button round icon-left (click)="save(promotionData,shopSelected)">
-              <ion-icon name="add-circle"></ion-icon>
-              SAVE
-            </button>
-            <button ion-button round icon-left (click)="showEditPanel=!showEditPanel">
-              <ion-icon name="trash"></ion-icon>
-              DISCARD
-            </button>
+           
+            <button ion-button round full (click)="showEditPanel=!showEditPanel">
+                <ion-icon name="trash">&nbsp;</ion-icon>Discard
+              </button>
           </ion-card-content>
+         
         </ion-card>
 
       </ion-col>
@@ -116,33 +115,6 @@
     <ion-row class="show-promotion">
 
       <ion-col col-md-4 col-lg-4 *ngFor="let promotion of dataset">
-        <!-- <ion-card>
-          <ion-card-header>
-            <button ion-button full>{{promotion.text}}</button>
-
-          </ion-card-header>
-
-
-          <img src="{{promotion.imageUrl}}" />
-
-          <ion-card-content no-padding>
-            <strong>
-              <p class="ion-text text-center">{{promotion.subText}}</p>
-            </strong>
-            <button ion-button small round icon-left float-left (click)="editPromotion(promotion)">
-                <ion-icon name="showEditPanel"></ion-icon>
-                Edit
-              </button>
-              <button ion-button small round icon-left float-right (click)="deactivatePromotion(promotion)">
-                  <ion-icon name="trash"></ion-icon>
-                  <span *ngIf="promotion.active">Deactivate</span>
-                  <span *ngIf="!promotion.active">Activate</span>
-                </button>
-
-          </ion-card-content>
-
-        </ion-card> -->
-
         <ion-card>
             <ion-card-header>
                 <button ion-button full>
