@@ -138,7 +138,7 @@ export class CatalogPage {
         if(this.checkData(this.product)){
           
               this.updateProductList([this.product]).then(() => {  
-                  products.push(this.product);          
+                  products.push(this.product);        
                 }, (err) => {
                   console.log(err);
                   
@@ -146,8 +146,11 @@ export class CatalogPage {
         }
         
     }else{
-      this.updateProductList([this.product]).then(() => {  
-        products[this.productList.indexOf(this.editedProduct)] = this.product;        
+      this.updateProductList([this.product]).then(() => {
+        console.log(this.editedProduct);
+        console.log(this.product,this.productList.indexOf(this.editedProduct))  
+        products[this.productList.indexOf(this.editedProduct)] = this.product;  
+             
       }, (err) => {
         console.log(err);
         
@@ -156,10 +159,9 @@ export class CatalogPage {
     }
     
     this.productList = products;
-    this.product = {};
+    console.log('productList',this.productList)
+    //this.product = {};
     this.displayDialog = false;
-
-
   }
 
   delete() {
@@ -273,13 +275,16 @@ export class CatalogPage {
     this.newProduct = false;
     this.product = this.cloneProduct(rowData);
     this.displayDialog = true;
+    console.log('product',this.product);
   }
 
   myUploader(event) {
+    this.msgs=[];
     console.log(event.files);
 
 
     this.catalogService.convertCatalogCsvToJson(event.files[0], this.shopSelected).then((data: any) => {
+        console.log(data)
       this.updateProductList(data).then(() => {
         this.uploadCatalog = false;
         this.productList.push(data);
@@ -288,6 +293,9 @@ export class CatalogPage {
       }, () => {
 
       })
+    },(err:any)=>{
+      this.uploadCatalog = false;
+      this.msgs.push({ severity: 'warn', summary: 'Incorrect Data Format', detail: err});
     })
 
   }

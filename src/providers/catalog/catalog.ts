@@ -56,11 +56,14 @@ export class CatalogProvider {
     let promise = new Promise((resolve,reject)=>{
       this.papa.parse(file, {
         complete: (results: any, file) => {
-          console.log('Parsed: ', results);
-  
+          console.log('Parsed: ', results); 
           data = this.generateProductData(results.data, shopId);
-          console.log(data);
-          resolve(data);
+          if(data.length>0){
+            resolve(data);
+          }else{
+            reject("Check your csv before uploading.BarcodeId,sku,category,subcategory are mandatory!")
+          }
+          
         }
       });
     
@@ -70,8 +73,9 @@ export class CatalogProvider {
 
   generateProductData(data, shopId) {
     console.log('inside geneerate csv')
-    this.loader.showWithContent("Processing your file..");
+    this.loader.showWithContent("Processing your file..");    
     let jsonData = [];
+    let isIncorrectFormat:boolean=false;
     for (let i = 1; i < data.length; i++) {
       let row = data[i];
       let obj: any = {};
@@ -88,28 +92,48 @@ export class CatalogProvider {
       } else {
         obj.isPerishable = false;
       }
-
       obj.shopId = shopId;
-      console.log('obj',obj);
-      if (obj.barcodeId != null && obj.sku != null && obj.category != null && obj.amount != null) {
-        jsonData.push(obj);
-        console.log(jsonData);
-        //this.saveData = true;
 
-      } else {
-        alert('Sku,Barcode,Category,Subcategory are required.Check again!')
-        //this.saveData = false;
-        this.loader.hide();
+      if(row[0]==null || row[0]==""){
+       alert('Enter a valid barcode.Check row number '+(i+1));
+       isIncorrectFormat=true;
+       break;
+      }
+
+      else if(row[1]==null || row[1]==""){
+        alert('Enter a valid sku.Check row number'+(i+1));
+        isIncorrectFormat=true;
         break;
       }
 
+      else if((row[3]!=null || row[3]!="")&& typeof(row[3])==='number'){
+        alert('Enter a valid amount.Check row number'+(i+1))
+        isIncorrectFormat=true;
+        break;
+      }
+
+      else if((row[4]==null || row[4]=="")){
+        alert('Enter a valid category.Check row number '+(i+1));
+        isIncorrectFormat=true;
+        break;
+      }
+
+      else if((row[6]==null || row[6]=="")){
+        alert('Enter a valid sub category.Check row number '+(i+1));
+        isIncorrectFormat=true;
+        break;
+      }
+      
+      console.log(isIncorrectFormat,i+1);
+      jsonData.push(obj);
     }
-    console.log(jsonData);
     this.loader.hide();
     // if(this.saveData){
     //  this.enableSave = true;
     // }
-
+    if(isIncorrectFormat){
+      jsonData=[]
+    }
     return jsonData;
   }
 }

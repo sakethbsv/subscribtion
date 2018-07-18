@@ -57,7 +57,7 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button small round color="secondary" (click)="create = !create;promotionData={}">Add New Promotion</button>
+        <button ion-button small round color="secondary" (click)="create = !create;promotionData={}" [disabled]="!shopSelected">Add New Promotion</button>
       </ion-col>
     </ion-row>
 
@@ -111,7 +111,7 @@
     <ion-row class="show-promotion">
 
       <ion-col col-md-3 col-lg-3 *ngFor="let promotion of dataset">
-        <ion-card>
+        <!-- <ion-card>
           <ion-card-header>
             <button ion-button full>{{promotion.text}}</button>
 
@@ -135,7 +135,30 @@
 
           </ion-card-content>
 
+        </ion-card> -->
 
+        <ion-card>
+            <ion-card-header>
+                <button ion-button full>{{promotion.text}}</button>
+    
+            </ion-card-header>
+            <img src="{{promotion.imageUrl}}" alt="promotion_img"/>
+            <ion-card-content>
+              
+                <!-- <ion-fab right top>
+                  <button ion-fab >
+                    <ion-icon name="thumbs-up"></ion-icon>
+                  </button>
+                </ion-fab> -->
+                
+                  <p>{{promotion.subText}}</p>
+              
+                <ion-item>
+                 <button ion-button small round item-start>Edit</button>
+                 <button ion-button small round item-end>Deactivate</button>
+                </ion-item>
+            </ion-card-content>
+    
 
         </ion-card>
       </ion-col>
