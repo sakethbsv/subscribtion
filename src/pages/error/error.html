@@ -1,0 +1,15 @@
+<ion-header>
+    <ion-title>
+        <ion-icon>&nbsp;Errors</ion-icon>
+    </ion-title>
+</ion-header>
+<ion-content padding>
+    <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12>
+        <ion-item *ngFor="let error of errors">
+            <ion-label>
+                <p ion-text text-left>{{error}}</p>
+            </ion-label>
+        </ion-item>
+    </ion-col>
+
+</ion-content>

@@ -26,6 +26,7 @@ export class PromotionsPage {
   edit:boolean = false;
   deactivate:boolean=false;
   promotionData:any;
+  viewPromotionsFlag : boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider,private loader:LoaderProvider) {
     this.promotionData={};
   }
@@ -40,6 +41,9 @@ export class PromotionsPage {
   getAllShops() {
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
+      if(this.shopList != undefined && this.shopList != null && this.shopList.length > 0){
+        this.shopSelected = this.shopList[0].shopId;
+      }
     })
   
   }

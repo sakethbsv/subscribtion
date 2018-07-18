@@ -51,31 +51,31 @@ export class CatalogProvider {
   }
 
   // convert csv to json
-  convertCatalogCsvToJson(file, shopId) {
+  convertCatalogCsvToJson(file, shopId, errorData) {
     let data = [];
     let promise = new Promise((resolve,reject)=>{
       this.papa.parse(file, {
         complete: (results: any, file) => {
-          console.log('Parsed: ', results); 
-          data = this.generateProductData(results.data, shopId);
-          if(data.length>0){
+          console.log('Parsed: ', results);
+          data = this.generateProductData(results.data, shopId, errorData);
+          console.log(errorData);
+          if(data == null){
+            reject(errorData);
+          } else {
             resolve(data);
-          }else{
-            reject("Check your csv before uploading.BarcodeId,sku,category,subcategory are mandatory!")
           }
-          
         }
       });
-    
     })
     return promise;
   }
 
-  generateProductData(data, shopId) {
-    console.log('inside geneerate csv')
-    this.loader.showWithContent("Processing your file..");    
+  generateProductData(data, shopId, errorData) {
+    this.loader.showWithContent("Processing your file..");
     let jsonData = [];
-    let isIncorrectFormat:boolean=false;
+    let errorFlag = false;
+    console.log(data);
+    console.log(data.length);
     for (let i = 1; i < data.length; i++) {
       let row = data[i];
       let obj: any = {};
@@ -93,46 +93,23 @@ export class CatalogProvider {
         obj.isPerishable = false;
       }
       obj.shopId = shopId;
+      if (obj.barcodeId != null && obj.sku != null && obj.category != null && obj.amount != null && obj.barcodeId.length != 0 && obj.sku.length != 0 && obj.category.length != 0 && obj.amount.length != 0) {
+        jsonData.push(obj);
+        //this.saveData = true;
 
-      if(row[0]==null || row[0]==""){
-       alert('Enter a valid barcode.Check row number '+(i+1));
-       isIncorrectFormat=true;
-       break;
+      } else {
+        errorData.push("Details are missing in the row number  : " + (i+1));
+        //this.saveData = false;
+        errorFlag = true;
       }
-
-      else if(row[1]==null || row[1]==""){
-        alert('Enter a valid sku.Check row number'+(i+1));
-        isIncorrectFormat=true;
-        break;
-      }
-
-      else if((row[3]!=null || row[3]!="")&& typeof(row[3])==='number'){
-        alert('Enter a valid amount.Check row number'+(i+1))
-        isIncorrectFormat=true;
-        break;
-      }
-
-      else if((row[4]==null || row[4]=="")){
-        alert('Enter a valid category.Check row number '+(i+1));
-        isIncorrectFormat=true;
-        break;
-      }
-
-      else if((row[6]==null || row[6]=="")){
-        alert('Enter a valid sub category.Check row number '+(i+1));
-        isIncorrectFormat=true;
-        break;
-      }
-      
-      console.log(isIncorrectFormat,i+1);
-      jsonData.push(obj);
     }
     this.loader.hide();
     // if(this.saveData){
     //  this.enableSave = true;
     // }
-    if(isIncorrectFormat){
-      jsonData=[]
+
+    if(errorFlag){
+      return null;
     }
     return jsonData;
   }

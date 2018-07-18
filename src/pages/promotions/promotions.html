@@ -35,7 +35,7 @@
             </ion-item>
           </ion-col>
           <ion-col col-12>
-            <button margin-left ion-button (click)="viewPromotions(shopSelected)" [disabled]="!shopSelected" margin-top>View Promotions</button>
+            <button margin-left ion-button (click)="viewPromotionsFlag = true; viewPromotions(shopSelected)" margin-top>View Promotions</button>
           </ion-col>
         </ion-row>
 
@@ -57,7 +57,7 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button small round color="secondary" (click)="showEditPanel = !showEditPanel;promotionData={}" [disabled]="!shopSelected">Add New Promotion</button>
+        <button ion-button small round color="secondary" [disabled]="!viewPromotionsFlag" (click)="create = !create;promotionData={}">Add New Promotion</button>
       </ion-col>
     </ion-row>
 
@@ -135,7 +135,8 @@
               </button>
               <button ion-button small round icon-left float-right (click)="deactivatePromotion(promotion)">
                   <ion-icon name="trash"></ion-icon>
-                  Deactivate
+                  <span *ngIf="promotion.active">Deactivate</span>
+                  <span *ngIf="!promotion.active">Activate</span>
                 </button>
 
           </ion-card-content>

@@ -26,11 +26,15 @@ export class OrdersPage {
   @ViewChild(Content) content: Content;
 
   daterange: any = {
-    start: moment(),
+    start: moment().subtract(1, 'days'),
     end: moment(),
     label: ''
   };
 
+  options : any = {
+    startDate : moment().subtract(1, 'days'),
+    endDate : moment(),
+  }
 
 
 
@@ -62,6 +66,7 @@ export class OrdersPage {
       });
       this.selectedShopIds = this.shopIds;
       this.search(this.shopIds);
+      console.log(this.daterange);
     })
   }
 
