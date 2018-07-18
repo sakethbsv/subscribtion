@@ -77,6 +77,9 @@ export class CatalogProvider {
     console.log(data);
     console.log(data.length);
     for (let i = 1; i < data.length; i++) {
+      if(data[i] == ""){
+        continue;
+      }
       let row = data[i];
       let obj: any = {};
       obj.barcodeId = row[0];
