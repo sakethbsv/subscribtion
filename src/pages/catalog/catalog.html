@@ -57,7 +57,7 @@
       </ion-title>
     </div>
 
-    <ion-row id="viewProduct" *ngIf="productList.length>0">
+    <ion-row id="viewProduct">
       <ion-col>
 
         <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="uploadCatalog=!uploadCatalog">
@@ -89,7 +89,7 @@
 
   </ion-grid>
 
-  <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" selectionMode="multiple" [(selection)]="selectedProduct"
+  <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" sortMode="multiple" selectionMode="multiple" [(selection)]="selectedProduct"
     [paginator]="true" [rows]="15">
     <ng-template pTemplate="caption">
       <div style="text-align: right">
@@ -156,7 +156,7 @@
           <span class="red">*</span> BarcodeId</label>
       </div>
       <div class="ui-g-8">
-        <input type="text" id="barcodeId" [(ngModel)]="product.barcodeId" required/>
+        <input type="number" id="barcodeId" [(ngModel)]="product.barcodeId" required/>
       </div>
     </div>
     <div class="ui-g-12">
@@ -220,7 +220,7 @@
     </div>
     <div class="ui-g-12">
       <div class="ui-g-4">
-        <label for="color">isPerishable</label>
+        <label for="color">Perishable Item?</label>
       </div>
       <div class="ui-g-8">
         <input type="checkbox" id="color" [(ngModel)]="product.isPerishable" />

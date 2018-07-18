@@ -61,6 +61,7 @@ export class OrdersPage {
     this.shopIds= [];
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
+      console.log(this.shopList);
       this.shopList.forEach(shop => {
         this.shopIds.push(shop.shopId);
       });

@@ -25,10 +25,10 @@ export class CatalogPage {
   selected = [];
   shopList: any[] = [];
   settings: any;
-  errorData : any[] = [];
+  errorData: any[] = [];
 
   shopSelected: any;
-  viewProductSelected : boolean = false;
+  viewProductSelected: boolean = false;
 
   rows: any[] = [];
 
@@ -54,7 +54,7 @@ export class CatalogPage {
   getAllShops() {
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
-      if(this.shopList != undefined && this.shopList != null && this.shopList.length > 0){
+      if (this.shopList != undefined && this.shopList != null && this.shopList.length > 0) {
         this.shopSelected = this.shopList[0].shopId;
       }
     })
@@ -118,10 +118,12 @@ export class CatalogPage {
 
   checkData(element) {
 
-    if (element.barcodeId != null && element.sku != null && element.category != null && element.subCategory != null && element.amount!=null) {
+    if (element.barcodeId != null && element.sku != null && element.category != null && element.subCategory != null && element.amount != null
+      && (element.barcodeId + "").length != 0 && element.sku.length != 0 && element.category.length != 0 && element.subCategory.length != 0
+      && (element.amount + "").length != 0) {
       return true;
     } else {
-      this.alert.errorAlert('BarcodeId,SKU,Category,Subcategory,Amount')
+      this.alert.errorAlert('Please fill all the required details')
       return false;
     }
   }
@@ -139,36 +141,40 @@ export class CatalogPage {
     this.productListToUpdate = [];
     this.msgs = [];
     let products = this.productList;
-    if (this.newProduct){
-        if(this.checkData(this.product)){
-          
-              this.updateProductList([this.product]).then(() => {  
-                  products.push(this.product);        
-                }, (err) => {
-                  console.log(err);
-                  
-                })
-        } else {
+    if (this.newProduct) {
+      if (this.checkData(this.product)) {
 
-        }
-        
-    }else{
+        this.updateProductList([this.product]).then(() => {
+          products.push(this.product);
+          this.displayDialog = false;
+          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Added !', life: 3000 });
+        }, (err) => {
+          console.log(err);
+
+        })
+
+      } else {
+
+      }
+
+    } else {
       this.updateProductList([this.product]).then(() => {
         console.log(this.editedProduct);
-        console.log(this.product,this.productList.indexOf(this.editedProduct))  
-        products[this.productList.indexOf(this.editedProduct)] = this.product;  
-             
+        console.log(this.product, this.productList.indexOf(this.editedProduct))
+        products[this.productList.indexOf(this.editedProduct)] = this.product;
+        this.displayDialog = false;
+        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Edited !', life: 3000 });
+
       }, (err) => {
         console.log(err);
-        
+
       })
-      
+
     }
-    
+
     this.productList = products;
-    console.log('productList',this.productList)
+    console.log('productList', this.productList)
     //this.product = {};
-    this.displayDialog = false;
   }
 
   delete() {
@@ -182,8 +188,8 @@ export class CatalogPage {
     this.displayDialog = false;
 
     this.updateProductList(this.productListToUpdate).then(() => {
-      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
-    },()=>{
+      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !', life: 3000 });
+    }, () => {
 
     })
 
@@ -213,7 +219,7 @@ export class CatalogPage {
     });
     this.alert.deleteConfirmation(this.shopSelected, this.productListToUpdate).then(() => {
       this.updateProductList(this.productListToUpdate).then(() => {
-        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Catalog Deleted !' });
+        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Catalog Deleted !', life: 3000 });
         this.productList = [];
       })
     }, () => {
@@ -231,7 +237,7 @@ export class CatalogPage {
     this.productListToUpdate.push(data);
     this.displayDialog = false;
     this.updateProductList(this.productListToUpdate).then(() => {
-      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
+      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !', life: 3000 });
       let index = this.productList.indexOf(data);
       this.productList = this.productList.filter((val, i) => i != index);
     }, () => {
@@ -255,20 +261,20 @@ export class CatalogPage {
 
         // update products
         this.updateProductList(this.productListToUpdate).then(() => {
-          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !' });
+          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !', life: 3000 });
           this.productListToUpdate.forEach(element => {
             let index = this.productList.indexOf(element);
             this.productList = this.productList.filter((val, i) => i != index);
           });
-        },()=>{
-          
+        }, () => {
+
         })
 
 
       }
     }, () => {
       console.log('Delete Cancelled');
-      this.msgs.push({ severity: 'info', summary: 'Aborted', detail: 'Canceled !' });
+      this.msgs.push({ severity: 'info', summary: 'Aborted', detail: 'Canceled !', life: 3000 });
     });
 
   }
@@ -282,11 +288,11 @@ export class CatalogPage {
     this.newProduct = false;
     this.product = this.cloneProduct(rowData);
     this.displayDialog = true;
-    console.log('product',this.product);
+    console.log('product', this.product);
   }
 
   myUploader(event) {
-    this.msgs=[];
+    this.msgs = [];
     console.log(event.files);
 
     this.errorData = [];
@@ -294,16 +300,16 @@ export class CatalogPage {
       this.updateProductList(data).then(() => {
         this.uploadCatalog = false;
         this.productList.push(data);
-        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Products Uploaded !' });
+        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Products Uploaded !', life: 3000 });
         this.viewProduct(this.shopSelected);
       }, () => {
 
       })
-    }, (err : any) => {
-      
+    }, (err: any) => {
+
       console.log(this.errorData);
       this.presentErrorModal();
-      
+
     })
 
   }
