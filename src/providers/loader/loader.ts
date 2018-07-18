@@ -22,7 +22,7 @@ export class LoaderProvider {
     if (!this.isLoaderPresent) {
       this.loading = this.loadingCtrl.create({
         content: "Please wait...",
-        enableBackdropDismiss: true
+        enableBackdropDismiss: false
       });
       this.loading.present();
       this.isLoaderPresent = true;

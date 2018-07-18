@@ -44,6 +44,7 @@ import {GrowlModule} from 'primeng/growl';
 import {FileUploadModule} from 'primeng/fileupload';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ScrollProvider } from '../providers/scroll/scroll';
+import { ErrorPage } from '../pages/error/error';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { ScrollProvider } from '../providers/scroll/scroll';
     CsvmodalPage,
     DeleteconfirmationPage,
     PromotionsPage,
-    InventoryPage
+    InventoryPage,
+    ErrorPage
   ],
   imports: [
     BrowserModule,
@@ -92,7 +94,8 @@ import { ScrollProvider } from '../providers/scroll/scroll';
     CsvmodalPage,
     DeleteconfirmationPage,
     PromotionsPage,
-    InventoryPage
+    InventoryPage,
+    ErrorPage
 
   ],
   providers: [

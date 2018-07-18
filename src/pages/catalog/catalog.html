@@ -38,16 +38,18 @@
       <ion-list radio-group [(ngModel)]="shopSelected">
 
         <ion-row>
-          <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+          <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList; let i = index">
             <ion-item>
-              <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
+              <ion-radio *ngIf='i==0' checked item-start value="{{shop.shopId}}"></ion-radio>
+              <ion-radio *ngIf='i!=0' item-start value="{{shop.shopId}}"></ion-radio>
               <ion-label>
                 <p ion-text text-left>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
               </ion-label>
             </ion-item>
           </ion-col>
           <ion-col col-12>
-            <button margin-left ion-button (click)="viewProduct(shopSelected)" [disabled]="!shopSelected" margin-top>View Products</button>
+            <button margin-left ion-button (click)="viewProductSelected = true; viewProduct(shopSelected)" [disabled]="!shopSelected"
+              margin-top>View Products</button>
           </ion-col>
         </ion-row>
 
@@ -67,15 +69,17 @@
     <ion-row id="viewProduct">
       <ion-col>
 
-        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="uploadCatalog=!uploadCatalog">
+        <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="uploadCatalog=!uploadCatalog">
           <ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
-        <button ion-button small round color="primary" [disabled]="!shopSelected" (click)="showDialogToAdd()">
+        <button ion-button small round color="primary" [disabled]="!viewProductSelected" (click)="showDialogToAdd()">
           <ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
         <!-- <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="save()">Save Changes</button> -->
-        <button ion-button small round color="secondary" [disabled]="!shopSelected" (click)="deleteSelected()">
+        <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="deleteSelected()">
           <ion-icon name="trash" icon-left></ion-icon>&nbsp; Delete</button>
-        <button ion-button small round outline color="secondary" [disabled]="!shopSelected" (click)="refresh()">
+        <button ion-button small round outline color="secondary" [disabled]="!viewProductSelected" (click)="refresh()">
           <ion-icon name="refresh" icon-left></ion-icon> &nbsp;Refresh</button>
+        <button ion-button small round outline color="secondary" [disabled]="(!viewProductSelected || errorData.length==0)" (click)="presentErrorModal()">
+          <ion-icon name="information-circle" icon-left></ion-icon> &nbsp;Errors</button>
 
       </ion-col>
       <ion-col *ngIf="uploadCatalog">
@@ -85,8 +89,8 @@
 
   </ion-grid>
 
-  <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" selectionMode="multiple" [(selection)]="selectedProduct" [paginator]="true"
-    [rows]="15">
+  <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" selectionMode="multiple" [(selection)]="selectedProduct"
+    [paginator]="true" [rows]="15">
     <ng-template pTemplate="caption">
       <div style="text-align: right">
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -143,9 +147,9 @@
 
 </ion-content>
 <p-dialog header="Product Details" [(visible)]="displayDialog" [width]="600">
-  
+
   <div class="ui-g ui-fluid" *ngIf="product">
-    
+
     <div class="ui-g-12">
       <div class="ui-g-4">
         <label for="barcodeId">
@@ -276,7 +280,7 @@
 
   <p-footer>
     <div class="ui-dialog-buttonpane ui-helper-clearfix">
-      <button ion-button  (click)="save()">Save</button>
+      <button ion-button (click)="save()">Save</button>
     </div>
   </p-footer>
 </p-dialog>

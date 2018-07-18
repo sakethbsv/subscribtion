@@ -51,27 +51,31 @@ export class CatalogProvider {
   }
 
   // convert csv to json
-  convertCatalogCsvToJson(file, shopId) {
+  convertCatalogCsvToJson(file, shopId, errorData) {
     let data = [];
     let promise = new Promise((resolve,reject)=>{
       this.papa.parse(file, {
         complete: (results: any, file) => {
           console.log('Parsed: ', results);
-  
-          data = this.generateProductData(results.data, shopId);
-          console.log(data);
-          resolve(data);
+          data = this.generateProductData(results.data, shopId, errorData);
+          console.log(errorData);
+          if(data == null){
+            reject(errorData);
+          } else {
+            resolve(data);
+          }
         }
       });
-    
     })
     return promise;
   }
 
-  generateProductData(data, shopId) {
-    console.log('inside geneerate csv')
+  generateProductData(data, shopId, errorData) {
     this.loader.showWithContent("Processing your file..");
     let jsonData = [];
+    let errorFlag = false;
+    console.log(data);
+    console.log(data.length);
     for (let i = 1; i < data.length; i++) {
       let row = data[i];
       let obj: any = {};
@@ -90,19 +94,15 @@ export class CatalogProvider {
       }
 
       obj.shopId = shopId;
-      console.log('obj',obj);
-      if (obj.barcodeId != null && obj.sku != null && obj.category != null && obj.amount != null) {
+      if (obj.barcodeId != null && obj.sku != null && obj.category != null && obj.amount != null && obj.barcodeId.length != 0 && obj.sku.length != 0 && obj.category.length != 0 && obj.amount.length != 0) {
         jsonData.push(obj);
-        console.log(jsonData);
         //this.saveData = true;
 
       } else {
-        alert('Sku,Barcode,Category,Subcategory are required.Check again!')
+        errorData.push("Details are missing in the row number  : " + (i+1));
         //this.saveData = false;
-        this.loader.hide();
-        break;
+        errorFlag = true;
       }
-
     }
     console.log(jsonData);
     this.loader.hide();
@@ -110,6 +110,9 @@ export class CatalogProvider {
     //  this.enableSave = true;
     // }
 
+    if(errorFlag){
+      return null;
+    }
     return jsonData;
   }
 }

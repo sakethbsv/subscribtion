@@ -27,10 +27,15 @@ export class InventoryPage {
   private picker: DaterangePickerComponent;
 
   daterange: any = {
-    start: moment(),
+    start: moment().subtract(1, 'days'),
     end: moment(),
     label: ''
   };
+
+  options : any = {
+    startDate : moment().subtract(1, 'days'),
+    endDate : moment(),
+  }
 
   shopList:any[]=[];
   settings:any;

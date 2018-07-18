@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { StorageProvider } from '../../providers/storage/storage';
 import { CatalogProvider } from '../../providers/catalog/catalog';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { LoaderProvider } from '../../providers/loader/loader';
 import { AlertProvider } from '../../providers/alert/alert';
 import { ModalProvider } from '../../providers/modal/modal';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
+import { ErrorPage } from '../error/error';
 /**
  * Generated class for the CatalogPage page.
  *
@@ -24,9 +25,10 @@ export class CatalogPage {
   selected = [];
   shopList: any[] = [];
   settings: any;
-
+  errorData : any[] = [];
 
   shopSelected: any;
+  viewProductSelected : boolean = false;
 
   rows: any[] = [];
 
@@ -41,7 +43,7 @@ export class CatalogPage {
   msgs: any[] = [];
   rowData: any;
   uploadCatalog: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -52,6 +54,9 @@ export class CatalogPage {
   getAllShops() {
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
+      if(this.shopList != undefined && this.shopList != null && this.shopList.length > 0){
+        this.shopSelected = this.shopList[0].shopId;
+      }
     })
   }
 
@@ -143,6 +148,8 @@ export class CatalogPage {
                   console.log(err);
                   
                 })
+        } else {
+
         }
         
     }else{
@@ -278,8 +285,8 @@ export class CatalogPage {
   myUploader(event) {
     console.log(event.files);
 
-
-    this.catalogService.convertCatalogCsvToJson(event.files[0], this.shopSelected).then((data: any) => {
+    this.errorData = [];
+    this.catalogService.convertCatalogCsvToJson(event.files[0], this.shopSelected, this.errorData).then((data: any) => {
       this.updateProductList(data).then(() => {
         this.uploadCatalog = false;
         this.productList.push(data);
@@ -288,8 +295,17 @@ export class CatalogPage {
       }, () => {
 
       })
+    }, (err : any) => {
+      
+      console.log(this.errorData);
+      this.presentErrorModal();
+      
     })
 
+  }
+  presentErrorModal() {
+    let profileModal = this.modalCtrl.create(ErrorPage, { errors: this.errorData });
+    profileModal.present();
   }
 
 }
