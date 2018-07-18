@@ -57,7 +57,7 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button small round color="secondary" (click)="create = !create;promotionData={}" [disabled]="!shopSelected">Add New Promotion</button>
+        <button ion-button small round color="secondary" (click)="showEditPanel = !showEditPanel;promotionData={}" [disabled]="!shopSelected">Add New Promotion</button>
       </ion-col>
     </ion-row>
 
@@ -70,13 +70,18 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="create || edit" justify-content-center class="add-promotion">
+    <ion-row *ngIf="showEditPanel" justify-content-center class="add-promotion">
       <ion-col col-md-4 col-lg-4>
         <ion-card >
           <ion-card-header>
             <button ion-button full>Promotion Details</button>
           </ion-card-header>
           <ion-card-content>
+              <!-- <ion-fab right top>
+                  <button ion-fab color="secondary" (click)="showEditPanel=!showEditPanel">
+                    <ion-icon name="close-circle"></ion-icon>
+                  </button>
+                </ion-fab> -->
             <ion-list>
               <ion-item>
                 <ion-label fixed>Title</ion-label>
@@ -97,7 +102,7 @@
               <ion-icon name="add-circle"></ion-icon>
               SAVE
             </button>
-            <button ion-button round icon-left (click)="create=false">
+            <button ion-button round icon-left (click)="showEditPanel=!showEditPanel">
               <ion-icon name="trash"></ion-icon>
               DISCARD
             </button>
@@ -110,7 +115,7 @@
 
     <ion-row class="show-promotion">
 
-      <ion-col col-md-3 col-lg-3 *ngFor="let promotion of dataset">
+      <ion-col col-md-4 col-lg-4 *ngFor="let promotion of dataset">
         <!-- <ion-card>
           <ion-card-header>
             <button ion-button full>{{promotion.text}}</button>
@@ -125,7 +130,7 @@
               <p class="ion-text text-center">{{promotion.subText}}</p>
             </strong>
             <button ion-button small round icon-left float-left (click)="editPromotion(promotion)">
-                <ion-icon name="create"></ion-icon>
+                <ion-icon name="showEditPanel"></ion-icon>
                 Edit
               </button>
               <button ion-button small round icon-left float-right (click)="deactivatePromotion(promotion)">
@@ -139,7 +144,8 @@
 
         <ion-card>
             <ion-card-header>
-                <button ion-button full>{{promotion.text}}</button>
+                <button ion-button full>
+                  <p ion-text text-wrap color="secondary">{{promotion.text}}</p></button>
     
             </ion-card-header>
             <img src="{{promotion.imageUrl}}" alt="promotion_img"/>
@@ -154,8 +160,11 @@
                   <p>{{promotion.subText}}</p>
               
                 <ion-item>
-                 <button ion-button small round item-start>Edit</button>
-                 <button ion-button small round item-end>Deactivate</button>
+                 <button ion-button small icon-left round item-start (click)="editPromotion(promotion);showEditPanel=!showEditPanel">
+                    <ion-icon name="create"></ion-icon>&nbsp;Edit
+                </button>
+                 <button ion-button small icon-left round item-end (click)="deactivatePromotion(promotion)">
+                   <ion-icon name="trash"></ion-icon>&nbsp; Deactivate</button>
                 </ion-item>
             </ion-card-content>
     
