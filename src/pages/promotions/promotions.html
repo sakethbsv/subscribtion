@@ -57,7 +57,7 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button small round color="secondary" [disabled]="!viewPromotionsFlag" (click)="create = !create;promotionData={}">Add New Promotion</button>
+        <button ion-button small round color="secondary" [disabled]="!viewPromotionsFlag" (click)="create = !create;showEditPanel = true;promotionData={}">Add New Promotion</button>
       </ion-col>
     </ion-row>
 
@@ -65,7 +65,7 @@
       <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
         <div>
           <img src="assets/imgs/promotion-search.png" class="dashboard-icons" />
-          <button ion-button clear round>No Promotions Available</button>
+          <button ion-button clear round></button>
         </div>
       </ion-col>
     </ion-row>
@@ -165,7 +165,7 @@
                     <ion-icon name="create"></ion-icon>&nbsp;Edit
                 </button>
                  <button ion-button small icon-left round item-end (click)="deactivatePromotion(promotion)">
-                   <ion-icon name="trash"></ion-icon>&nbsp; Deactivate</button>
+                   <ion-icon name="trash"></ion-icon>&nbsp; Delete</button>
                 </ion-item>
             </ion-card-content>
     

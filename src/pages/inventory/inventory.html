@@ -52,7 +52,7 @@
               </ion-item>
             </ion-col>
             <ion-col col-12>
-              <button margin-left ion-button (click)="viewInventory(shopSelected)" [disabled]="!shopSelected" margin-top>View Inventory</button>
+              <button margin-left ion-button (click)="viewInventoryFlag = true; viewInventory(shopSelected)" [disabled]="!shopSelected" margin-top>View Inventory</button>
             </ion-col>
           </ion-row>
 
@@ -78,7 +78,7 @@
                 style="width:auto">
             </div>
             <div style="text-align: left">
-              <button ion-button small round (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
+              <button [disabled] ="!viewInventoryFlag" ion-button small round (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
             </div>
           </ng-template>
           <ng-template pTemplate="header" let-columns>

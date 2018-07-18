@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PromotionsProvider } from '../../providers/promotions/promotions';
 import { StorageProvider } from '../../providers/storage/storage';
 import { LoaderProvider } from '../../providers/loader/loader';
+import { AlertProvider } from '../../providers/alert/alert';
 /**
  * Generated class for the PromotionsPage page.
  *
@@ -27,7 +28,7 @@ export class PromotionsPage {
   deactivate:boolean=false;
   promotionData:any;
   viewPromotionsFlag : boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider,private loader:LoaderProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider,private loader:LoaderProvider, public alert : AlertProvider) {
     this.promotionData={};
   }
 
@@ -110,9 +111,14 @@ export class PromotionsPage {
   }
 
   deactivatePromotion(promotion){
-    promotion.active = false;
-    this.deactivate = true;
-    this.updatePromotions(promotion);
+
+    this.alert.deletePromotion().then((data : any) => {
+      promotion.active = false;
+      this.deactivate = true;
+      this.updatePromotions(promotion);
+    }, (err : any) => {
+
+    })
   }
 
   save(promotionData,shops){

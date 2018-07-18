@@ -43,6 +43,8 @@ export class InventoryPage {
   inventoryList:any[]=[];
   rows:any[]=[];
   cols:any[]=[];
+  shopSelected : any;
+  viewInventoryFlag : boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private storage:StorageProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider) {
     
@@ -56,6 +58,9 @@ export class InventoryPage {
   getAllShops() {
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
+      if(this.shopList != undefined && this.shopList != null && this.shopList.length > 0){
+        this.shopSelected = this.shopList[0].shopId;
+      }
     })
   
   }

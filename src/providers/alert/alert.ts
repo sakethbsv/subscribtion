@@ -108,4 +108,29 @@ export class AlertProvider {
 
     return alert.present();
   }
+
+  deletePromotion() {
+    let promise = new Promise(((resolve, reject) => {
+      let alert = this.alert.create({
+        title: 'Are you sure you want to delete promotions?',
+        buttons: [{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            reject();
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            resolve();
+          }
+        }]
+      });
+      alert.present();
+    }))
+
+
+    return promise;
+  }
 }
