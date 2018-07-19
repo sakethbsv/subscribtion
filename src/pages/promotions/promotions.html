@@ -78,20 +78,21 @@
           </ion-card-header>
           <ion-card-content>
             <ion-list>
+              <form [formGroup]="todo" (ngSubmit)="save(promotionData,shopSelected)">
               <ion-item>
-                <ion-label fixed>Title</ion-label>
-                <ion-input type="text" [(ngModel)]="promotionData.text" placeholder="Ex.Rs.100 CASHBACK paid via Paytm"></ion-input>
+                <ion-label fixed><span class="red">*</span> Title</ion-label>
+                <ion-input type="text" required [(ngModel)]="promotionData.text" formControlName="text" placeholder="Ex.Rs.100 CASHBACK paid via Paytm"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label fixed>Subtitle</ion-label>
-                <ion-input type="text"  [(ngModel)]="promotionData.subText" placeholder="Ex.On Subscription of Rs.1000 or above on payment via Paytm. Valid twice for new user."></ion-input>
+                <ion-label fixed><span class="red">*</span>Subtitle</ion-label>
+                <ion-input type="text" required  [(ngModel)]="promotionData.subText" formControlName="subText" placeholder="Ex.On Subscription of Rs.1000 or above on payment via Paytm. Valid twice for new user."></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label fixed>Image Url</ion-label>
-                <ion-input type="text" [(ngModel)]="promotionData.imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png"></ion-input>
+                <ion-input type="text" [(ngModel)]="promotionData.imageUrl" formControlName="imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png"></ion-input>
               </ion-item>
               <ion-item>
-                  <button ion-button small round icon-left (click)="save(promotionData,shopSelected)">
+                  <button ion-button  small round icon-left type="submit" [disabled]="!todo.valid">
                       <ion-icon name="add-circle"></ion-icon>
                       SAVE
                     </button>
@@ -99,6 +100,7 @@
                   <button ion-button small round outline (click)="clearPromoion(promotionData)">CLEAR</button>
                   
               </ion-item>
+            </form>
             </ion-list>
            
             <button ion-button round full (click)="showEditPanel=!showEditPanel">

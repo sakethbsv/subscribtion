@@ -4,6 +4,7 @@ import { PromotionsProvider } from '../../providers/promotions/promotions';
 import { StorageProvider } from '../../providers/storage/storage';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { AlertProvider } from '../../providers/alert/alert';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 /**
  * Generated class for the PromotionsPage page.
  *
@@ -29,8 +30,13 @@ export class PromotionsPage {
   promotionData:any;
   showEditPanel = false;
   viewPromotionsFlag : boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider,private loader:LoaderProvider, public alert : AlertProvider) {
-   
+  private todo : FormGroup;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider,private loader:LoaderProvider, public alert : AlertProvider,private formBuilder: FormBuilder) {
+    this.todo = this.formBuilder.group({
+      text: ['', Validators.required],
+      subText: [''],
+      imageUrl:['']
+    });
   }
 
   ionViewDidLoad() {
@@ -139,6 +145,7 @@ export class PromotionsPage {
     promotionData.accessibleLocations=[shops];
     promotionData.active=true;
     this.updatePromotions(promotionData);
+    this.showEditPanel=false;
   }
 
   clearPromoion(promotionData){
