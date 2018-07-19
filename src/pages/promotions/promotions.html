@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Promotions</ion-title>
+    <ion-title>Banners</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -35,7 +35,7 @@
             </ion-item>
           </ion-col>
           <ion-col col-12>
-            <button margin-left ion-button (click)="viewPromotionsFlag = true; viewPromotions(shopSelected)" margin-top>View Promotions</button>
+            <button margin-left ion-button (click)="viewPromotionsFlag = true; viewPromotions(shopSelected)" margin-top>View Banners</button>
           </ion-col>
         </ion-row>
 
@@ -46,7 +46,7 @@
   <ion-grid>
     <div class="header-bar">
       <ion-title ion-text>
-        <ion-icon name="list-box"></ion-icon>&nbsp; Promotion Details
+        <ion-icon name="list-box"></ion-icon>&nbsp; Active Banners
       </ion-title>
     </div>
 
@@ -57,7 +57,7 @@
 
     <ion-row>
       <ion-col col-12>
-        <button ion-button small round color="secondary" [disabled]="!viewPromotionsFlag" (click)="addPromotion()">Add New Promotion</button>
+        <button ion-button small round color="secondary" [disabled]="!viewPromotionsFlag" (click)="addPromotion()">Add New Banner</button>
       </ion-col>
     </ion-row>
 
@@ -74,7 +74,7 @@
       <ion-col col-md-4 col-lg-4>
         <ion-card >
           <ion-card-header>
-            <button ion-button full>Promotion Details</button>
+            <button ion-button full>Active Banners</button>
           </ion-card-header>
           <ion-card-content>
             <ion-list>
