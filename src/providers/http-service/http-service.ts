@@ -28,20 +28,20 @@ export class HttpServiceProvider {
 
   public get(url:string,headers?:HttpHeaders |null){
     const header = this.setHeaders(headers);
-    return this.http.get(Constants.URL+"/"+url,header)
+    return this.http.get(Constants.URL+url,header)
                     
   }
 
   public post(url:string,body, headers?: HttpHeaders | null){
     
     const header = this.setHeaders(headers);
-    return this.http.post(Constants.URL+"/"+url, body,header);
+    return this.http.post(Constants.URL+url, body,header);
   }
 
   public put(url:string,body, headers?: HttpHeaders | null){
     
     const header = this.setHeaders(headers);
     const options = {header,responseType: 'text' as 'text'}
-    return this.http.post(Constants.URL+"/"+url, body,options);
+    return this.http.post(Constants.URL+url, body,options);
   }
 }

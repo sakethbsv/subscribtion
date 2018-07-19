@@ -230,6 +230,7 @@ export class CatalogPage {
   }
 
   deleteProduct(data) {
+   
     this.productListToUpdate = [];
     this.msgs = [];
     data.delete = true;
@@ -239,12 +240,15 @@ export class CatalogPage {
       this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !', life: 3000 });
       let index = this.productList.indexOf(data);
       this.productList = this.productList.filter((val, i) => i != index);
+      this.activateDeleteButton=false;
+      this.selectedProduct=[];
     }, () => {
 
     })
   }
 
   deleteSelected() {
+    this.activateDeleteButton=false;
     this.productListToUpdate = [];
     this.msgs = [];
     console.log(this.selectedProduct)
@@ -264,6 +268,7 @@ export class CatalogPage {
           this.productListToUpdate.forEach(element => {
             let index = this.productList.indexOf(element);
             this.productList = this.productList.filter((val, i) => i != index);
+            this.activateDeleteButton=false;
           });
         }, () => {
 

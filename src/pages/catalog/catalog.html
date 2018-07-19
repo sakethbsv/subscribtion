@@ -114,10 +114,10 @@
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr [pSelectableRow]="rowData">
         <td>
-          <button ion-button small (click)="deleteProduct(rowData)">
+          <button ion-button small (click)="deleteProduct(rowData)" pTooltip="Delete Product" tooltipPosition="top">
             <ion-icon name="trash"></ion-icon>
           </button>
-          <button ion-button small (click)="editProduct(rowData)">
+          <button ion-button small (click)="editProduct(rowData)" pTooltip="Edit Product" tooltipPosition="top">
             <ion-icon name="create"></ion-icon>
           </button>
         </td>
@@ -125,12 +125,22 @@
         <td>{{rowData.sku}}</td>
         <td>{{rowData.name}}</td>
         <td>
-          <a target="_blank" href="{{rowData.image}}">View Image</a>
+            <ion-item>
+                <ion-thumbnail item-start>
+                  <img src="{{rowData.image}}">
+                </ion-thumbnail>
+              </ion-item>
+          <!-- <a target="_blank" href="{{rowData.image}}">View Image</a> -->
         </td>
         <td>{{rowData.category}}</td>
         <td>{{rowData.subCategory}}</td>
         <td>
-          <a target="_blank" href="{{rowData.categoryImage}}">View Image</a>
+            <ion-item>
+                <ion-thumbnail item-start>
+                  <img src="{{rowData.categoryImage}}">
+                </ion-thumbnail>
+              </ion-item>
+          <!-- <a target="_blank" href="{{rowData.categoryImage}}">View Image</a> -->
         </td>
         <td>{{rowData.amount}}</td>
         <td>{{rowData.isPerishable}}</td>

@@ -25,5 +25,5 @@ else if(window.location.host.search("dashboard-dot-perpule-qa") > -1){
 else {
 	 SERVER_URL = window.location.origin + "/resources"; 
 }
-export const URL = "http://subscription3.perpule-dev.appspot.com/resources";
+export const URL = "http://subscription3.perpule-dev.appspot.com/resources/";
 console.log(URL);

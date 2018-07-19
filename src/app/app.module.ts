@@ -45,7 +45,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ScrollProvider } from '../providers/scroll/scroll';
 import { ErrorPage } from '../pages/error/error';
-
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -79,6 +79,7 @@ import { ErrorPage } from '../pages/error/error';
     GrowlModule,
     FileUploadModule,
     ScrollToModule.forRoot(),
+    TooltipModule
     
   ],
   bootstrap: [IonicApp],
