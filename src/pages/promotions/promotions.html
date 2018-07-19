@@ -78,7 +78,7 @@
           </ion-card-header>
           <ion-card-content>
             <ion-list>
-              <form [formGroup]="todo" (ngSubmit)="save(promotionData,shopSelected)">
+              <form [formGroup]="todo">
               <ion-item>
                 <ion-label fixed><span class="red">*</span> Title</ion-label>
                 <ion-input type="text" required [(ngModel)]="promotionData.text" formControlName="text" placeholder="Ex.Rs.100 CASHBACK paid via Paytm"></ion-input>
@@ -92,7 +92,7 @@
                 <ion-input type="text" [(ngModel)]="promotionData.imageUrl" formControlName="imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png"></ion-input>
               </ion-item>
               <ion-item>
-                  <button ion-button  small round icon-left type="submit" [disabled]="!todo.valid">
+                  <button ion-button  small round icon-left [disabled]="!todo.valid" (click)="save(promotionData,shopSelected)">
                       <ion-icon name="add-circle"></ion-icon>
                       SAVE
                     </button>
@@ -123,6 +123,7 @@
                   <p ion-text text-wrap color="secondary">{{promotion.text}}</p></button>
     
             </ion-card-header>
+            
             <img src="{{promotion.imageUrl}}" alt="promotion_img"/>
             <ion-card-content>
               
