@@ -149,6 +149,7 @@ export class CatalogPage {
           products.push(this.product);
           this.displayDialog = false;
           this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Added !', life: 3000 });
+          
         }, (err) => {
           console.log(err);
 
@@ -165,7 +166,7 @@ export class CatalogPage {
         products[this.productList.indexOf(this.editedProduct)] = this.product;
         this.displayDialog = false;
         this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Edited !', life: 3000 });
-
+        this.activateDeleteButton=false;
       }, (err) => {
         console.log(err);
 
@@ -293,6 +294,7 @@ export class CatalogPage {
     this.product = this.cloneProduct(rowData);
     this.displayDialog = true;
     console.log('product', this.product);
+    this.selectedProduct=[];
   }
 
   myUploader(event) {
