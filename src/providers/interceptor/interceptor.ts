@@ -31,21 +31,21 @@ export class InterceptorProvider implements HttpInterceptor {
 
     
 
-    let promise = new Promise((resolve,reject)=>{
-      let token = this.storage.getCookie('token');
-      if (token != null || token != "") {
-        resolve(token)
-      }else{
-        reject();
-      }
-    })
+    // let promise = new Promise((resolve,reject)=>{
+    //   let token = this.storage.getCookie('token');
+    //   if (token != null || token != "") {
+    //     resolve(token)
+    //   }else{
+    //     reject();
+    //   }
+    // })
 
-    return promise;
+    // return promise;
 
-    // return this.storage.getItem('admin').then((res: any) => {
-    //   console.log(res)
-    //   return res.authenticationDetails.authToken;
-    // });
+    return this.storage.getItem('admin').then((res: any) => {
+      console.log(res)
+      return res.authenticationDetails.authToken;
+    });
 
   }
 

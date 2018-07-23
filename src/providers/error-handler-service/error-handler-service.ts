@@ -26,8 +26,9 @@ export class ErrorHandlerServiceProvider {
     }else if(err.status==500){
      return this.alert.errorAlert('Internal Server Error !');
     }else if(err.status==401){
-      this.alert.errorAlert('Your Session Has Been Expired.Kindly Login Again!!');
-      setTimeout(()=>{window.location.href="../index.html"},3000);
+     // this.alert.errorAlert('Your Session Has Been Expired.Kindly Login Again!!');
+     // setTimeout(()=>{window.location.href="../index.html"},3000);
+    //  setTimeout(()=>{this.navCtrl.setRoot(LoginPage)},2000);
       
     }else if(err.status==0){
       return this.alert.errorAlert('Something went wrong !');
