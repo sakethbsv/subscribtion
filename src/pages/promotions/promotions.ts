@@ -5,6 +5,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 import { LoaderProvider } from '../../providers/loader/loader';
 import { AlertProvider } from '../../providers/alert/alert';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { ShopProvider } from '../../providers/shop/shop';
 /**
  * Generated class for the PromotionsPage page.
  *
@@ -31,7 +32,7 @@ export class PromotionsPage {
   showEditPanel = false;
   viewPromotionsFlag : boolean = false;
   private todo : FormGroup;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private storage:StorageProvider,private loader:LoaderProvider, public alert : AlertProvider,private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private shop:ShopProvider,private loader:LoaderProvider, public alert : AlertProvider,private formBuilder: FormBuilder,private storage:StorageProvider) {
     this.todo = this.formBuilder.group({
       text: ['', Validators.required],
       subText: [''],
@@ -47,6 +48,11 @@ export class PromotionsPage {
   }
 
   getAllShops() {
+
+    // this.shopList =  this.shop.getAdminShopList();
+    // if(this.shopList.length>0){
+    //   this.shopSelected = this.shopList[0].shopId;
+    // }
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
       if (this.shopList != undefined && this.shopList != null && this.shopList.length > 0) {

@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ScrollProvider } from '../../providers/scroll/scroll';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import { ModalProvider } from '../../providers/modal/modal';
+import { ShopProvider } from '../../providers/shop/shop';
 
 
 /**
@@ -47,7 +48,7 @@ export class OrdersPage {
   shopIds:any[]=[];
   selectedShopIds:any[]=[];
   cols:any[]=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider,private storage:StorageProvider) {
     this.fulfillmentData = [];
 
   }
@@ -105,6 +106,7 @@ export class OrdersPage {
       
     }, (err: HttpErrorResponse) => {
       this.errorHandler.error(err);
+      this.loader.hide();
      // alert("Something went wrong !");
     }, () => {
       this.loader.hide();

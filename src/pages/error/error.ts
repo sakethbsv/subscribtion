@@ -16,11 +16,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ErrorPage {
 
   errors: any[] = [];
+  catalogError:any;
+  productList:any[]=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
     this.errors = navParams.get('errors');
-
+    this.catalogError = JSON.parse(navParams.get('catalogErr'));
+    this.productList = this.catalogError.subscriptionProducts;
   }
 
   ionViewDidLoad() {

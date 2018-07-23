@@ -8,6 +8,7 @@ import { AlertProvider } from '../../providers/alert/alert';
 import { ModalProvider } from '../../providers/modal/modal';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import { ErrorPage } from '../error/error';
+import { ShopProvider } from '../../providers/shop/shop';
 /**
  * Generated class for the CatalogPage page.
  *
@@ -26,6 +27,7 @@ export class CatalogPage {
   shopList: any[] = [];
   settings: any;
   errorData: any[] = [];
+  val:any;
 
   shopSelected: any;
   viewProductSelected: boolean = false;
@@ -43,14 +45,22 @@ export class CatalogPage {
   msgs: any[] = [];
   rowData: any;
   uploadCatalog: boolean = false;
-  activateDeleteButton:boolean=false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: StorageProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider, public modalCtrl: ModalController) {
+  activateDeleteButton: boolean = false;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private shop: ShopProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider, public modalCtrl: ModalController,public storage:StorageProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CatalogPage');
     this.getAllShops();
   }
+  // getAllShops() {
+  //   this.shopList = this.shop.getAdminShopList();
+  //   if (this.shopList.length > 0) {
+  //     this.shopSelected = this.shopList[0].shopId;
+  //   }
+
+
+  //}
 
   getAllShops() {
     this.storage.getItem('admin').then((data: any) => {
@@ -103,8 +113,11 @@ export class CatalogPage {
         resolve();
       }, (err: HttpErrorResponse) => {
         console.log(err);
-
-        this.errorHandler.error(err);
+        if(err.status==400){
+          let profileModal = this.modalCtrl.create(ErrorPage, {'catalogErr': err.error });
+          profileModal.present();
+        }
+       
         this.loader.hide();
         reject(err);
       })
@@ -149,7 +162,7 @@ export class CatalogPage {
           products.push(this.product);
           this.displayDialog = false;
           this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Added !', life: 3000 });
-          
+
         }, (err) => {
           console.log(err);
 
@@ -166,7 +179,7 @@ export class CatalogPage {
         products[this.productList.indexOf(this.editedProduct)] = this.product;
         this.displayDialog = false;
         this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Edited !', life: 3000 });
-        this.activateDeleteButton=false;
+        this.activateDeleteButton = false;
       }, (err) => {
         console.log(err);
 
@@ -199,7 +212,7 @@ export class CatalogPage {
   }
 
   onRowSelect(event) {
-   this.activateDeleteButton=true;
+    this.activateDeleteButton = true;
   }
 
   cloneProduct(c: any): any {
@@ -231,7 +244,7 @@ export class CatalogPage {
   }
 
   deleteProduct(data) {
-   
+
     this.productListToUpdate = [];
     this.msgs = [];
     data.delete = true;
@@ -241,15 +254,15 @@ export class CatalogPage {
       this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Deleted !', life: 3000 });
       let index = this.productList.indexOf(data);
       this.productList = this.productList.filter((val, i) => i != index);
-      this.activateDeleteButton=false;
-      this.selectedProduct=[];
+      this.activateDeleteButton = false;
+      this.selectedProduct = [];
     }, () => {
 
     })
   }
 
   deleteSelected() {
-    this.activateDeleteButton=false;
+    this.activateDeleteButton = false;
     this.productListToUpdate = [];
     this.msgs = [];
     console.log(this.selectedProduct)
@@ -269,7 +282,7 @@ export class CatalogPage {
           this.productListToUpdate.forEach(element => {
             let index = this.productList.indexOf(element);
             this.productList = this.productList.filter((val, i) => i != index);
-            this.activateDeleteButton=false;
+            this.activateDeleteButton = false;
           });
         }, () => {
 
@@ -294,7 +307,7 @@ export class CatalogPage {
     this.product = this.cloneProduct(rowData);
     this.displayDialog = true;
     console.log('product', this.product);
-    this.selectedProduct=[];
+    this.selectedProduct = [];
   }
 
   myUploader(event) {
@@ -326,14 +339,30 @@ export class CatalogPage {
 
 
 
-  onRowUnselect(event){
+  onRowUnselect(event) {
     console.log(event.data);
     console.log(this.selectedProduct)
-    if(this.selectedProduct.length>0){
-      this.activateDeleteButton=true;
-    }else{
-      this.activateDeleteButton=false;
+    if (this.selectedProduct.length > 0) {
+      this.activateDeleteButton = true;
+    } else {
+      this.activateDeleteButton = false;
     }
   }
+
+  search(event){
+    console.log(event);
+    return this.filter(event.query,this.shopList)
+  }
+  filter(query, shopList: any[]):any[] {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    let filtered : any[] = [];
+    for(let i = 0; i < shopList.length; i++) {
+        let shop = shopList[i];
+        if(shop.shopName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            filtered.push(shop);
+        }
+    }
+    return filtered;
+}
 
 }

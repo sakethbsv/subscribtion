@@ -4,6 +4,7 @@ import { CsvmodalPage } from '../../pages/csvmodal/csvmodal';
 import { DeleteconfirmationPage } from '../../pages/deleteconfirmation/deleteconfirmation';
 import { CatalogProvider } from '../catalog/catalog';
 import { FulfillmentDetailPage } from '../../pages/fulfillment-detail/fulfillment-detail';
+import { ErrorPage } from '../../pages/error/error';
 
 /*
   Generated class for the ModalProvider provider.
@@ -43,6 +44,15 @@ export class ModalProvider {
   showSubscriptionDetails(data){
     console.log(data);
     let subscriptionModal = this.modal.create(FulfillmentDetailPage,{'fulfillmentDetail':data});
+    subscriptionModal.onDidDismiss(() => {
+    })
+
+    subscriptionModal.present();
+  }
+
+  showCatalogUploadErr(data){
+    console.log(data);
+    let subscriptionModal = this.modal.create(ErrorPage,{'catalogErr':data});
     subscriptionModal.onDidDismiss(() => {
     })
 

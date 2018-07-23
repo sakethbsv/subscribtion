@@ -46,6 +46,8 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ScrollProvider } from '../providers/scroll/scroll';
 import { ErrorPage } from '../pages/error/error';
 import {TooltipModule} from 'primeng/tooltip';
+import { ShopProvider } from '../providers/shop/shop';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,8 @@ import {TooltipModule} from 'primeng/tooltip';
     GrowlModule,
     FileUploadModule,
     ScrollToModule.forRoot(),
-    TooltipModule
+    TooltipModule,
+    AutoCompleteModule
     
   ],
   bootstrap: [IonicApp],
@@ -121,7 +124,8 @@ import {TooltipModule} from 'primeng/tooltip';
     AlertProvider,
     ModalProvider,
     PromotionsProvider,
-    InventoryProvider
+    InventoryProvider,
+    ShopProvider
     
     
   ]

@@ -8,6 +8,7 @@ import { LoaderProvider } from '../../providers/loader/loader';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import 'rxjs/add/observable/fromEvent';
+import { ShopProvider } from '../../providers/shop/shop';
 /**
  * Generated class for the InventoryPage page.
  *
@@ -46,7 +47,7 @@ export class InventoryPage {
   shopSelected : any;
   viewInventoryFlag : boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private storage:StorageProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private shop:ShopProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider,public storage:StorageProvider) {
     
   }
 
@@ -54,6 +55,14 @@ export class InventoryPage {
     console.log('ionViewDidLoad InventoryPage');
     this.getAllShops();
   }
+
+  // getAllShops() {
+  //   this.shopList =  this.shop.getAdminShopList();
+  //   if(this.shopList.length>0){
+  //     this.shopSelected = this.shopList[0].shopId;
+  //   }
+
+  // }
 
   getAllShops() {
     this.storage.getItem('admin').then((data: any) => {

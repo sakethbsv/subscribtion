@@ -4,7 +4,7 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,HttpHeaders
+  HttpInterceptor, HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { StorageProvider } from '../storage/storage';
@@ -22,22 +22,36 @@ import { LoaderProvider } from '../loader/loader';
 export class InterceptorProvider implements HttpInterceptor {
 
 
-  constructor(public http: HttpClient, public storage: StorageProvider,public loader:LoaderProvider) {
+  constructor(public http: HttpClient, public storage: StorageProvider, public loader: LoaderProvider) {
     console.log('Hello InterceptorProvider Provider');
   }
 
 
   getToken() {
-    return this.storage.getItem('admin').then((res: any) => {
-      console.log(res)
-      return res.authenticationDetails.authToken;
-    });
+
+    
+
+    let promise = new Promise((resolve,reject)=>{
+      let token = this.storage.getCookie('token');
+      if (token != null || token != "") {
+        resolve(token)
+      }else{
+        reject();
+      }
+    })
+
+    return promise;
+
+    // return this.storage.getItem('admin').then((res: any) => {
+    //   console.log(res)
+    //   return res.authenticationDetails.authToken;
+    // });
 
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if(req.url.search('/v2/dashboard/admin/login') > -1){
+    if (req.url.search('/v2/dashboard/admin/login') > -1) {
       this.loader.show();
       return next.handle(req);
     }

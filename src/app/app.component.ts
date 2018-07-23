@@ -31,6 +31,7 @@ export class MyApp {
     this.admin={}
 
     this.storage.getItem('admin').then((data:any)=>{
+      console.log(data);
       if(data!=null){
         //this.openPage(HomePage)
         this.admin=data.admin;
@@ -43,8 +44,22 @@ export class MyApp {
         this.rootPage = LoginPage;
       }
     },() => {
+        console.log('data');
         this.rootPage = LoginPage;
       })
+
+    // if(window.localStorage && localStorage.length>0){
+    //   this.admin = JSON.parse(localStorage.getItem('admin'));
+    //   console.log('admin',this.admin);
+    //   if(this.admin!=null){
+    //     this.rootPage=HomePage;
+    //     this.splitPane.setSplitPane(true);
+    //   }else{
+    //     window.location.href='../v2/index.html';
+    //   }
+    // }else{
+    //   window.location.href='../v2/index.html';
+    // }
 
     // used for an example of ngFor and navigation
     this.pages = [

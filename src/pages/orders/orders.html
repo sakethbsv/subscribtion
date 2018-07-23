@@ -47,11 +47,11 @@
         <ion-list radio-group [(ngModel)]="selectedShopId">
 
           <ion-row>
-            <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+            <ion-col col-lg-6 col-md-6 col-sm-12 col-xs-12 *ngFor="let shop of shopList">
               <ion-item>
                 <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
                 <ion-label>
-                  <p ion-text text-left>{{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
+                  <p ion-text text-left text-wrap>{{shop.shopId}}. {{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
                 </ion-label>
               </ion-item>
             </ion-col>
@@ -71,15 +71,21 @@
 
 
     <ion-row padding *ngIf="showfilter==false" id="order-detail">
-      <ion-col>
-        <div class="header-bar">
-          <ion-title ion-text>
-            <ion-icon name="list-box"></ion-icon>&nbsp; Order Detail
-            <button style="float: right" ion-button small round color="secondary" (click)="downloadReport(selectedShopIds)">Download</button>
-            <button style="float: right" ion-button small round color="secondary" (click)="filter()">Filter</button>
-          </ion-title>
-
-        </div>
+      <ion-col col-12>
+          <div class="header-bar">
+              <ion-title ion-text>
+                <ion-icon name="list-box"></ion-icon>&nbsp; Order Detail
+               
+              </ion-title>
+    
+            </div>
+      </ion-col>
+      <ion-col col-12>
+          <button style="float: right" ion-button small round color="secondary" (click)="downloadReport(selectedShopIds)">Download</button>
+          <button style="float: right" ion-button small round color="secondary" (click)="filter()">Filter</button>
+      </ion-col>
+      <ion-col col-12>
+        
         <ion-card class="content-scrolls">
 
           <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" [(selection)]="selectedFulfillment"> 
