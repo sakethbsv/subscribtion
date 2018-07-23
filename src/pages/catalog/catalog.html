@@ -38,10 +38,9 @@
             </ion-item>
           </ion-col>
           <ion-col col-12>
-            <button hideWhen="android,ios" margin-left ion-button (click)="viewProductSelected = true; viewProduct(shopSelected)" [disabled]="!shopSelected"
+            <button margin-left ion-button (click)="viewProductSelected = true; viewProduct(shopSelected)" [disabled]="!shopSelected"
               margin-top>View Products</button>
-              <button showWhen="android,ios"  ion-button round block (click)="viewProductSelected = true; viewProduct(shopSelected)" [disabled]="!shopSelected"
-              margin-top>View Products</button>
+
           </ion-col>
         </ion-row>
 
@@ -61,17 +60,17 @@
 
     <ion-row id="viewProduct">
       <ion-col>
-          <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="uploadCatalog=!uploadCatalog">
-              <ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
+        <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="uploadCatalog=!uploadCatalog">
+          <ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
 
-              <button ion-button small round color="primary" [disabled]="!viewProductSelected" (click)="showDialogToAdd()">
-                <ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
-                <button ion-button small round color="secondary" [disabled]="!viewProductSelected || !activateDeleteButton" (click)="deleteSelected()">
-                  <ion-icon name="trash" icon-left></ion-icon>&nbsp; Delete</button>
-                  <button ion-button small round outline color="secondary" [disabled]="!viewProductSelected" (click)="refresh()">
-                    <ion-icon name="refresh" icon-left></ion-icon> &nbsp;Refresh</button>
-                    <button ion-button small round outline color="secondary" [disabled]="(!viewProductSelected || errorData.length==0)" (click)="presentErrorModal()">
-                      <ion-icon name="information-circle" icon-left></ion-icon> &nbsp;Errors</button>
+        <button ion-button small round color="primary" [disabled]="!viewProductSelected" (click)="showDialogToAdd()">
+          <ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
+        <button ion-button small round color="secondary" [disabled]="!viewProductSelected || !activateDeleteButton" (click)="deleteSelected()">
+          <ion-icon name="trash" icon-left></ion-icon>&nbsp; Delete</button>
+        <button ion-button small round outline color="secondary" [disabled]="!viewProductSelected" (click)="refresh()">
+          <ion-icon name="refresh" icon-left></ion-icon> &nbsp;Refresh</button>
+        <button ion-button small round outline color="secondary" [disabled]="(!viewProductSelected || errorData.length==0)" (click)="presentErrorModal()">
+          <ion-icon name="information-circle" icon-left></ion-icon> &nbsp;Errors</button>
       </ion-col>
       <!-- <ion-col col-xs-12 col-sm-12 col-md-2 col-lg-1>
           
@@ -86,98 +85,169 @@
            
       
         </ion-col> -->
-        
+
       <ion-col *ngIf="uploadCatalog">
         <p-fileUpload name="myfile[]" customUpload="true" accept=".csv" (uploadHandler)="myUploader($event)">
           <ng-template pTemplate="content">
-            <a href="https://storage.cloud.google.com/perpule-1248.appspot.com/sample_file_subscription.csv"><button ion-button small outline>Sample CSV</button></a>
+            <a href="https://storage.cloud.google.com/perpule-1248.appspot.com/sample_file_subscription.csv">
+              <button ion-button small outline>Sample CSV</button>
+            </a>
           </ng-template>
         </p-fileUpload>
-        
+
       </ion-col>
     </ion-row>
 
     <ion-row justify-content-center *ngIf="productList.length==0" class="no-promotion">
       <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12 align-self-center>
-        
-          <img src="assets/imgs/search.png" style="margin: auto" class="dashboard-icons" />
-          <button ion-button clear round>Specify search criteria</button>
+
+        <img src="assets/imgs/search.png" class="dashboard-icons" />
+        <button ion-button clear round>Specify search criteria</button>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col >
-          <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" sortMode="multiple" selectionMode="multiple" [(selection)]="selectedProduct"
-              [paginator]="true" [rows]="15" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [responsive]="true">
-              <ng-template pTemplate="caption">
-                <div style="text-align: right">
-                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                  <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                    style="width:auto">
-                </div>
-                <div style="text-align: left">
-                  <button ion-button round small (click)="deleteAll()">
-                    <ion-icon icon-left name="trash"></ion-icon>Delete Catalog</button>
-                </div>
-              </ng-template>
-              <ng-template pTemplate="header" let-columns>
-                <tr>
-                  <th>Action</th>
-                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                    {{col.header}}
-                  </th>
-          
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr [pSelectableRow]="rowData">
-                  <td>
-                    <button ion-button small (click)="deleteProduct(rowData)" pTooltip="Delete Product" tooltipPosition="top">
-                      <ion-icon name="trash"></ion-icon>
-                    </button>
-                    <button ion-button small (click)="editProduct(rowData)" pTooltip="Edit Product" tooltipPosition="top">
-                      <ion-icon name="create"></ion-icon>
-                    </button>
-                  </td>
-                  <td>{{rowData.barcodeId}}</td>
-                  <td>{{rowData.sku}}</td>
-                  <td>{{rowData.name}}</td>
-                  <td>
-                      <ion-item>
-                          <ion-thumbnail item-start>
-                            <img src="{{rowData.image}}">
-                          </ion-thumbnail>
-                        </ion-item>
-                    <!-- <a target="_blank" href="{{rowData.image}}">View Image</a> -->
-                  </td>
-                  <td>{{rowData.category}}</td>
-                  <td>{{rowData.subCategory}}</td>
-                  <td>
-                      <ion-item>
-                          <ion-thumbnail item-start>
-                            <img src="{{rowData.categoryImage}}">
-                          </ion-thumbnail>
-                        </ion-item>
-                    <!-- <a target="_blank" href="{{rowData.categoryImage}}">View Image</a> -->
-                  </td>
-                  <td>{{rowData.amount}}</td>
-                  <td>
-                   <ion-icon name="checkmark-circle" color="secondary" *ngIf="rowData.isPerishable"></ion-icon>
-                   <ion-icon name="close-circle" *ngIf="!rowData.isPerishable"></ion-icon>
-                  </td>
-          
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="summary">
-                {{productList?.length}} products
-              </ng-template>
-            </p-table>
+      <ion-col>
+        <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" sortMode="multiple" selectionMode="multiple"
+          [(selection)]="selectedProduct" [paginator]="true" [rows]="15" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
+        [scrollable]="true" [style]="{width:'1080px'}">
+          <ng-template pTemplate="caption">
+            <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                style="width:90%">
+            </div>
+            <div style="text-align: left">
+              <button ion-button round small (click)="deleteAll()">
+                <ion-icon icon-left name="trash"></ion-icon>Delete Catalog</button>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th>Action</th>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+              </th>
+
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td>
+                  
+                <button ion-button small (click)="deleteProduct(rowData)" pTooltip="Delete Product" tooltipPosition="top">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+                <button ion-button small (click)="editProduct(rowData)" pTooltip="Edit Product" tooltipPosition="top">
+                  <ion-icon name="create"></ion-icon>
+                </button>
+              </td>
+              <td>{{rowData.barcodeId}}</td>
+              <td>{{rowData.sku}}</td>
+              <td> {{rowData.name}}</td>
+              <td> 
+                <ion-item>
+                  <ion-thumbnail item-start>
+                    <img src="{{rowData.image}}">
+                  </ion-thumbnail>
+                </ion-item>
+                <!-- <a target="_blank" href="{{rowData.image}}">View Image</a> -->
+              </td>
+              <td> {{rowData.category}}</td>
+              <td> {{rowData.subCategory}}</td>
+              <td>
+                <ion-item>
+                  <ion-thumbnail item-start>
+                    <img src="{{rowData.categoryImage}}">
+                  </ion-thumbnail>
+                </ion-item>
+                <!-- <a target="_blank" href="{{rowData.categoryImage}}">View Image</a> -->
+              </td>
+              <td>Rs.{{rowData.amount}}</td>
+              <td>
+                <ion-icon name="checkmark-circle" color="secondary" *ngIf="rowData.isPerishable"></ion-icon>
+                <ion-icon name="close-circle" *ngIf="!rowData.isPerishable"></ion-icon>
+              </td>
+
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            {{productList?.length}} products
+          </ng-template>
+        </p-table>
       </ion-col>
     </ion-row>
 
+    <!-- <ion-row showWhen="android,ios">
+        <p-dataView #dv [value]="productList" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
+        [sortField]="sortField" [sortOrder]="sortOrder">
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <div class="ui-g">
+                    
+                    <div class="ui-g-6 ui-md-4 filter-container">
+                        <div style="position:relative">
+                            <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filterGlobal($event.target.value, 'contains')">
+                        </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-4" style="text-align:right">
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                </div>
+            </div>
+        </p-header>
+        <ng-template let-product pTemplate="listItem">
+            <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+                <div class="ui-g-12 ui-md-3" style="text-align:center">
+                    <ion-thumbnail item-start>
+                        <img src="{{product.image}}">
+                      </ion-thumbnail>
+                </div>
+                <div class="ui-g-12 ui-md-8 car-details">
+                    <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6">BarcodeID: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{product.barcodeId}}</b></div>
+    
+                        <div class="ui-g-2 ui-sm-6">Sku: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{product.sku}}</b></div>
+    
+                        <div class="ui-g-2 ui-sm-6">Name: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{product.name}}</b></div>
+    
+                        <div class="ui-g-2 ui-sm-6">Amount: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{product.amount}}</b></div>
+
+                        <div class="ui-g-2 ui-sm-6">Category: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{product.category}}</b></div>
+
+                        <div class="ui-g-2 ui-sm-6">Subcategory: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{product.subCategory}}</b></div>
+
+                        <div class="ui-g-2 ui-sm-6">Category Image: </div>
+                        <div class="ui-g-10 ui-sm-6"> <ion-thumbnail item-start>
+                            <img src="{{product.categoryImage}}">
+                          </ion-thumbnail></div>
+
+                        <div class="ui-g-2 ui-sm-6">Perishable?: </div>
+                        <div class="ui-g-10 ui-sm-6"><b>{{product.isPerishable}}</b></div>
+                    </div>
+                </div>
+                <div class="ui-g-12 ui-md-1 search-icon">
+                    <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"></button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-car pTemplate="gridItem">
+            <div style="padding:.5em" class="ui-g-12 ui-md-3">
+               
+            </div>
+        </ng-template>
+    </p-dataView>
+    </ion-row> -->
+
   </ion-grid>
 
- 
+
 
 
 

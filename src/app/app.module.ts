@@ -48,7 +48,7 @@ import { ErrorPage } from '../pages/error/error';
 import {TooltipModule} from 'primeng/tooltip';
 import { ShopProvider } from '../providers/shop/shop';
 import {AutoCompleteModule} from 'primeng/autocomplete';
-
+import {DataViewModule} from 'primeng/dataview';
 @NgModule({
   declarations: [
     MyApp,
@@ -82,7 +82,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     FileUploadModule,
     ScrollToModule.forRoot(),
     TooltipModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    DataViewModule
     
   ],
   bootstrap: [IonicApp],
