@@ -60,7 +60,7 @@
     </div>
 
     <ion-row id="viewProduct">
-      <ion-col col-xs-12 col-sm-12 col-md-12 col-lg-12>
+      <ion-col>
           <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="uploadCatalog=!uploadCatalog">
               <ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
 
@@ -161,7 +161,10 @@
                     <!-- <a target="_blank" href="{{rowData.categoryImage}}">View Image</a> -->
                   </td>
                   <td>{{rowData.amount}}</td>
-                  <td>{{rowData.isPerishable}}</td>
+                  <td>
+                   <ion-icon name="checkmark-circle" color="secondary" *ngIf="rowData.isPerishable"></ion-icon>
+                   <ion-icon name="close-circle" *ngIf="!rowData.isPerishable"></ion-icon>
+                  </td>
           
                 </tr>
               </ng-template>

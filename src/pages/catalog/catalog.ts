@@ -116,6 +116,8 @@ export class CatalogPage {
         if(err.status==400){
           let profileModal = this.modalCtrl.create(ErrorPage, {'catalogErr': err.error });
           profileModal.present();
+        }else{
+          this.errorHandler.error(err);
         }
        
         this.loader.hide();
