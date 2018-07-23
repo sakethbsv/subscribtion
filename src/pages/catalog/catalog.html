@@ -59,19 +59,31 @@
     </div>
 
     <ion-row id="viewProduct">
-      <ion-col>
-        <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="uploadCatalog=!uploadCatalog">
-          <ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
+        <ion-col >
+            <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="uploadCatalog=!uploadCatalog">
+                <ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
+            
+            
+              <button ion-button small round color="primary" [disabled]="!viewProductSelected" (click)="showDialogToAdd()">
+                <ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
+            
+            
+              <button ion-button small round color="secondary" [disabled]="!viewProductSelected || !activateDeleteButton" (click)="deleteSelected()">
+                <ion-icon name="trash" icon-left></ion-icon>&nbsp; Delete</button>
+            
+            
+              <button ion-button small round outline color="secondary" [disabled]="!viewProductSelected" (click)="refresh()">
+                <ion-icon name="refresh" icon-left></ion-icon> &nbsp;Refresh</button>
+            
+            
+              <button ion-button small round outline color="secondary" [disabled]="(!viewProductSelected || errorData.length==0)"
+                (click)="presentErrorModal()">
+                <ion-icon name="information-circle" icon-left></ion-icon> &nbsp;Errors</button>          
+        </ion-col>
 
-        <button ion-button small round color="primary" [disabled]="!viewProductSelected" (click)="showDialogToAdd()">
-          <ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
-        <button ion-button small round color="secondary" [disabled]="!viewProductSelected || !activateDeleteButton" (click)="deleteSelected()">
-          <ion-icon name="trash" icon-left></ion-icon>&nbsp; Delete</button>
-        <button ion-button small round outline color="secondary" [disabled]="!viewProductSelected" (click)="refresh()">
-          <ion-icon name="refresh" icon-left></ion-icon> &nbsp;Refresh</button>
-        <button ion-button small round outline color="secondary" [disabled]="(!viewProductSelected || errorData.length==0)" (click)="presentErrorModal()">
-          <ion-icon name="information-circle" icon-left></ion-icon> &nbsp;Errors</button>
-      </ion-col>
+        
+    
+
       <!-- <ion-col col-xs-12 col-sm-12 col-md-2 col-lg-1>
           
       </ion-col>
@@ -110,12 +122,12 @@
       <ion-col>
         <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" sortMode="multiple" selectionMode="multiple"
           [(selection)]="selectedProduct" [paginator]="true" [rows]="15" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
-        [scrollable]="true" [style]="{width:'1080px'}">
+          [scrollable]="true" [style]="{width:'1080px'}">
           <ng-template pTemplate="caption">
             <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
               <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                style="width:90%">
+                style="width:50%">
             </div>
             <div style="text-align: left">
               <button ion-button round small (click)="deleteAll()">
@@ -134,7 +146,7 @@
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [pSelectableRow]="rowData">
               <td>
-                  
+
                 <button ion-button small (click)="deleteProduct(rowData)" pTooltip="Delete Product" tooltipPosition="top">
                   <ion-icon name="trash"></ion-icon>
                 </button>
@@ -145,7 +157,7 @@
               <td>{{rowData.barcodeId}}</td>
               <td>{{rowData.sku}}</td>
               <td> {{rowData.name}}</td>
-              <td> 
+              <td>
                 <ion-item>
                   <ion-thumbnail item-start>
                     <img src="{{rowData.image}}">
