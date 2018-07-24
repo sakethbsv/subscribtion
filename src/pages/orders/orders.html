@@ -122,7 +122,7 @@
                   <span *ngIf="!fulfillment.orderSentToMerchant">
                     <ion-icon name="close-circle"></ion-icon>
                   </span>
-                  <td *ngIf="shopList[0].company != 'BIGBAZAAR'">
+                  <td *ngIf="shopList[0].subsidiaryCompany != 'BIGBAZAAR'">
                       <span class="ui-column-title">Status</span>
                     <button *ngIf="fulfillment.status=='PENDING'" ion-button [color]="fulfillment.status=='FULFILLED'?'dark':'secondary'" [disabled]="fulfillment.disable"
                       (click)="onClick(fulfillment)">
@@ -133,7 +133,7 @@
                       <b ion-text color="dark">{{fulfillment.status}}</b>
                     </button>
                   </td>
-                  <td *ngIf="shopList[0].company == 'BIGBAZAAR'">
+                  <td *ngIf="shopList[0].subsidiaryCompany == 'BIGBAZAAR'">
                       <span class="ui-column-title">Status</span>
                     <span>
                       <b ion-text color="dark">{{fulfillment.status}}</b>
