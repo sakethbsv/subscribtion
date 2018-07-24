@@ -124,7 +124,7 @@
                   </span>
                 </td>
 
-                  <td *ngIf="shopList[0].subsidiaryCompany != 'BIGBAZAAR'">
+                  <td *ngIf="shopList[0].subsidiaryCompany != 'HERITAGE'">
                       <span class="ui-column-title">Status</span>
                     <button *ngIf="fulfillment.status=='PENDING'" ion-button [color]="fulfillment.status=='FULFILLED'?'dark':'secondary'" [disabled]="fulfillment.disable"
                       (click)="onClick(fulfillment)">
@@ -136,7 +136,7 @@
                     </button>
                   </td>
 
-                  <td *ngIf="shopList[0].subsidiaryCompany == 'BIGBAZAAR'">
+                  <td *ngIf="shopList[0].subsidiaryCompany == 'HERITAGE'">
                       <span class="ui-column-title">Status</span>
                     <span>
                       <b ion-text color="dark">{{fulfillment.status}}</b>
