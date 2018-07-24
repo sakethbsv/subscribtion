@@ -88,12 +88,12 @@
         
         <ion-card class="content-scrolls">
 
-          <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" [(selection)]="selectedFulfillment"> 
+          <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" [(selection)]="selectedFulfillment" [scrollable]="true" [style]="{width:'1080px'}"> 
             <ng-template pTemplate="caption">
               <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
-                  style="width:auto">
+                  style="min-width:auto">
               </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -106,9 +106,9 @@
             </ng-template>
             <ng-template pTemplate="body" let col of columns let-fulfillment>
               <tr>
-                <td><span class="ui-column-title">ID</span>{{fulfillment.subscriptionId}}</td>
-                <td><span class="ui-column-title">Order Id</span>{{fulfillment.subscriptionOrderId}}</td>
-                <td><span class="ui-column-title">Customer Name</span>{{fulfillment.customerName}}</td>
+                <td><span class="ui-column-title">ID</span><span>{{fulfillment.subscriptionId}}</span></td>
+                <td><span class="ui-column-title">Order Id</span><span>{{fulfillment.subscriptionOrderId}}</span></td>
+                <td><span class="ui-column-title">Customer Name</span>  {{fulfillment.customerName}}</td>
                 <td><span class="ui-column-title">Mobile No</span>{{fulfillment.mobileNumber}}</td>
                 <td><span class="ui-column-title">Delivery Date</span>{{fulfillment.deliveryDate | date}}</td>
                 <td><span class="ui-column-title">Slot</span>{{fulfillment.slot}}</td>
