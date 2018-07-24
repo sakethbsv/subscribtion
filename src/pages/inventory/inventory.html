@@ -13,13 +13,14 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div class="header-bar">
-    <ion-title ion-text>
-      <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
-  </div>
-  <ion-grid>
-    <ion-row>
+<ion-content no-padding>
+ 
+  <ion-grid >
+      <div class="header-bar">
+          <ion-title ion-text>
+            <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
+        </div>
+    <ion-row padding>
       <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
         <div>
           <p class="sub-heading" ion-text color="secondary">
@@ -68,21 +69,23 @@
         <ion-icon name="list-box"></ion-icon>&nbsp; Inventory Details
       </ion-title>
     </div>
-    <ion-row justify-content-center>
+    <ion-row justify-content-center padding>
       <ion-col align-self-center>
         <p-table #dt [columns]="cols" sortMode="multiple" [value]="inventoryList" [paginator]="true" [rows]="20" [responsive]="true">
           <ng-template pTemplate="caption">
-            
+                        
             <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
               <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
                 style="max-width:50%">
             </div>
             <div style="text-align: left">
-              <button [disabled] ="!viewInventoryFlag" ion-button small round (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
+              <button hideWhen="android,ios" [disabled] ="!viewInventoryFlag" ion-button small round (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
+              
             </div>
           </ng-template>
           <ng-template pTemplate="header" let-columns>
+              <button showWhen="android,ios" [disabled] ="!viewInventoryFlag" ion-button small (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon>&nbsp;Download</button>
               <tr>
                   <th *ngFor="let col of columns">
                       {{col.header}}
