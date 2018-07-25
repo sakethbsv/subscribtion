@@ -51,7 +51,7 @@
               <ion-item>
                 <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
                 <ion-label>
-                  <p ion-text text-left text-wrap>{{shop.shopId}}. {{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
+                  <p ion-text text-left text-wrap>{{shop.shopId}}. {{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}}-[{{shop.originalStoreNumber}}] </p>
                 </ion-label>
               </ion-item>
             </ion-col>
@@ -107,7 +107,10 @@
             <ng-template pTemplate="body" let col of columns let-fulfillment>
               <tr>
                 <td><span class="ui-column-title">ID</span>{{fulfillment.subscriptionId}}</td>
-                <td><span class="ui-column-title">Order Id</span>{{fulfillment.subscriptionOrderId}}</td>
+                <td><span class="ui-column-title">Subscription Id</span>{{fulfillment.subscriptionOrderId}}</td>
+                <td><span class="ui-column-title">Fulfillment Id</span>{{fulfillment.actualOrderId}}</td>
+                <td><span class="ui-column-title">Order Amount</span>Rs.{{fulfillment.totalOrderAmount}}</td>
+                
                 <td><span class="ui-column-title">Customer Name</span>{{fulfillment.customerName}}</td>
                 <td><span class="ui-column-title">Mobile No</span>{{fulfillment.mobileNumber}}</td>
                 <td><span class="ui-column-title">Delivery Date</span>{{fulfillment.deliveryDate | date}}</td>

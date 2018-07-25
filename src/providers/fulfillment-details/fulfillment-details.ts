@@ -36,6 +36,7 @@ export class FulfillmentDetailsProvider {
     this.ordersTableData = [];
     let now = moment();
     fulfilmentList.forEach(data => {
+      let amount = 0;
       let obj:any = {};
       obj.shopId = data.fulfillment.shopId;
       obj.customerId = data.fulfillment.customerId;
@@ -49,8 +50,13 @@ export class FulfillmentDetailsProvider {
       obj.address = data.address;
       obj.subscriptionOrderItems = data.subscriptionOrderItems;
       obj.fulfillmentId = data.fulfillment.id;
+      obj.actualOrderId = data.fulfillment.actualOrderId;
       obj.paymentMethod = data.paymentMethod;
       obj.subscriptionOrderId = data.subscriptionOrderId;
+      obj.subscriptionOrderItems.forEach(element => {
+        amount += element.amount*element.quantity
+      });
+      obj.totalOrderAmount = amount;
       if(moment(data.fulfillment.deliveryDate).isAfter(now)){
         obj.disable = true;
        }else{

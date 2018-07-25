@@ -20,9 +20,11 @@ export class FulfillmentDetailPage {
   customerName:any;
   mobileNumber:any;
   settings : any;
+  deliveryDate:any;
   slot:any;
   fulfillmentId:any;
   cols:any[]=[];
+  totalOrderAmount:number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.cols = [
@@ -39,6 +41,8 @@ export class FulfillmentDetailPage {
    this.mobileNumber = data.mobileNumber;
    this.slot = data.slot;
    this.fulfillmentId = data.fulfillmentId;
+   this.deliveryDate = data.deliveryDate;
+   this.totalOrderAmount = data.totalOrderAmount;
   }
 
   ionViewDidLoad() {

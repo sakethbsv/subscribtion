@@ -36,6 +36,9 @@
             <p ion-text color="secondary">Fulfillment Id : #{{fulfillmentId}}</p>
           </ion-item>
           <ion-item>
+              <p ion-text color="secondary">Delivery Date : {{deliveryDate | date}}</p>
+            </ion-item>
+          <ion-item>
             <button ion-button outline color="secondary">Slot {{slot}}</button>
           </ion-item>
         </ion-col>
@@ -85,6 +88,9 @@
             <td>{{fulfillment.quantity}}</td>
             <td>Rs.{{fulfillment.amount}}</td>
           </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+           Total Order Amount : Rs.{{totalOrderAmount}}
         </ng-template>
       </p-table>
     </ion-card-content>
