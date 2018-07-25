@@ -10,35 +10,39 @@
 <ion-content padding>
  <ion-grid>
    <ion-row>
-     <ion-col col-lg-3 col-md-3 col-sm-6 col-xs-6>
+     <ion-col align-self-center>
        <ion-card>
          <ion-card-content>
-            <p ion-text text-center color="primary"><b>Cash Collected</b></p>
-           <h2 ion-text text-center color="secondary">Rs.400</h2>
+           <img  src="assets/imgs/cash/icons8-cash-in-hand-filled-100.png" class="dashboard-icons">
+            <p ion-text text-center text-uppercase color="primary"><b>Cash Collected</b></p>
+           <h2 ion-text text-center text-uppercase color="secondary">Rs.400</h2>
          </ion-card-content>
        </ion-card>
      </ion-col>
-     <ion-col col-lg-3 col-md-3 col-sm-6 col-xs-6>
+     <ion-col>
         <ion-card>
           <ion-card-content>
-             <p ion-text text-center color="primary"><b>Online Payment</b></p>
-            <h2 ion-text text-center color="secondary">Rs.100</h2>
+              <img  src="assets/imgs/online-pay/online-100.png" class="dashboard-icons">
+             <p ion-text text-center text-uppercase color="primary"><b>Online Payment</b></p>
+            <h2 ion-text text-center text-uppercase color="secondary">Rs.100</h2>
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col col-lg-3 col-md-3 col-sm-6 col-xs-6>
+      <ion-col>
           <ion-card>
             <ion-card-content>
-               <p ion-text text-center color="primary"><b>Refund</b></p>
-              <h2 ion-text text-center color="secondary">Rs.0</h2>
+                <img  src="assets/imgs/refund/icons8-refund-filled-100.png" class="dashboard-icons">
+               <p ion-text text-center text-uppercase color="primary"><b>Refund</b></p>
+              <h2 ion-text text-center text-uppercase color="secondary">Rs.0</h2>
             </ion-card-content>
           </ion-card>
         </ion-col>
-        <ion-col col-lg-3 col-md-3 col-sm-6 col-xs-6>
+        <ion-col>
             <ion-card>
               <ion-card-content>
-                 <p ion-text text-center color="primary"><b>Inventory</b></p>
-                <h2  ion-text text-center color="secondary">Rs.87999</h2>
+                  <img  src="assets/imgs/inventory/icons8-trolley-filled-100.png" class="dashboard-icons">
+                 <p ion-text text-center text-uppercase color="primary"><b>Inventory</b></p>
+                <h2  ion-text text-center text-uppercase color="secondary">Rs.87999</h2>
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -52,7 +56,7 @@
         
          <ion-card-content>
            <ion-card-title>
-           <button ion-button block (click)="getOrderDetails()"><h2 ion-text color="secondary" text-center >Track Orders</h2></button> 
+           <button ion-button block (click)="getOrderDetails()"><h2 ion-text color="secondary" text-center text-uppercase >Track Orders</h2></button> 
            </ion-card-title>
          </ion-card-content>
        </ion-card>
