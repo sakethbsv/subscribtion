@@ -49,6 +49,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import { ShopProvider } from '../providers/shop/shop';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {DataViewModule} from 'primeng/dataview';
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   declarations: [
     MyApp,
@@ -83,7 +84,8 @@ import {DataViewModule} from 'primeng/dataview';
     ScrollToModule.forRoot(),
     TooltipModule,
     AutoCompleteModule,
-    DataViewModule
+    DataViewModule,
+    DropdownModule
     
   ],
   bootstrap: [IonicApp],
