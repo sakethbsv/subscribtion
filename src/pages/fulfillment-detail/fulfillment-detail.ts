@@ -15,19 +15,24 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class FulfillmentDetailPage {
 
-  subscriptionOrderItems:any;
-  address:any;
-  customerName:any;
-  mobileNumber:any;
+  subscriptionOrderItems:any[]=[];
+  address:any={};
+  customerName:string="";
+  mobileNumber:string="";
   settings : any;
-  deliveryDate:any;
-  slot:any;
-  fulfillmentId:any;
+  deliveryDate:string="";
+  slot:string="";
+  fulfillmentId:number;
   cols:any[]=[];
   totalOrderAmount:number;
   subscriptionOrderId:number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl:ViewController) {
+   
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad FulfillmentDetailPage');
     this.cols = [
       { field: 'barcodeId', header: 'Barcode Id'},
       { field: 'sku', header:'Sku'},
@@ -35,7 +40,7 @@ export class FulfillmentDetailPage {
       { field: 'quantity', header: 'quantity'},
       { field: 'amount', header: 'amount' }
   ];
-   let data = navParams.get('fulfillmentDetail');
+   let data = this.navParams.get('fulfillmentDetail');
    this.subscriptionOrderItems = data.subscriptionOrderItems;
    this.address = data.address;
    this.customerName = data.customerName;
@@ -45,10 +50,6 @@ export class FulfillmentDetailPage {
    this.deliveryDate = data.deliveryDate;
    this.totalOrderAmount = data.totalOrderAmount;
    this.subscriptionOrderId = data.subscriptionOrderId;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FulfillmentDetailPage');
   }
 
   dismiss(){

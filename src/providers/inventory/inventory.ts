@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpServiceProvider } from '../http-service/http-service';
+import { HttpClient } from '@angular/common/http';
 
 /*
   Generated class for the InventoryProvider provider.
@@ -10,12 +11,13 @@ import { HttpServiceProvider } from '../http-service/http-service';
 @Injectable()
 export class InventoryProvider {
 
-  constructor(private http: HttpServiceProvider) {
+  constructor(private http: HttpServiceProvider,public https: HttpClient) {
     console.log('Hello InventoryProvider Provider');
   }
 
   getInventory(shopId,from,to){
-    return this.http.post("v2/dashboard/subscription/shop/"+shopId+"/inventoryRequired?from="+from+"&to="+to+"&page=1",null)
+    //return this.http.post("v2/dashboard/subscription/shop/"+shopId+"/inventoryRequired?from="+from+"&to="+to+"&page=1",null)
+    return this.https.get("http://www.mocky.io/v2/5b58441d300000f905fe4e2e");
   }
 
 }

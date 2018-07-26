@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "5.2.10",
     "@fortawesome/fontawesome-free": "^5.1.0",
     "@handsontable/angular": "^2.0.0",
+    "@ionic-native/call-number": "^4.10.1",
     "@ionic-native/core": "4.7.0",
     "@ionic-native/native-storage": "^4.7.0",
     "@ionic-native/screen-orientation": "^4.9.2",
@@ -33,6 +34,7 @@
     "@swimlane/ngx-datatable": "11.3.2",
     "@types/jquery": "^3.3.2",
     "angular-2-data-table": "^0.1.2",
+    "call-number": "^1.0.1",
     "cordova": "^8.0.0",
     "cordova-android": "~7.0.0",
     "cordova-browser": "~5.0.3",
@@ -74,7 +76,8 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-nativestorage": {},
-      "cordova-plugin-screen-orientation": {}
+      "cordova-plugin-screen-orientation": {},
+      "mx.ferreyra.callnumber": {}
     },
     "platforms": [
       "android",

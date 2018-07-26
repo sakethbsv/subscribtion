@@ -88,12 +88,12 @@
         
         <ion-card class="content-scrolls">
 
-          <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" selectionMode="single" [(selection)]="selectedFulfillment" [resizableColumns]="true" columnResizeMode="expand"> 
+          <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" [(selection)]="selectedFulfillment" > 
             <ng-template pTemplate="caption">
               <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
-                  style="width:auto">
+                style="max-width:50%">
               </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -106,20 +106,24 @@
             </ng-template>
             <ng-template pTemplate="body" let col of columns let-fulfillment>
               <tr>
-                <td><span class="ui-column-title">ID</span>{{fulfillment.subscriptionId}}</td>
-                <td><span class="ui-column-title">Subscription Id</span>{{fulfillment.subscriptionOrderId}}</td>
-                <td><span class="ui-column-title">Fulfillment Id</span>{{fulfillment.actualOrderId}}</td>
-                <td><span class="ui-column-title">Order Amount</span>Rs.{{fulfillment.totalOrderAmount}}</td>
+                <td><span class="ui-column-title" style="min-width: 40%;">ID</span>{{fulfillment.subscriptionId}}</td>
+                <td><span class="ui-column-title" style="min-width: 40%;">Subscription Id</span>{{fulfillment.subscriptionOrderId}}</td>
+                <td><span class="ui-column-title" style="min-width: 40%;">Fulfillment Id</span>{{fulfillment.actualOrderId}}</td>
+                <td><span class="ui-column-title" style="min-width: 40%;">Order Amount</span>Rs.{{fulfillment.totalOrderAmount}}</td>
                 
-                <td><span class="ui-column-title">Customer Name</span>{{fulfillment.customerName}}</td>
-                <td><span class="ui-column-title">Mobile No</span>
+                <td><span class="ui-column-title" style="min-width: 40%;">Customer Name</span>{{fulfillment.customerName}}</td>
+                <td><span class="ui-column-title" style="min-width: 40%;">Mobile No</span>
                   {{fulfillment.mobileNumber}}</td>
-                <td><span class="ui-column-title">Delivery Date</span>{{fulfillment.deliveryDate | date}}</td>
-                <td><span class="ui-column-title">Slot</span>{{fulfillment.slot}}</td>
-                <td><span class="ui-column-title">Payment Method</span>{{fulfillment.paymentMethod}}</td>
-                <td><span class="ui-column-title">City</span>{{fulfillment.city}}</td>
+                <td><span class="ui-column-title" style="min-width: 40%;">Delivery Date</span>{{fulfillment.deliveryDate | date}}</td>
+                <td><span class="ui-column-title" style="min-width: 40%;">Slot</span>{{fulfillment.slot}}</td>
                 <td>
-                    <span class="ui-column-title">Order Sent To Merchant</span>
+                  <span class="ui-column-title" style="min-width: 40%;">Payment Method</span>
+                  <span hideWhen="android,ios">{{fulfillment.paymentMethod}}</span>
+                  <ion-badge showWhen="android,ios" color="secondary">{{fulfillment.paymentMethod}}</ion-badge> 
+                </td>
+                <td><span class="ui-column-title" style="min-width: 40%;">City</span>{{fulfillment.city}}</td>
+                <td>
+                    <span class="ui-column-title" style="min-width: 40%;">Order Sent To Merchant</span>
                   <span *ngIf="fulfillment.orderSentToMerchant">
                     <ion-icon name="checkmark-circle"></ion-icon>
                   </span>
@@ -127,7 +131,7 @@
                     <ion-icon name="close-circle"></ion-icon>
                   </span>
                   <td *ngIf="shopList[0].subsidiaryCompany != 'BIGBAZAAR'">
-                      <span class="ui-column-title">Status</span>
+                      <span class="ui-column-title" style="min-width: 40%;">Status</span>
                     <button *ngIf="fulfillment.status=='PENDING'" ion-button [color]="fulfillment.status=='FULFILLED'?'dark':'secondary'" [disabled]="fulfillment.disable"
                       (click)="onClick(fulfillment)">
                       <b ion-text color="light">{{fulfillment.status}}</b>
@@ -138,17 +142,21 @@
                     </button>
                   </td>
                   <td *ngIf="shopList[0].subsidiaryCompany == 'BIGBAZAAR'">
-                      <span class="ui-column-title">Status</span>
+                      <span class="ui-column-title" style="min-width: 40%;">Status</span>
                     <span>
                       <b ion-text color="dark">{{fulfillment.status}}</b>
                     </span>
                   </td>
                   <td>
-                      <span class="ui-column-title">Detail</span>
+                      <span class="ui-column-title" style="min-width: 40%;">Detail</span>
                     <button ion-button small clear (click)="onRowSelect(fulfillment)">
                       <ion-icon name="eye"></ion-icon>View</button>
                   </td>
-
+              </tr>
+              <tr showWhen="android,ios">
+                  <td showWhen="android,ios" style="background: #15112f">
+                      <a class="button" color="secondary" style="margin: auto" ion-fab mini right href="tel:{{fulfillment.mobileNumber}}"><ion-icon name="call"></ion-icon> </a>
+                  </td>
               </tr>
             </ng-template>
           </p-table>

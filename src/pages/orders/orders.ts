@@ -9,7 +9,7 @@ import { ScrollProvider } from '../../providers/scroll/scroll';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import { ModalProvider } from '../../providers/modal/modal';
 import { ShopProvider } from '../../providers/shop/shop';
-
+import { CallNumber } from '@ionic-native/call-number';
 
 /**
  * Generated class for the OrdersPage page.
@@ -48,7 +48,7 @@ export class OrdersPage {
   shopIds:any[]=[];
   selectedShopIds:any[]=[];
   cols:any[]=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider,private storage:StorageProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider,private storage:StorageProvider,private callNumber: CallNumber) {
     this.fulfillmentData = [];
 
   }
@@ -191,6 +191,12 @@ export class OrdersPage {
   onRowSelect(data){
     console.log(data)
    this.modal.showSubscriptionDetails(data);
+  }
+
+  callCustomer(number){
+    // this.callNumber.isCallSupported().then(()=>{
+    //   this.callNumber.callNumber(number,true);
+    // })
   }
 
 }

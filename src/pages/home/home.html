@@ -1,69 +1,78 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon> 
+      <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title><ion-icon name="home"></ion-icon>&nbsp; Dashboard</ion-title>
+    <ion-title>
+      <ion-icon name="home"></ion-icon>&nbsp; Dashboard</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
- <ion-grid>
-   <ion-row>
-     <ion-col col-md-3 col-lg-3 col-xs-6 col-sm-6 align-self-center >
-       <ion-card>
-         <ion-col col-12 align-self-center>
-            <img src="assets/imgs/track.png" class="dashboard-icons"/>
-         </ion-col>
-        
-         <ion-card-content>
-           <ion-card-title>
-           <button ion-button block (click)="getOrderDetails()"><h2 ion-text color="secondary" text-center >Track Orders</h2></button> 
-           </ion-card-title>
-         </ion-card-content>
-       </ion-card>
-     </ion-col>
-     <ion-col col-md-3 col-lg-3 col-xs-6 col-sm-6 align-self-center >
-      <ion-card>
-        <ion-col col-12 align-self-center>
-           <img src="assets/imgs/catalog.png" class="dashboard-icons"/>
-        </ion-col>
-       
-        <ion-card-content>
-          <ion-card-title>
-          <button ion-button block (click)="uploadCatalog()"><h2 ion-text color="secondary" text-center >Upload Catalog</h2></button> 
-          </ion-card-title>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-    <ion-col col-md-3 col-lg-3 col-xs-6 col-sm-6 align-self-center >
-      <ion-card>
-        <ion-col col-12 align-self-center>
-           <img src="assets/imgs/promotion.png" class="dashboard-icons"/>
-        </ion-col>
-       
-        <ion-card-content>
-          <ion-card-title>
-          <button ion-button block (click)="promotions()"><h2 ion-text color="secondary" text-center>Banners</h2></button> 
-          </ion-card-title>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-    <ion-col col-md-3 col-lg-3 col-xs-6 col-sm-6 align-self-center >
+<ion-content no-padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 col-md-3 col-lg-3 col-xl-3>
         <ion-card>
-          <ion-col col-12 align-self-center>
-             <img src="assets/imgs/inventory.png" class="dashboard-icons"/>
-          </ion-col>
-         
+
+          <img src="assets/imgs/track.png" class="dashboard-icons" />
+
+
           <ion-card-content>
             <ion-card-title>
-            <button ion-button block (click)="inventory()"><h2 ion-text color="secondary" text-center>Required Stock</h2></button> 
+              <button ion-button block (click)="getOrderDetails()">
+                <p ion-text color="secondary" text-center text-uppercase><strong>Track Orders</strong> </p>
+              </button>
             </ion-card-title>
           </ion-card-content>
         </ion-card>
       </ion-col>
-   </ion-row>
- </ion-grid>
+
+      <ion-col col-6 col-md-3 col-lg-3 col-xl-3>
+        <ion-card>
+          <img src="assets/imgs/catalog.png" class="dashboard-icons" />
+          <ion-card-content>
+            <ion-card-title>
+              <button ion-button block (click)="uploadCatalog()">
+                <p ion-text color="secondary" text-center><strong>Upload Catalog</strong> </p>
+              </button>
+            </ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-6 col-md-3 col-lg-3 col-xl-3>
+        <ion-card>
+
+          <img src="assets/imgs/promotion.png" class="dashboard-icons" />
+
+
+          <ion-card-content>
+            <ion-card-title>
+              <button ion-button block (click)="promotions()">
+                <p ion-text color="secondary" text-center><strong>Banners</strong></p>
+              </button>
+            </ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-6 col-md-3 col-lg-3 col-xl-3>
+        <ion-card>
+
+          <img src="assets/imgs/inventory.png" class="dashboard-icons" />
+
+
+          <ion-card-content>
+            <ion-card-title>
+              <button ion-button block (click)="inventory()">
+                <p ion-text color="secondary" text-center><strong> Required Stock</strong></p>
+              </button>
+            </ion-card-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 
 </ion-content>
