@@ -5,10 +5,20 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Fulfillment Details</ion-title>
-  </ion-navbar>
+    <ion-toolbar>
+        <ion-title>
+            Fulfillment Details
+        </ion-title>
+        <ion-buttons start>
+          <button ion-button (click)="dismiss()">
+            <span ion-text color="secondary" hideWhen="ios,android">Close</span>
+            <ion-icon name="md-close" showWhen="android,ios"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-toolbar>
+  <!-- <ion-navbar>      
+    <ion-title>Fulfillment Details</ion-title>    
+  </ion-navbar> -->
 
 </ion-header>
 
@@ -17,30 +27,36 @@
   <ion-card class="content-scrolls" no-padding>
     <ion-card-header>
       <ion-row align-items-center no-padding no-margin>
+        
         <ion-col col-md-6 col-lg-6 align-self-center class="highlight-card">
           <ion-item>
-
             <ion-avatar>
               <img src="../assets/imgs/admin.png">
             </ion-avatar>
-
-          </ion-item>
-          <ion-item>
-            <p ion-text color="secondary">
-              <b>{{customerName}}</b>
-            </p>
             <br>
-            <p ion-text color="light">{{mobileNumber}}</p>
+            <p ion-text color="secondary">
+                <b>{{customerName}}</b>
+              </p>
+              <br>
+              <p ion-text color="light">{{mobileNumber}}</p>
+          </ion-item>
+
+          <ion-item>
+            <p ion-text text-left color="secondary">Fulfillment Order Id :</p>
+            <p ion-text text-left color="light"><b>#{{fulfillmentId}}</b></p>
+          </ion-item>
+          <ion-item >
+            <p ion-text text-left color="secondary">Subscription Order Id :</p>
+            <p ion-text text-left color="light"><b>#{{subscriptionOrderId}}</b></p>
           </ion-item>
           <ion-item>
-            <p ion-text color="secondary">Fulfillment Id : #{{fulfillmentId}}</p>
-          </ion-item>
-          <ion-item>
-              <p ion-text color="secondary">Delivery Date : {{deliveryDate | date}}</p>
+              <p ion-text text-left color="secondary">Delivery Date :</p>
+              <p ion-text text-left color="light"><b>{{deliveryDate | date}}</b></p>
             </ion-item>
           <ion-item>
-            <button ion-button outline color="secondary">Slot {{slot}}</button>
+            <button item-start ion-button outline color="secondary">Slot {{slot}}</button>
           </ion-item>
+         
         </ion-col>
         <ion-col col-md-6 col-lg-6 align-self-start>
             <ion-item>

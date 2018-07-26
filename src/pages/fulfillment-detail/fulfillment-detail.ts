@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the FulfillmentDetailPage page.
@@ -25,8 +25,9 @@ export class FulfillmentDetailPage {
   fulfillmentId:any;
   cols:any[]=[];
   totalOrderAmount:number;
+  subscriptionOrderId:number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl:ViewController) {
     this.cols = [
       { field: 'barcodeId', header: 'Barcode Id'},
       { field: 'sku', header:'Sku'},
@@ -40,13 +41,18 @@ export class FulfillmentDetailPage {
    this.customerName = data.customerName;
    this.mobileNumber = data.mobileNumber;
    this.slot = data.slot;
-   this.fulfillmentId = data.fulfillmentId;
+   this.fulfillmentId = data.actualOrderId;
    this.deliveryDate = data.deliveryDate;
    this.totalOrderAmount = data.totalOrderAmount;
+   this.subscriptionOrderId = data.subscriptionOrderId;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FulfillmentDetailPage');
+  }
+
+  dismiss(){
+    this.viewCtrl.dismiss();
   }
 
 }
