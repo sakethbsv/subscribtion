@@ -1,6 +1,6 @@
 import { LoginPage } from './../pages/login/login';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, NavController, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -22,14 +22,14 @@ export class MyApp {
   rootPage: any;
   admin:any;
   color:any;
- 
 
+  navCtrl: NavController
   pages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig ) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig,private app:App) {
     this.initializeApp();
     this.admin={}
-
+    this.navCtrl = app.getActiveNav();
     this.storage.getItem('admin').then((data:any)=>{
       console.log(data);
       if(data!=null){
@@ -110,6 +110,7 @@ export class MyApp {
 
   logout(){
     this.storage.clearItem();
-    this.nav.setRoot(LoginPage);
+    this.app.getRootNav().setRoot(LoginPage)
+    
   }
 }

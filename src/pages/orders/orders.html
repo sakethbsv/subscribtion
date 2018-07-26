@@ -88,7 +88,7 @@
         
         <ion-card class="content-scrolls">
 
-          <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" [(selection)]="selectedFulfillment"> 
+          <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" selectionMode="single" [(selection)]="selectedFulfillment" [resizableColumns]="true" columnResizeMode="expand"> 
             <ng-template pTemplate="caption">
               <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -112,7 +112,8 @@
                 <td><span class="ui-column-title">Order Amount</span>Rs.{{fulfillment.totalOrderAmount}}</td>
                 
                 <td><span class="ui-column-title">Customer Name</span>{{fulfillment.customerName}}</td>
-                <td><span class="ui-column-title">Mobile No</span>{{fulfillment.mobileNumber}}</td>
+                <td><span class="ui-column-title">Mobile No</span>
+                  {{fulfillment.mobileNumber}}</td>
                 <td><span class="ui-column-title">Delivery Date</span>{{fulfillment.deliveryDate | date}}</td>
                 <td><span class="ui-column-title">Slot</span>{{fulfillment.slot}}</td>
                 <td><span class="ui-column-title">Payment Method</span>{{fulfillment.paymentMethod}}</td>
