@@ -65,7 +65,8 @@
       <ion-col hideWhen="android,ios">
         <button ion-button small round color="secondary" [disabled]="!viewProductSelected" (click)="uploadCatalog=!uploadCatalog">
           <ion-icon icon-left name="cloud-upload"></ion-icon> &nbsp;Upload Catalog</button>
-
+         
+          <button  ion-button round small [disabled]="!viewProductSelected" (click)="deleteAll()"><ion-icon icon-left name="trash"></ion-icon>&nbsp;Delete Catalog</button>
 
         <button ion-button small round color="primary" [disabled]="!viewProductSelected" (click)="showDialogToAdd()">
           <ion-icon name="add-circle" icon-left></ion-icon> &nbsp;Add</button>
