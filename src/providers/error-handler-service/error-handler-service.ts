@@ -42,7 +42,7 @@ export class ErrorHandlerServiceProvider {
       //this.app.
     
     }else if(err.status==0){
-      return this.alert.errorAlert('Something went wrong !');
+      return this.alert.errorAlert('Check Internet Connectivity!!');
     }else if(err.status==400){
       return this.alert.errorAlert(errMsg);
     }

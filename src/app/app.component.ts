@@ -1,6 +1,6 @@
 import { LoginPage } from './../pages/login/login';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, NavController, App } from 'ionic-angular';
+import { Nav, Platform, NavController, App, ViewController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -12,6 +12,7 @@ import { DaterangepickerConfig } from 'ng2-daterangepicker';
 import { CatalogPage } from '../pages/catalog/catalog';
 import { PromotionsPage } from '../pages/promotions/promotions';
 import { InventoryPage } from '../pages/inventory/inventory';
+import { MenuController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html'
@@ -26,7 +27,7 @@ export class MyApp {
   navCtrl: NavController
   pages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig,private app:App) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig,private app:App,private menuCtrl:MenuController) {
     this.initializeApp();
     this.admin={}
     this.navCtrl = app.getActiveNav();
@@ -110,6 +111,7 @@ export class MyApp {
 
   logout(){
     this.storage.clearItem();
+    this.menuCtrl.close();
     this.app.getRootNav().setRoot(LoginPage)
     
   }

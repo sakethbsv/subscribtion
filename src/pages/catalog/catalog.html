@@ -26,28 +26,27 @@
         <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
     </div>
     <ion-row padding>
-      <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12>
-        <ion-list radio-group [(ngModel)]="shopSelected">
-
-          <ion-row padding>
-              <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
-                  <ion-item>
-                    <ion-radio item-start value="{{shop.shopId}}"></ion-radio>
+        <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding>
+            <ion-list radio-group [(ngModel)]="shopSelected">
+    
+              <ion-row>
+                <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+                  <ion-item >
+                    <ion-radio style="margin: 0px;padding: 1px;" item-start value="{{shop.shopId}}"></ion-radio>
                     <ion-label>
-                      <p ion-text text-left>{{shop.shopId}}. {{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}} </p>
+                      <p class="shop-text" ion-text text-left>{{shop.shopId}}. {{shop.shopName}}, {{shop.shopLocality}} , {{shop.shopCity}}-[{{shop.originalStoreNumber}}] </p>
                     </ion-label>
                   </ion-item>
                 </ion-col>
-            <ion-col col-12>
-              <button margin-left ion-button (click)="viewProductSelected = true; viewProduct(shopSelected)" [disabled]="!shopSelected"
-                margin-top>View Products</button>
-
-            </ion-col>
-          </ion-row>
-
-
-        </ion-list>
-      </ion-col>
+                <ion-col col-12>
+                    <button margin-left ion-button (click)="viewProductSelected = true; viewProduct(shopSelected)" [disabled]="!shopSelected"
+                    margin-top>View Products</button>
+                </ion-col>
+              </ion-row>
+    
+    
+            </ion-list>
+          </ion-col>
     </ion-row>
   </ion-grid>
 
@@ -132,7 +131,7 @@
       <ion-col>
         <p-table *ngIf="productList.length>0" #dt [columns]="cols" [value]="productList" sortMode="multiple" selectionMode="multiple"
           [(selection)]="selectedProduct" [paginator]="true" [rows]="15" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
-          [scrollable]="true" [style]="{width:'1080px'}">
+          [scrollable]="true">
           <ng-template pTemplate="caption">
             <div style="text-align: left">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
