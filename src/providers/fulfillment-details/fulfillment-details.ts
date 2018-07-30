@@ -57,6 +57,8 @@ export class FulfillmentDetailsProvider {
         amount += element.amount*element.quantity
       });
       obj.totalOrderAmount = amount;
+      obj.paymentDone = data.fulfillment.paymentDone;
+
       if(moment(data.fulfillment.deliveryDate).isAfter(now)){
         obj.disable = true;
        }else{

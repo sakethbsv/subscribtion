@@ -120,7 +120,9 @@
                   <ion-badge showWhen="android,ios" color="secondary">{{fulfillment.paymentMethod}}</ion-badge> 
                 </td>
                 <td>
-                 <ion-badge color="light">PAID</ion-badge> 
+                  <ion-badge color="success" *ngIf="fulfillment.paymentDone">PAID</ion-badge>
+                  <ion-badge color="light" *ngIf="!fulfillment.paymentDone">PENDING</ion-badge>
+               
                 </td>
                 <td><span class="ui-column-title" style="min-width: 40%;">City</span>{{fulfillment.city}}</td>
                 <td>
