@@ -48,7 +48,9 @@ import { ErrorPage } from '../pages/error/error';
 import {TooltipModule} from 'primeng/tooltip';
 import { ShopProvider } from '../providers/shop/shop';
 import {AutoCompleteModule} from 'primeng/autocomplete';
-
+import {DataViewModule} from 'primeng/dataview';
+import {DropdownModule} from 'primeng/dropdown';
+import { CallNumber } from '@ionic-native/call-number';
 @NgModule({
   declarations: [
     MyApp,
@@ -82,7 +84,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     FileUploadModule,
     ScrollToModule.forRoot(),
     TooltipModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    DataViewModule,
+    DropdownModule
     
   ],
   bootstrap: [IonicApp],
@@ -125,7 +129,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     ModalProvider,
     PromotionsProvider,
     InventoryProvider,
-    ShopProvider
+    ShopProvider,
+    CallNumber
     
     
   ]

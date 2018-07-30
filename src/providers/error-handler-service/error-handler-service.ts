@@ -3,7 +3,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AlertProvider } from '../alert/alert';
 
 import { LoginPage } from '../../pages/login/login';
-import { NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
+import { MyApp } from '../../app/app.component';
+import { LoaderProvider } from '../loader/loader';
 
 /*
   Generated class for the ErrorHandlerServiceProvider provider.
@@ -14,8 +16,11 @@ import { NavController } from 'ionic-angular';
 @Injectable()
 export class ErrorHandlerServiceProvider {
 
-  constructor(private alert:AlertProvider) {
+  public navCtrl:NavController;
+
+  constructor(private alert:AlertProvider,private app:App,private loader:LoaderProvider) {
     console.log('Hello ErrorHandlerServiceProvider Provider');
+    this.navCtrl = app.getActiveNav();
   }
 
   error(err:HttpErrorResponse){
@@ -26,12 +31,18 @@ export class ErrorHandlerServiceProvider {
     }else if(err.status==500){
      return this.alert.errorAlert('Internal Server Error !');
     }else if(err.status==401){
-     // this.alert.errorAlert('Your Session Has Been Expired.Kindly Login Again!!');
+       this.alert.errorAlert('Your Session Has Been Expired.Kindly Login Again!!');
+    
      // setTimeout(()=>{window.location.href="../index.html"},3000);
-    //  setTimeout(()=>{this.navCtrl.setRoot(LoginPage)},2000);
+     setTimeout(()=>{ 
       
+        this.navCtrl.setRoot(LoginPage);
+        this.navCtrl.popToRoot;
+      },2000);
+      //this.app.
+    
     }else if(err.status==0){
-      return this.alert.errorAlert('Something went wrong !');
+      return this.alert.errorAlert('Check Internet Connectivity!!');
     }else if(err.status==400){
       return this.alert.errorAlert(errMsg);
     }
