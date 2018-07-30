@@ -114,8 +114,13 @@
                 <td><span class="ui-column-title" style="min-width: 40%;">Slot</span>{{fulfillment.slot}}</td>
                 <td>
                   <span class="ui-column-title" style="min-width: 40%;">Payment Method</span>
-                  <span hideWhen="android,ios">{{fulfillment.paymentMethod}}</span>
+                  <span hideWhen="android,ios">
+                    {{fulfillment.paymentMethod}}
+                   </span>
                   <ion-badge showWhen="android,ios" color="secondary">{{fulfillment.paymentMethod}}</ion-badge> 
+                </td>
+                <td>
+                 <ion-badge color="light">PAID</ion-badge> 
                 </td>
                 <td><span class="ui-column-title" style="min-width: 40%;">City</span>{{fulfillment.city}}</td>
                 <td>

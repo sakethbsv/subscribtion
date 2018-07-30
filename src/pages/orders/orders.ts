@@ -95,6 +95,7 @@ export class OrdersPage {
         { field: 'deliveryDate', header: 'Delivery Date'},
         { field: 'slot', header: 'Slot' },
         { field: 'paymentMethod', header: 'Payment Method'},
+        { field: 'paid', header: 'Payment Done'},
         { field: 'city', header: 'City'},
         { field: 'orderSentToMerchant', header:'Order Sent To Merchant'},
         { field: 'status', header: 'Status' }
