@@ -16,8 +16,8 @@ export class InventoryProvider {
   }
 
   getInventory(shopId,from,to){
-    //return this.http.post("v2/dashboard/subscription/shop/"+shopId+"/inventoryRequired?from="+from+"&to="+to+"&page=1",null)
-    return this.https.get("http://www.mocky.io/v2/5b58441d300000f905fe4e2e");
+    return this.http.post("v2/dashboard/subscription/shop/"+shopId+"/inventoryRequired?from="+from+"&to="+to+"&page=1",null)
+    //return this.https.get("http://www.mocky.io/v2/5b58441d300000f905fe4e2e");
   }
 
 }
