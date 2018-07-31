@@ -127,8 +127,7 @@ this.appartments = [
         { field: 'barcodeId', header: 'Barcode ID'},
         { field: 'sku', header:'SKU'},
         { field: 'name', header:'Product Name'},
-        { field: 'quantity', header: 'Quantity'},
-        { field:'amount',header:'Amount'}
+        { field: 'quantity', header: 'Quantity'}
         
     ];
       this.inventoryList = data;
