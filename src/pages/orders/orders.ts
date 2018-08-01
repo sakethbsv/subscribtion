@@ -86,6 +86,7 @@ export class OrdersPage {
    
     this.orders.getFulfillmentDetails(obj).subscribe((data: any) => {
       this.cols = [
+        { field: 'shopId',header: 'Shop Id'},
         { field: 'subscriptionId', header: 'ID'},
         { field: 'subscriptionOrderId',header:'Subscription Order Id'},
         { field: 'actualOrderId',header:'Fulfillment Order Id'},

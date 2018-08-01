@@ -82,7 +82,7 @@
       </ion-col>
       <ion-col col-12>
         
-        <ion-card class="content-scrolls">
+      
 
           <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" [(selection)]="selectedFulfillment" > 
             <ng-template pTemplate="caption">
@@ -102,6 +102,7 @@
             </ng-template>
             <ng-template pTemplate="body" let col of columns let-fulfillment>
               <tr>
+                <td><span class="ui-column-title" style="min-width: 40%;">Shop Id</span>{{fulfillment.shopId}}</td>
                 <td><span class="ui-column-title" style="min-width: 40%;">ID</span>{{fulfillment.subscriptionId}}</td>
                 <td><span class="ui-column-title" style="min-width: 40%;">Subscription Id</span>{{fulfillment.subscriptionOrderId}}</td>
                 <td><span class="ui-column-title" style="min-width: 40%;">Fulfillment Id</span>{{fulfillment.actualOrderId}}</td>
@@ -164,7 +165,6 @@
               </tr>
             </ng-template>
           </p-table>
-        </ion-card>
       </ion-col>
 
     </ion-row>
