@@ -53,6 +53,7 @@ export class FulfillmentDetailsProvider {
       obj.actualOrderId = data.fulfillment.actualOrderId;
       obj.paymentMethod = data.paymentMethod;
       obj.subscriptionOrderId = data.subscriptionOrderId;
+      obj.originalStoreCode = data.fulfillment.originalStoreCode;
       obj.subscriptionOrderItems.forEach(element => {
         amount += element.amount*element.quantity
       });

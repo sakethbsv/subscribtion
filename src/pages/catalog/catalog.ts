@@ -9,6 +9,7 @@ import { ModalProvider } from '../../providers/modal/modal';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import { ErrorPage } from '../error/error';
 import { ShopProvider } from '../../providers/shop/shop';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 /**
  * Generated class for the CatalogPage page.
  *
@@ -46,7 +47,9 @@ export class CatalogPage {
   rowData: any;
   uploadCatalog: boolean = false;
   activateDeleteButton: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private shop: ShopProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider, public modalCtrl: ModalController,public storage:StorageProvider) {
+  catalog:any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private shop: ShopProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider, public modalCtrl: ModalController,public storage:StorageProvider,private formBuilder:FormBuilder) {
+   
   }
 
   ionViewDidLoad() {
@@ -132,15 +135,22 @@ export class CatalogPage {
   }
 
 
-  checkData(element) {
 
+  checkData(element) {
+  
     if (element.barcodeId != null && element.sku != null && element.category != null && element.subCategory != null 
-      && (element.barcodeId + "").length != 0 && element.sku.length != 0 && element.category.length != 0 && element.subCategory.length != 0
+      && element.sku.length != 0 && element.category.length != 0 && element.subCategory.length != 0
      ) {
       return true;
     } else {
-      this.alert.errorAlert('Please fill all the required details')
+      if(element.barcodeId==null){
+        this.alert.errorAlert('Enter A Valid Barcode');
+        return false
+      }else{
+        this.alert.errorAlert('Please fill all the required details.')
       return false;
+      }
+      
     }
   }
   refresh() {
