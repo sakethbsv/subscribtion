@@ -81,9 +81,6 @@
           <button style="float: right" ion-button small round color="secondary" (click)="filter()">Filter</button>
       </ion-col>
       <ion-col col-12>
-        
-      
-
           <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true" [(selection)]="selectedFulfillment" > 
             <ng-template pTemplate="caption">
               <div style="text-align: right">

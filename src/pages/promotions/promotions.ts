@@ -28,7 +28,7 @@ export class PromotionsPage {
   create: boolean = false;
   edit:boolean = false;
   deactivate:boolean=false;
-  promotionData:any;
+  promotionData:any={};
   showEditPanel = false;
   viewPromotionsFlag : boolean = false;
   private todo : FormGroup;
@@ -162,10 +162,14 @@ export class PromotionsPage {
 
 
 addPromotion(){
+  this.promotionData={};
   this.create = true;
   this.showEditPanel = !this.showEditPanel;
-  this.promotionData={};
+  this.clearPromoion(this.promotionData);
+  
 }
+
+
 
 
 
