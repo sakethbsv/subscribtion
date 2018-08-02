@@ -137,16 +137,25 @@ export class CatalogPage {
 
 
   checkData(element) {
+
+   
   
     if (element.barcodeId != null && element.sku != null && element.category != null && element.subCategory != null 
       && element.sku.length != 0 && element.category.length != 0 && element.subCategory.length != 0
      ) {
-      return true;
+      if(element.amount==null){
+        this.alert.errorAlert('Enter valid amount');
+        return false;
+      }else{
+        return true;
+      }
+     
     } else {
       if(element.barcodeId==null){
         this.alert.errorAlert('Enter A Valid Barcode');
-        return false
-      }else{
+        return false;
+      }
+      else{
         this.alert.errorAlert('Please fill all the required details.')
       return false;
       }
