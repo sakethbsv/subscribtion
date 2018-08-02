@@ -36,7 +36,7 @@ export class PromotionsPage {
     this.todo = this.formBuilder.group({
       text: ['', Validators.required],
       subText: [''],
-      imageUrl:['']
+      imageUrl:['',Validators.required]
     });
   }
 

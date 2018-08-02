@@ -90,8 +90,9 @@
                   <ion-input type="text" required [(ngModel)]="promotionData.subText" formControlName="subText" placeholder="Ex.On Subscription of Rs.1000 or above on payment via Paytm. Valid twice for new user."></ion-input>
                 </ion-item>
                 <ion-item>
-                  <ion-label fixed>Image Url</ion-label>
-                  <ion-input type="text" [(ngModel)]="promotionData.imageUrl" formControlName="imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png"></ion-input>
+                  <ion-label fixed>
+                      <span class="red">*</span>Image Url</ion-label>
+                  <ion-input type="text" [(ngModel)]="promotionData.imageUrl" formControlName="imageUrl" placeholder="Ex https://storage.googleapis.com/perpule-1248.appspot.com/Offers/BLR_Banner.png" required></ion-input>
                 </ion-item>
                 <ion-item>
                   <button ion-button small round icon-left [disabled]="!todo.valid" (click)="save(promotionData,shopSelected)">
