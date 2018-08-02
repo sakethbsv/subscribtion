@@ -134,9 +134,9 @@ export class CatalogPage {
 
   checkData(element) {
 
-    if (element.barcodeId != null && element.sku != null && element.category != null && element.subCategory != null && element.amount != null
+    if (element.barcodeId != null && element.sku != null && element.category != null && element.subCategory != null 
       && (element.barcodeId + "").length != 0 && element.sku.length != 0 && element.category.length != 0 && element.subCategory.length != 0
-      && (element.amount + "").length != 0) {
+     ) {
       return true;
     } else {
       this.alert.errorAlert('Please fill all the required details')

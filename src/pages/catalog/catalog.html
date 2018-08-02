@@ -143,10 +143,11 @@
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
               <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
                 style="max-width:50%">
+                <button ion-button small round (click)="dt.exportCSV()">
+                  <ion-icon name="cloud-download"></ion-icon>&nbsp; Download Catalog</button>
             </div>
             <div style="text-align: right">
-                <button ion-button small round (click)="dt.exportCSV()">
-                <ion-icon name="cloud-download"></ion-icon>&nbsp; Download Catalog</button>
+                
             </div>          
           </ng-template>
           <ng-template pTemplate="header" let-columns>
