@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the ErrorPage page.
@@ -19,7 +19,7 @@ export class ErrorPage {
   catalogError:any;
   productList:any[]=[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams ,public viewCtrl:ViewController) {
 
     this.errors = navParams.get('errors');
     this.catalogError = JSON.parse(navParams.get('catalogErr'));
@@ -28,6 +28,9 @@ export class ErrorPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ErrorPage');
+  }
+  close(){
+    this.viewCtrl.dismiss();
   }
 
 }

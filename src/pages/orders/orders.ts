@@ -100,7 +100,8 @@ export class OrdersPage {
         { field: 'paymentDone', header: 'Payment Status'},
         { field: 'city', header: 'City'},
         { field: 'orderSentToMerchant', header:'Order Sent To Merchant'},
-        { field: 'status', header: 'Status' }
+        { field: 'status', header: 'Status' },
+        {field:'detail',header:'Detail'}
         
     ];
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
