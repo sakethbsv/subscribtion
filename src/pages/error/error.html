@@ -17,9 +17,13 @@
             <h3>{{catalogError.message}}</h3>
             <i>These barcode are not mapped to selected store</i>
             <ion-item *ngFor="let product of productList">
-                <ion-label>
-                    <p ion-text text-left>Barcode ID: {{product.barcodeId}}</p>
-                </ion-label>
+               
+                    
+                        <ion-label >Barcode ID:</ion-label>
+                        <ion-input type="text" [(ngModel)]="product.barcodeId" readonly></ion-input>
+                   
+                   
+            
 
             </ion-item>
         </ion-list>
