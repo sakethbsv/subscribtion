@@ -18,12 +18,17 @@ export class ErrorPage {
   errors: any[] = [];
   catalogError:any;
   productList:any[]=[];
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams ,public viewCtrl:ViewController) {
 
     this.errors = navParams.get('errors');
-    this.catalogError = JSON.parse(navParams.get('catalogErr'));
-    this.productList = this.catalogError.subscriptionProducts;
+    if(navParams.get('catalogErr')){
+      this.catalogError = JSON.parse(navParams.get('catalogErr'));
+      this.productList = this.catalogError.subscriptionProducts;
+    }else{
+      this.catalogError = this.errors;
+    }
+    
   }
 
   ionViewDidLoad() {
