@@ -99,6 +99,8 @@ export class CatalogProvider {
       }
       obj.shopId = shopId;
       rowNo=i+1;
+
+     
       
       if(obj.barcodeId==null || obj.barcodeId==""){
         errorData.push("BarcodeId is missing in row number :"+ (rowNo));
@@ -106,8 +108,10 @@ export class CatalogProvider {
       if(obj.barcodeId!=null && (isNaN(obj.barcodeId) || obj.barcodeId < 0)){
         errorData.push("Enter Numberic Barcode Id in row number :"+ (rowNo));
       }
-      if((obj.amount)!=null && isNaN(obj.amount) || obj.amount < 1){
-        errorData.push("Enter a valid amount in row number :"+ (rowNo));
+      if(((obj.amount)!=null && obj.amount!="")){
+        if(isNaN(obj.amount) || obj.amount < 1){
+          errorData.push("Enter a valid amount in row number :"+ (rowNo));
+        }                
       }
       if(obj.sku==null || obj.sku=="" ){
         errorData.push("Sku is missing in row number :"+ (rowNo));
