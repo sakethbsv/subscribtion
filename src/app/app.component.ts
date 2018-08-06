@@ -24,13 +24,14 @@ export class MyApp {
   rootPage: any;
   admin:any;
   color:any;
-
+  adminRoles:any;
   navCtrl: NavController
   pages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>;
+  HOpages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig,private app:App,private menuCtrl:MenuController) {
     this.initializeApp();
-    this.admin={}
+    this.admin={};
     this.navCtrl = app.getActiveNav();
     this.storage.getItem('admin').then((data:any)=>{
       console.log(data);
@@ -39,8 +40,25 @@ export class MyApp {
         this.admin=data.admin;
         console.log(this.admin);
         console.log(data);
+        this.adminRoles=data.authenticationDetails.roles;
         this.rootPage=HomePage;
         this.splitPane.setSplitPane(true);
+
+        // set navigation based on admin roles
+        this.pages = [
+          { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
+          { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
+          { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
+        ];
+
+        console.log('lets check admin role',this.admin.rolesMap)
+       
+          this.HOpages =[
+            { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
+            { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' }
+          ]
+        
+        
         
       }else{
         this.rootPage = LoginPage;
@@ -50,28 +68,8 @@ export class MyApp {
         this.rootPage = LoginPage;
       })
 
-    // if(window.localStorage && localStorage.length>0){
-    //   this.admin = JSON.parse(localStorage.getItem('admin'));
-    //   console.log('admin',this.admin);
-    //   if(this.admin!=null){
-    //     this.rootPage=HomePage;
-    //     this.splitPane.setSplitPane(true);
-    //   }else{
-    //     window.location.href='../v2/index.html';
-    //   }
-    // }else{
-    //   window.location.href='../v2/index.html';
-    // }
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
-      { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
-      { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
-      { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' },
-      { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
-    ];
-
 
     // configuring date range
     this.daterangepickerOptions.settings = {

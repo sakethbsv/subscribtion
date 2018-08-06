@@ -51,7 +51,7 @@ export class LoginPage {
       console.log('response',response); 
      
       this.storage.setItem('admin',response);
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(MyApp);
       this.app.admin = response.admin;
     },(err:HttpErrorResponse)=>{
         console.log('err',err);
