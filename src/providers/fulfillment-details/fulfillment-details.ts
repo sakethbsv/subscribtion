@@ -54,6 +54,7 @@ export class FulfillmentDetailsProvider {
       obj.paymentMethod = data.paymentMethod;
       obj.subscriptionOrderId = data.subscriptionOrderId;
       obj.originalStoreCode = data.fulfillment.originalStoreCode;
+      obj.confirmationLink = data.confirmationLink;
       obj.subscriptionOrderItems.forEach(element => {
         amount += element.amount*element.quantity
       });

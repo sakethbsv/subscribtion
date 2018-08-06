@@ -172,6 +172,13 @@
                   <button icon-left ion-button small clear (click)="onRowSelect(fulfillment)">
                     <ion-icon name="eye"></ion-icon>&nbsp;View</button>
                 </td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Confirmation</span>
+                  <button  icon-left ion-button small clear>
+                    N/A
+                    </button>
+                    <a *ngIf="fulfillment.confirmationLink" href="{{fulfillment.confirmationLink}}">View Confirmation Link</a>
+                </td>
             </tr>
 
             <tr showWhen="android,ios">
