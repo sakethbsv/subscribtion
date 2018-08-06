@@ -45,18 +45,7 @@ export class MyApp {
         this.splitPane.setSplitPane(true);
 
         // set navigation based on admin roles
-        this.pages = [
-          { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
-          { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
-          { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
-        ];
-
-        console.log('lets check admin role',this.admin.rolesMap)
-       
-          this.HOpages =[
-            { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
-            { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' }
-          ]
+        
         
         
         
@@ -70,7 +59,15 @@ export class MyApp {
 
 
     // used for an example of ngFor and navigation
-
+    this.pages = [
+      { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
+      { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
+      { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
+    ];   
+      this.HOpages =[
+        { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
+        { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' }
+      ]
     // configuring date range
     this.daterangepickerOptions.settings = {
       locale: { format: 'YYYY-MM-DD' },
