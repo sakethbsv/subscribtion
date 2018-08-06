@@ -33,10 +33,11 @@ export class PromotionsPage {
   viewPromotionsFlag : boolean = false;
   private todo : FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private shop:ShopProvider,private loader:LoaderProvider, public alert : AlertProvider,private formBuilder: FormBuilder,private storage:StorageProvider) {
+    var imageRegex =/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/g;
     this.todo = this.formBuilder.group({
       text: ['', Validators.required],
       subText: [''],
-      imageUrl:['',Validators.required]
+      imageUrl:[Validators.required,Validators.pattern(imageRegex)]
     });
   }
 

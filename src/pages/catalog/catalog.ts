@@ -138,7 +138,7 @@ export class CatalogPage {
 
 
   checkData(element) {
-
+    var imageRegex =/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
 
 
     if (element.barcodeId != null  && element.sku != null && element.category != null && element.subCategory != null
@@ -150,6 +150,12 @@ export class CatalogPage {
         return false;
       }else if ((element.amount)!=null && isNaN(element.amount) || element.amount < 1) {
         this.alert.errorAlert('Enter a valid amount');
+        return false;
+      }else if(element.image!=null && element.image.match(imageRegex) == null ){
+        this.alert.errorAlert('Enter a valid image url. Ex.https://productImages/image-not-available-min.png')
+        return false;
+      }else if(element.categoryImage!=null && element.image.match(imageRegex)==null){
+        this.alert.errorAlert('Enter a valid category image url. Ex.https://productImages/image-not-available-min.png')
         return false;
       } else {
         return true;
@@ -189,9 +195,13 @@ export class CatalogPage {
       if (this.checkData(this.product)) {
 
         this.updateProductList([this.product]).then(() => {
+          this.product.shopId=this.shopSelected;
+          // if(this.product.amount==null){
+          //   this.product.amount=0;
+          // }
           products.push(this.product);
           this.displayDialog = false;
-          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Added !', life: 3000 });
+          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Added !. Refresh the table to view updated products', life: 4000 });
 
         }, (err) => {
           console.log(err);

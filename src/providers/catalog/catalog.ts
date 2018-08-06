@@ -73,6 +73,7 @@ export class CatalogProvider {
 
   generateProductData(data, shopId, errorData) {
     this.loader.showWithContent("Processing your file..");
+    var imageRegex =/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
     let jsonData = [];
     let rowNo=0;
     let errorFlag = false;
@@ -121,6 +122,14 @@ export class CatalogProvider {
       }
       if(obj.subCategory==null || obj.subCategory=="" ){
         errorData.push("Sub category is missing in row number :"+ (rowNo));
+      }
+
+      if(obj.image!=null && obj.image.match(imageRegex)==null){
+        errorData.push("Enter a valid image url in row number :"+ (rowNo));
+      }
+
+      if(obj.categoryImage!=null && obj.categoryImage.match(imageRegex)==null){
+        errorData.push("Enter a valid category image url in row number :"+ (rowNo));
       }
 
       // if(obj.amount==null || obj.amount==""){

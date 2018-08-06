@@ -174,17 +174,23 @@
               <td>{{rowData.barcodeId}}</td>
               <td>{{rowData.sku}}</td>
               <td> {{rowData.name}}</td>
-              <td>
-                <ion-item>
-                  <ion-thumbnail item-start>
-                    <img src="{{rowData.image}}">
-                  </ion-thumbnail>
-                </ion-item>
-                <!-- <a target="_blank" href="{{rowData.image}}">View Image</a> -->
+              <td *ngIf="rowData.image!=null && rowData.image!=''">
+                  <ion-item>
+                      <ion-thumbnail item-start>
+                        
+                        <img  src="{{rowData.image}}">
+                      </ion-thumbnail>
+                    </ion-item>
+              </td>
+              <td *ngIf="rowData.image==null || rowData.image==''">
+                N/A
+                
+              
               </td>
               <td> {{rowData.category}}</td>
               <td> {{rowData.subCategory}}</td>
-              <td>
+              <td  *ngIf="rowData.categoryImage==null || rowData.categoryImage==''">N/A</td>
+              <td *ngIf="rowData.categoryImage!=null && rowData.categoryImage!=''" >
                 <ion-item>
                   <ion-thumbnail item-start>
                     <img src="{{rowData.categoryImage}}">
@@ -206,74 +212,6 @@
         </p-table>
       </ion-col>
     </ion-row>
-
-    <!-- <ion-row showWhen="android,ios">
-        <p-dataView #dv [value]="productList" [paginator]="true" [rows]="20" paginatorPosition="both" filterBy="brand"
-        [sortField]="sortField" [sortOrder]="sortOrder">
-        <p-header>
-            <div class="ui-helper-clearfix">
-                <div class="ui-g">
-                    
-                    <div class="ui-g-6 ui-md-4 filter-container">
-                        <div style="position:relative">
-                            <input type="search" pInputText placeholder="Search by brand" (keyup)="dv.filterGlobal($event.target.value, 'contains')">
-                        </div>
-                    </div>
-                    <div class="ui-g-6 ui-md-4" style="text-align:right">
-                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-                    </div>
-                </div>
-            </div>
-        </p-header>
-        <ng-template let-product pTemplate="listItem">
-            <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
-                <div class="ui-g-12 ui-md-3" style="text-align:center">
-                    <ion-thumbnail item-start>
-                        <img src="{{product.image}}">
-                      </ion-thumbnail>
-                </div>
-                <div class="ui-g-12 ui-md-8 car-details">
-                    <div class="ui-g">
-                        <div class="ui-g-2 ui-sm-6">BarcodeID: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{product.barcodeId}}</b></div>
-    
-                        <div class="ui-g-2 ui-sm-6">Sku: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{product.sku}}</b></div>
-    
-                        <div class="ui-g-2 ui-sm-6">Name: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{product.name}}</b></div>
-    
-                        <div class="ui-g-2 ui-sm-6">Amount: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{product.amount}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Category: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{product.category}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Subcategory: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{product.subCategory}}</b></div>
-
-                        <div class="ui-g-2 ui-sm-6">Category Image: </div>
-                        <div class="ui-g-10 ui-sm-6"> <ion-thumbnail item-start>
-                            <img src="{{product.categoryImage}}">
-                          </ion-thumbnail></div>
-
-                        <div class="ui-g-2 ui-sm-6">Perishable?: </div>
-                        <div class="ui-g-10 ui-sm-6"><b>{{product.isPerishable}}</b></div>
-                    </div>
-                </div>
-                <div class="ui-g-12 ui-md-1 search-icon">
-                    <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, car)"></button>
-                </div>
-            </div>
-        </ng-template>
-        <ng-template let-car pTemplate="gridItem">
-            <div style="padding:.5em" class="ui-g-12 ui-md-3">
-               
-            </div>
-        </ng-template>
-    </p-dataView>
-    </ion-row> -->
-
   </ion-grid>
 
 
@@ -370,6 +308,14 @@
         <input  type="checkbox" id="color" [(ngModel)]="product.delete" />
       </div>
     </div>
+    <div class="ui-g-12" style="display: none">
+        <div class="ui-g-4">
+          <label for="color">shopid</label>
+        </div>
+        <div class="ui-g-8">
+          <input  type="text" id="color" [(ngModel)]="product.shopId" />
+        </div>
+      </div>
 
   </div>
  
