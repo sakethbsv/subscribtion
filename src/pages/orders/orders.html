@@ -173,12 +173,22 @@
                     <ion-icon name="eye"></ion-icon>&nbsp;View</button>
                 </td>
                 <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Confirmation Status</span>
+                  <span *ngIf="fulfillment.confirmed">
+                    <ion-icon name="checkmark-circle" color="success"></ion-icon>
+                  </span>
+                  <span *ngIf="!fulfillment.confirmed">
+                    <ion-icon name="close-circle" color="danger"></ion-icon>
+                  </span>
+                </td>
+                <td class="ui-resizable-column">
                   <span class="ui-column-title" style="min-width: 40%;">Confirmation</span>
-                  <button  icon-left ion-button small clear>
+                  <button *ngIf="!fulfillment.confirmationLink" icon-left ion-button small clear>
                     N/A
                     </button>
                     <a *ngIf="fulfillment.confirmationLink" target="_blank" href="{{fulfillment.confirmationLink}}">View Confirmation Link</a>
                 </td>
+                
             </tr>
 
             <tr showWhen="android,ios">
