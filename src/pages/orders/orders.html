@@ -57,7 +57,7 @@
               </ion-item>
             </ion-col>
             <ion-col col-12>
-              <button ion-button (click)="search([selectedShopId])" [disabled]="!selectedShopId" margin-top>SEARCH</button>
+              <button  ion-button (click)="search([selectedShopId])" [disabled]="!selectedShopId" margin-top>SEARCH</button>
             </ion-col>
           </ion-row>
 
@@ -147,6 +147,7 @@
                 <span *ngIf="!fulfillment.orderSentToMerchant">
                   <ion-icon name="close-circle" color="danger"></ion-icon>
                 </span>
+               </td> 
                 <td class="ui-resizable-column" *ngIf="shopList[0].subsidiaryCompany != 'BIGBAZAAR'">
                   <span class="ui-column-title" style="min-width: 40%;">Status</span>
                   <button *ngIf="fulfillment.status=='PENDING'" ion-button [color]="fulfillment.status=='FULFILLED'?'dark':'secondary'" [disabled]="fulfillment.disable"
@@ -155,7 +156,7 @@
                     
                   </button>
 
-                  <button ion-button clear *ngIf="fulfillment.status!='PENDING'">
+                  <button pTooltip="{{fulfillment.reason}}t" tooltipPosition="right"  ion-button clear *ngIf="fulfillment.status!='PENDING'">
                       <ion-badge color="secondary">{{fulfillment.status}}</ion-badge>
                     
                   </button>
@@ -163,7 +164,7 @@
                 <td class="ui-resizable-column" *ngIf="shopList[0].subsidiaryCompany == 'BIGBAZAAR'">
                   <span class="ui-column-title" style="min-width: 40%;">Status</span>
                   <span>
-                      <ion-badge >{{fulfillment.status}}</ion-badge>
+                      <ion-badge pTooltip="{{fulfillment.reason || 'N/A'}}" tooltipPosition="right">{{fulfillment.status}}</ion-badge>
                    
                   </span>
                 </td>

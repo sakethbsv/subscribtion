@@ -48,7 +48,7 @@ export class OrdersPage {
   shopIds:any[]=[];
   selectedShopIds:any[]=[];
   cols:any[]=[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider,private storage:StorageProvider,private callNumber: CallNumber) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider,private storage:StorageProvider) {
     this.fulfillmentData = [];
 
   }
@@ -102,8 +102,9 @@ export class OrdersPage {
         { field: 'orderSentToMerchant', header:'Order Sent To Merchant'},
         { field: 'status', header: 'Status' },
         {field:'detail',header:'Detail'},
+        {field:'confirmed',header:'Confirmation Status'},
         {field:'confirmationLink',header:'Confirmation Link'},
-        {field:'confirmed',header:'Confirmation Status'}
+       
         
     ];
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);

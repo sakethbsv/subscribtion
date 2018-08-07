@@ -61,6 +61,7 @@ export class FulfillmentDetailsProvider {
       });
       obj.totalOrderAmount = amount;
       obj.paymentDone = data.fulfillment.paymentDone;
+      obj.reason = data.fulfillment.reason;
 
       if(moment(data.fulfillment.deliveryDate).isAfter(now)){
         obj.disable = true;
