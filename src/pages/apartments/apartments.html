@@ -91,7 +91,7 @@
 
 
       <ion-col col-12 *ngIf="apartments.length>0">
-        <p-table #dt [value]="apartments" [(selection)]="selectedApartments" [resizableColumns]="true" [scrollable]="true" [paginator]="true"
+        <p-table [columns]="cols"  #dt [value]="apartments" [(selection)]="selectedApartments" [resizableColumns]="true" [scrollable]="true" [paginator]="true"
           [rows]="50">
           <ng-template pTemplate="caption">
             <div style="text-align: right">

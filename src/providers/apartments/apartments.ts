@@ -54,7 +54,7 @@ export class ApartmentsProvider {
   }
 
   deleteSelectedApartment(apartmentList,apartmentListToDelete,shopSelected){
-    return this.http.post("v2/dashboard/subscription/shop/"+shopSelected+"/deleteApartments",apartmentListToDelete);
+    return this.http.put("v2/dashboard/subscription/shop/"+shopSelected+"/deleteApartments",apartmentListToDelete);
    
   }
   removeApartments(apartmentList,apartmentListToDelete){
