@@ -4,6 +4,9 @@ import { NavController, Content } from 'ionic-angular';
 import { CatalogPage } from '../catalog/catalog';
 import { PromotionsPage } from '../promotions/promotions';
 import { InventoryPage } from '../inventory/inventory';
+import { ApartmentsPage } from '../apartments/apartments';
+import { StorageProvider } from '../../providers/storage/storage';
+
 
 
 
@@ -17,8 +20,13 @@ export class HomePage {
   ordersList : any[];
   settings:any;
   data:any;
-  constructor(public navCtrl: NavController) {
-  
+  admin:any;
+  constructor(public navCtrl: NavController,private storage:StorageProvider) {
+    storage.getItem('admin').then((data:any)=>{
+      this.admin = data.admin;
+    },err=>{
+      console.log('unable to fetch admin')
+    })
   }
 
   getOrderDetails(){
@@ -36,6 +44,10 @@ export class HomePage {
 
   inventory(){
     this.navCtrl.push(InventoryPage);
+  }
+
+  appartments(){
+    this.navCtrl.push(ApartmentsPage);
   }
 
 }

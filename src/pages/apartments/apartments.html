@@ -1,0 +1,252 @@
+<!--
+  Generated template for the ApartmentsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-title>
+      <img src="assets/imgs/apartment-icon.png"> Apartments</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <ion-grid>
+    <div class="header-bar">
+      <ion-title ion-text>
+        <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
+    </div>
+    <ion-row padding>
+      <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding>
+        <ion-list radio-group [(ngModel)]="shopSelected">
+
+          <ion-row>
+            <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+              <ion-item>
+                <ion-radio style="margin: 0px;padding: 1px;" item-start value="{{shop.shopId}}"></ion-radio>
+                <ion-label>
+                  <p class="shop-text" ion-text text-left>{{shop.originalStoreNumber}}- {{shop.shopName}}, {{shop.shopAddress}} , {{shop.shopCity}}-[{{shop.shopId}}]
+                  </p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12>
+              <button margin-left ion-button (click)="viewApartment(shopSelected)" [disabled]="!shopSelected" margin-top>View Apartments</button>
+            </ion-col>
+          </ion-row>
+
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+
+  <ion-grid>
+    <div class="header-bar">
+      <ion-title ion-text>
+        <ion-icon name="list-box"></ion-icon>&nbsp; Apartment Details
+      </ion-title>
+    </div>
+
+    <ion-row padding justify-content-center class="no-promotion">
+      <!--CRUD Operation-->
+      <ion-col col-12 *ngIf="shopSelected">
+        <button ion-button small round color="light" (click)="uploadApartment();uploadApartments=true">Upload Appartments</button>
+        <button ion-button small round (click)="deleteApartments()">Delete</button>
+        <button ion-button small round color="secondary" (click)="showDialog()">Add</button>
+        <button ion-button small round color="secondary" (click)="viewApartment(shopSelected)">Refresh</button>
+      </ion-col>
+      <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12 align-self-center *ngIf="apartments.length==0">
+        <ion-thumbnail item-start>
+          <img src="assets/imgs/search-128.png" style="margin: auto" />
+          <p ion-text text-center text-uppercase>Specify Search Type</p>
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+
+
+
+      <ion-col *ngIf="uploadApartments">
+        <p-fileUpload name="myfile[]" customUpload="true" accept=".csv" (uploadHandler)="bulkUploadApartment($event)">
+          <ng-template pTemplate="content">
+            <a href="https://storage.cloud.google.com/perpule-1248.appspot.com/sample_file_subscription.csv">
+              <button ion-button small outline>Sample CSV</button>
+            </a>
+          </ng-template>
+        </p-fileUpload>
+
+      </ion-col>
+
+
+
+      <ion-col col-12 *ngIf="apartments.length>0">
+        <p-table #dt [value]="apartments" [(selection)]="selectedApartments" [resizableColumns]="true" [scrollable]="true" [paginator]="true"
+          [rows]="50">
+          <ng-template pTemplate="caption">
+            <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
+                style="max-width:50%">
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3em" >
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th >Action</th>
+              <th *ngFor="let col of cols" [pSortableColumn]="col.field" >
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-apartment>
+            <tr [pSelectableRow]="apartment">
+              <td style="width: 3em">
+                <p-tableCheckbox [value]="apartment"></p-tableCheckbox>
+              </td>
+              <td >
+                <button ion-button small (click)="editApartment(apartment)">
+                  <ion-icon name="create"></ion-icon>
+                </button>
+                <button ion-button small (click)="deleteApartment(apartment)">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+              </td>
+              <td  *ngFor="let col of cols">
+                {{apartment[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+  <p-dialog header="Apartment Details" [(visible)]="displayDialog" [width]="600">
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+
+        <div class="ui-g-4">
+          <label>
+            <span class="red">*</span>Apartment Name</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" [(ngModel)]="apartment.apartmentDisplayName" required/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label>Latitude</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" [(ngModel)]="apartment.lat" />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="image">Longitude</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" id="image" [(ngModel)]="apartment.lng" />
+        </div>
+      </div>
+      <div class="ui-g-12">
+
+        <div class="ui-g-4">
+          <label for="category">
+            <span class="red">*</span>Address Line1</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" id="category" [(ngModel)]="apartment.addressLine1" required/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+
+        <div class="ui-g-4">
+          <label for="subCategory">
+            <span class="red">*</span>Address Line2</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" id="subCategory" [(ngModel)]="apartment.addressLine2" required/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+
+        <div class="ui-g-4">
+          <label for="subCategory">
+            <span class="red">*</span>Postal Code</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" id="subCategory" [(ngModel)]="apartment.postalCode" required/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+
+        <div class="ui-g-4">
+          <label for="amount">LandMark</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" [(ngModel)]="apartment.landMark" required/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+
+        <div class="ui-g-4">
+          <label>
+            <span class="red">*</span> City</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" [(ngModel)]="apartment.city" required/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+
+        <div class="ui-g-4">
+          <label for="color">
+            <span class="red">*</span> State</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" [(ngModel)]="apartment.state" required/>
+        </div>
+      </div>
+      <div class="ui-g-12">
+
+        <div class="ui-g-4">
+          <label for="color">
+            <span class="red">*</span> Country</label>
+        </div>
+        <div class="ui-g-8">
+          <input type="text" [(ngModel)]="apartment.country" />
+        </div>
+      </div>
+
+    </div>
+
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix" style="float: left;">
+        <button ion-button (click)="save()">Save</button>
+      </div>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix" style="float: left;">
+        <button ion-button (click)="displayDialog=false">Close</button>
+      </div>
+    </p-footer>
+  </p-dialog>
+
+
+</ion-content>
+
+<p-growl [(value)]="msgs"></p-growl>

@@ -51,6 +51,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
 import { CallNumber } from '@ionic-native/call-number';
+
+import { ApartmentsPage } from '../pages/apartments/apartments';
+import { ApartmentsProvider } from '../providers/apartments/apartments';
 @NgModule({
   declarations: [
     MyApp,
@@ -65,7 +68,8 @@ import { CallNumber } from '@ionic-native/call-number';
     DeleteconfirmationPage,
     PromotionsPage,
     InventoryPage,
-    ErrorPage
+    ErrorPage,
+    ApartmentsPage
   ],
   imports: [
     BrowserModule,
@@ -103,7 +107,8 @@ import { CallNumber } from '@ionic-native/call-number';
     DeleteconfirmationPage,
     PromotionsPage,
     InventoryPage,
-    ErrorPage
+    ErrorPage,
+    ApartmentsPage
 
   ],
   providers: [
@@ -130,7 +135,8 @@ import { CallNumber } from '@ionic-native/call-number';
     PromotionsProvider,
     InventoryProvider,
     ShopProvider,
-    CallNumber
+    CallNumber,
+    ApartmentsProvider
     
     
   ]

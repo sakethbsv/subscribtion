@@ -18,15 +18,9 @@ export class ShopProvider {
 
 //shopList
   getAdminShopList(){
-    // if(window.localStorage && localStorage.length>0){
-    //    this.shopList = JSON.parse(localStorage.getItem('admin')).shopList;
-    //    return this.shopList;
-    // }else{
-    //   return [];
-    // } 
-    this.stoarge.getItem('admin').then((data: any) => {
+   return this.stoarge.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
-      return this.shopList
+      return this.shopList;
     },()=>{
       return [];
     })
