@@ -55,6 +55,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { ApartmentsPage } from '../pages/apartments/apartments';
 import { ApartmentsProvider } from '../providers/apartments/apartments';
 import { MenuProvider } from '../providers/menu/menu';
+import {MultiSelectModule} from 'primeng/multiselect';
 @NgModule({
   declarations: [
     MyApp,
@@ -91,7 +92,8 @@ import { MenuProvider } from '../providers/menu/menu';
     TooltipModule,
     AutoCompleteModule,
     DataViewModule,
-    DropdownModule
+    DropdownModule,
+    MultiSelectModule
     
   ],
   bootstrap: [IonicApp],

@@ -31,6 +31,23 @@ export class FulfillmentDetailsProvider {
     
   }
 
+  generateDynamicHeader(list){
+ 
+    let headers:any[]=[];
+   
+    for (const key in list[0]) {
+      let obj:any={};
+      if (list[0].hasOwnProperty(key)) {
+  
+        obj.field=key;
+        obj.header=key.toLocaleUpperCase();
+       
+      }
+      headers.push(obj);
+    }
+    return headers;
+  }
+
   generateFulfillmentTableData(fulfilmentList){
    
     this.ordersTableData = [];

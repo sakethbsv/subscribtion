@@ -48,6 +48,7 @@ export class OrdersPage {
   shopIds:any[]=[];
   selectedShopIds:any[]=[];
   cols:any[]=[];
+  admin:any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider,private storage:StorageProvider) {
     this.fulfillmentData = [];
 
@@ -62,6 +63,7 @@ export class OrdersPage {
     this.shopIds= [];
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
+      this.admin=data.admin;
       console.log(this.shopList);
       this.shopList.forEach(shop => {
         this.shopIds.push(shop.shopId);
@@ -107,6 +109,9 @@ export class OrdersPage {
        
         
     ];
+    if(this.admin.rolesMap.LS){
+      this.cols.push( {field:'apartmentName',header:'Apartment Name'})
+    }
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);
       

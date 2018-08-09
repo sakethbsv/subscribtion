@@ -14,6 +14,7 @@ import { PromotionsPage } from '../pages/promotions/promotions';
 import { InventoryPage } from '../pages/inventory/inventory';
 import { MenuController } from 'ionic-angular';
 import * as moment from 'moment';
+import { ApartmentsPage } from '../pages/apartments/apartments';
 
 @Component({
   templateUrl: 'app.html'
@@ -28,6 +29,7 @@ export class MyApp {
   navCtrl: NavController
   pages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>;
   HOpages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>
+  LSpages:Array<{title: string, component: any,icon:any,bg_color:any,color:any}>
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig,private app:App,private menuCtrl:MenuController) {
     this.initializeApp();
@@ -68,6 +70,9 @@ export class MyApp {
         { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
         { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' }
       ]
+      this.LSpages=[
+        { title: 'Apartments', component: ApartmentsPage,icon:'home',bg_color:'secondary',color:'primary' }
+      ];   
     // configuring date range
     this.daterangepickerOptions.settings = {
       locale: { format: 'YYYY-MM-DD' },
