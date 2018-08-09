@@ -105,13 +105,10 @@ export class OrdersPage {
         { field: 'status', header: 'Status' },
         {field:'detail',header:'Detail'},
         {field:'confirmed',header:'Confirmation Status'},
-        {field:'confirmationLink',header:'Confirmation Link'},
-       
-        
+        {field:'confirmationLink',header:'Confirmation Link'} ,
+        {field:'apartmentName',header:'Apartment Name'}       
     ];
-    if(this.admin.rolesMap.LS){
-      this.cols.push( {field:'apartmentName',header:'Apartment Name'})
-    }
+
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);
       

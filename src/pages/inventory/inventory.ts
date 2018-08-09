@@ -64,6 +64,7 @@ export class InventoryPage {
 
   inventoryType:any;
   category:any=[];
+  groupByApartment:any=[];
   apartments:any=[];
   admin:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,private shop:ShopProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider,public storage:StorageProvider) {
@@ -71,7 +72,7 @@ export class InventoryPage {
             
           //An array of cities
           this.category=[ { label: 'All Category', value: null }];
-         
+         this.groupByApartment=[{label:'All Apartments',value:null}]
   }
 
   ionViewDidLoad() {
@@ -145,6 +146,7 @@ this.appartments = [
       this.vendorList = data;
       console.log(data);
      this.category=this.category.concat((this.inventoryProvider.getListOfCategory(this.inventoryList)));
+     this.groupByApartment = this.groupByApartment.concat(this.inventoryProvider.getListOfApartment(this.inventoryList))
      console.log(this.category)
       this.loader.hide();
     },(err:HttpErrorResponse)=>{

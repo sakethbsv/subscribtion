@@ -10,10 +10,13 @@ import { Platform } from 'ionic-angular';
 */
 @Injectable()
 export class StorageProvider {
-
+admin:any;
+clientType:any;
   constructor(public localStorage:Storage,public platform:Platform) {
     console.log('Hello StorageProvider Provider');
   }
+
+  
 
   setItem(key,value){
    
@@ -25,6 +28,7 @@ export class StorageProvider {
 
     
         return this.localStorage.get(key).then((val:string)=>{
+            this.admin = val;
           return val
         });
 

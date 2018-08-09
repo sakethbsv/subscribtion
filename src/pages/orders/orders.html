@@ -104,9 +104,9 @@
               <th pResizableColumn>Detail</th>
             </tr>
             <tr>
-                <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                    <input *ngSwitchCase="'apartment'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">                   
-                </th>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <input *ngSwitchCase="'apartmentName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+              </th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let col of columns let-fulfillment>
@@ -142,8 +142,7 @@
                 <ion-badge color="success" *ngIf="fulfillment.paymentDone">PAID</ion-badge>
                 <ion-badge color="light" *ngIf="!fulfillment.paymentDone">PENDING</ion-badge>
               </td>
-              <td class="ui-resizable-column">
-                  <span class="ui-column-title" style="min-width: 40%;">Apartment</span>{{fulfillment.apartmentName}}</td>
+
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">City</span>{{fulfillment.city}}</td>
               <td class="ui-resizable-column">
@@ -159,11 +158,11 @@
                 <span class="ui-column-title" style="min-width: 40%;">Status</span>
                 <button *ngIf="fulfillment.status=='PENDING'" ion-button [color]="fulfillment.status=='FULFILLED'?'dark':'secondary'" [disabled]="fulfillment.disable"
                   (click)="onClick(fulfillment)">
-                  <ion-badge>{{fulfillment.status}}</ion-badge>
+                  {{fulfillment.status}}
 
                 </button>
 
-                <button pTooltip="{{fulfillment.reason}}t" tooltipPosition="right" ion-button clear *ngIf="fulfillment.status!='PENDING'">
+                <button pTooltip="{{fulfillment.reason}}" tooltipPosition="right" ion-button clear *ngIf="fulfillment.status!='PENDING'">
                   <ion-badge color="secondary">{{fulfillment.status}}</ion-badge>
 
                 </button>
@@ -196,6 +195,8 @@
                 </button>
                 <a *ngIf="fulfillment.confirmationLink" target="_blank" href="{{fulfillment.confirmationLink}}">View Confirmation Link</a>
               </td>
+              <td class="ui-resizable-column">
+                <span class="ui-column-title" style="min-width: 40%;">Apartment Name</span>{{fulfillment.apartmentName || 'N/A'}}</td>
 
             </tr>
 

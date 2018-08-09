@@ -57,6 +57,8 @@ export class ApartmentsPage {
     console.log('ionViewDidLoad ApartmentsPage');
     this.shopProvider.getAdminShopList().then((data:any)=>{
       this.shopList = data;
+      this.viewApartment(44);
+      this.shopSelected=44;
     },(err:any)=>{
       console.log('Error while fetching the shoplist',err);
     })
