@@ -1,34 +1,25 @@
-import { OrdersPage } from '../../pages/orders/orders';
-import { Component, ViewChild } from '@angular/core';
-import { NavController, Content } from 'ionic-angular';
-import { CatalogPage } from '../catalog/catalog';
-import { PromotionsPage } from '../promotions/promotions';
-import { InventoryPage } from '../inventory/inventory';
-import { ApartmentsPage } from '../apartments/apartments';
-import { StorageProvider } from '../../providers/storage/storage';
-import { MenuProvider } from '../../providers/menu/menu';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { StorageProvider } from '../storage/storage';
 
+/*
+  Generated class for the MenuProvider provider.
 
-
-
-@Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
-})
-
-export class HomePage {
-  @ViewChild(Content) content: Content;
-  ordersList : any[];
-  settings:any;
-  data:any;
-  admin:any;
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+@Injectable()
+export class MenuProvider {
   navigation:any[]=[];
-  constructor(public navCtrl: NavController,private storage:StorageProvider) {
-   this.getNavigation();
-    
+  HOnavigation:any[]=[];
+  LSnavigation:any[]=[];
+  admin:any;
+  constructor(public storage:StorageProvider) {
+    console.log('Hello MenuProvider Provider');
+     this.setNavigation();
   }
 
-  getNavigation(){
+  setNavigation(){
     this.storage.getItem('admin').then((data:any)=>{
       this.admin = data.admin;
       if(this.admin.rolesMap.HO){
@@ -59,27 +50,6 @@ export class HomePage {
     },err=>{
 
     })
-  }
-
-  trackOrders(){
-     
-    this.navCtrl.push(OrdersPage);
-  }
-
-  uploadCatalog(){
-    this.navCtrl.push(CatalogPage);
-  }
-
-  promotions(){
-    this.navCtrl.push(PromotionsPage);
-  }
-
-  inventory(){
-    this.navCtrl.push(InventoryPage);
-  }
-
-  apartments(){
-    this.navCtrl.push(ApartmentsPage);
   }
 
 }

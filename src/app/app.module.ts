@@ -54,6 +54,7 @@ import { CallNumber } from '@ionic-native/call-number';
 
 import { ApartmentsPage } from '../pages/apartments/apartments';
 import { ApartmentsProvider } from '../providers/apartments/apartments';
+import { MenuProvider } from '../providers/menu/menu';
 @NgModule({
   declarations: [
     MyApp,
@@ -136,7 +137,8 @@ import { ApartmentsProvider } from '../providers/apartments/apartments';
     InventoryProvider,
     ShopProvider,
     CallNumber,
-    ApartmentsProvider
+    ApartmentsProvider,
+    MenuProvider
     
     
   ]
