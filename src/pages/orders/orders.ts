@@ -79,7 +79,7 @@ export class OrdersPage {
     let obj = {
       "shopIds": shopId,
       "fromDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD"),
-      "toDate": moment(this.daterange.end.toDate()).format("YYYY-MM-DD")
+      "toDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD")
     }
 
     // disable future fulfillment

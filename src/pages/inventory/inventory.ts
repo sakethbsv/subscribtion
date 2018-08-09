@@ -120,7 +120,7 @@ this.appartments = [
     this.inventoryType = 'vendorProduct';
     console.log('shopid...')
     let from = moment(this.daterange.start.toDate()).format("YYYY-MM-DD");
-    let to = moment(this.daterange.end.toDate()).format("YYYY-MM-DD");
+    let to = moment(this.daterange.start.toDate()).format("YYYY-MM-DD");
     let page = 1;
     this.inventoryProvider.getInventory(shopId,from,to).subscribe((data:any)=>{
       this.cols = [
