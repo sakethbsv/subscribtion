@@ -25,8 +25,7 @@ clientType:any;
   }
 
   getItem(key){
-
-    
+   
         return this.localStorage.get(key).then((val:string)=>{
             this.admin = val;
           return val
@@ -40,7 +39,7 @@ clientType:any;
 
     let promise = new Promise((resolve,reject)=>{
 
-        this.localStorage.get(key).then((val:string)=>{
+        return this.localStorage.get(key).then((val:string)=>{
             resolve(val)
         },(err:any)=>{
             reject(err)

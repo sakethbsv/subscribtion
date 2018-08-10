@@ -36,7 +36,7 @@ export class MyApp {
     this.pages=[];
     this.admin = {};
     this.navCtrl = app.getActiveNav();
-    this.storage.getItem('admin').then((data: any) => {
+    this.storage.getValue('admin').then((data: any) => {
       console.log(data);
       if (data != null) {
         //this.openPage(HomePage)
@@ -47,29 +47,7 @@ export class MyApp {
         this.rootPage = HomePage;
         this.splitPane.setSplitPane(true);
         // set navigation based on admin roles
-        if (data.admin.rolesMap.HO) {
-          this.pages = [
-            { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
-            { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
-            { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
-            { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
-            { title: 'Banners', component: PromotionsPage, icon: 'list', bg_color: 'secondary', color: 'primary' }
-          ];
-        } else if (data.admin.rolesMap.LS) {
-          this.pages = [
-            { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
-            { title: 'Orders', component: LocalvendorOrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
-            { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
-            { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
-            { title: 'Apartments', component: ApartmentsPage, icon: 'home', bg_color: 'secondary', color: 'primary' }
-          ];
-        } else {
-          this.pages = [
-            { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
-            { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
-            { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' }
-          ];
-        }
+        this.setMenu();
 
       } else {
         this.rootPage = LoginPage;
@@ -79,7 +57,7 @@ export class MyApp {
       this.rootPage = LoginPage;
     })
 
-    this.initializeApp();
+   
 
     // configuring date range
     this.daterangepickerOptions.settings = {
@@ -108,7 +86,32 @@ export class MyApp {
     });
   }
 
-
+setMenu(){
+  console.log(this.admin)
+  if (this.admin.rolesMap.HO) {
+    this.pages = [
+      { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+      { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+      { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
+      { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
+      { title: 'Banners', component: PromotionsPage, icon: 'list', bg_color: 'secondary', color: 'primary' }
+    ];
+  } else if (this.admin.rolesMap.LS) {
+    this.pages = [
+      { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+      { title: 'Orders', component: LocalvendorOrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+      { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
+      { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
+      { title: 'Apartments', component: ApartmentsPage, icon: 'home', bg_color: 'secondary', color: 'primary' }
+    ];
+  } else {
+    this.pages = [
+      { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+      { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+      { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' }
+    ];
+  }
+}
 
   openPage(page) {
     // Reset the content nav to have just this page
