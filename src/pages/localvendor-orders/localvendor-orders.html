@@ -161,8 +161,8 @@
 
                 </button>
 
-                <button pTooltip="{{fulfillment.reason}}" tooltipPosition="right" ion-button clear *ngIf="fulfillment.status!='PENDING'">
-                  <ion-badge color="secondary">{{fulfillment.status}}</ion-badge>
+                <button pTooltip="{{fulfillment.reason || 'N/A'}}" tooltipPosition="right" ion-button clear *ngIf="fulfillment.status!='PENDING'">
+                  <ion-badge color="primary">{{fulfillment.status}}</ion-badge>
 
                 </button>
               </td>

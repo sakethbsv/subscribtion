@@ -243,15 +243,17 @@ export class ApartmentsPage {
  }
 
  bulkUploadApartment(event){
+   this.msgs=[];
   console.log(event.files[0]);
   this.apartmentCatalogErrorData=[];
   this.apartmentProvider.convertCatalogCsvToJson(event.files[0],this.shopSelected,this.apartmentCatalogErrorData).then((data:any)=>{
     console.log(data);
     this.apartmentProvider.addAppartments(data,this.shopSelected).subscribe((data:any)=>{
-
+      this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Apartments updloaded !!', life: 4000 });
     },(err:HttpErrorResponse)=>{
       this.errorHandler.error(err);
       this.loader.hide();
+      this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Error while uploading !', life: 4000 });
     },()=>{
       this.loader.hide();
     })

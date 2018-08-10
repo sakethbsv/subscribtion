@@ -38,7 +38,7 @@ export class ApartmentsProvider {
   }
 
   addAppartments(apartmentList,shopSelected){
-    return this.http.post("v2/dashboard/subscription/shop/"+shopSelected+"/addApartment",apartmentList);
+    return this.http.put("v2/dashboard/subscription/shop/"+shopSelected+"/addApartments",apartmentList);
   }
 
   editAppartment(apartments,objToUpdate){
