@@ -20,36 +20,10 @@ export class MenuProvider {
   }
 
   setNavigation(){
-    this.storage.getItem('admin').then((data:any)=>{
-      this.admin = data.admin;
-      if(this.admin.rolesMap.HO){
-        this.navigation =[
-          {'title':'Track Orders','img':'assets/imgs/track.png','action':'trackOrders'},
-          {'title':'Upload Catalog','img':'assets/imgs/catalog.png','action':'uploadCatalog'},
-          {'title':'Banners','img':'assets/imgs/promotion.png','action':'promotions'},
-          {'title':'Required Stock','img':'assets/imgs/inventory.png','action':'inventory'},
-          
-        ]
-
-      }else if(this.admin.rolesMap.LS){
-        this.navigation =[
-          {'title':'Track Orders','img':'assets/imgs/track.png','action':'trackOrders'},
-          {'title':'Upload Catalog','img':'assets/imgs/catalog.png','action':'uploadCatalog'},
-          {'title':'Banners','img':'assets/imgs/promotion.png','action':'promotions'},
-          {'title':'Required Stock','img':'assets/imgs/inventory.png','action':'inventory'},
-          {'title':'Apartments','img':'assets/imgs/apartment.png','action':'apartments'},
-          
-        ]
-      }else{
-        this.navigation =[
-          {'title':'Track Orders','img':'assets/imgs/track.png','action':'trackOrders'},
-          {'title':'Required Stock','img':'assets/imgs/inventory.png','action':'inventory'},
-          
-        ]
-      }
-    },err=>{
-
+    this.storage.getValue('admin').then((data:any)=>{
+      
     })
   }
+
 
 }

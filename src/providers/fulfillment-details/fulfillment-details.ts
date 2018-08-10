@@ -101,4 +101,18 @@ export class FulfillmentDetailsProvider {
     return this._http.post(Constants.URL+"/v2/dashboard/subscription/fetchFulfillments/download",data,{responseType: 'text'})
   }
 
+  getListOfApartment(list){
+    var apartment=[];
+    list.map(item => item.apartmentName)
+ .filter((value, index, self) => {
+   if(value && self.indexOf(value) === index)
+   {
+     let obj:any={};
+     obj.label=value;
+     obj.value=value;apartment.push(obj)
+    }})
+
+    return apartment;
+ }
+
 }

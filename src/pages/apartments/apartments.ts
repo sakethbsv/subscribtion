@@ -36,6 +36,8 @@ export class ApartmentsPage {
   todo:any;
   apartmentCatalogErrorData: any[];
   selectedApartments:any;
+  uploadApartments:boolean=false;
+  apartmentFormError:any={};
   constructor(public navCtrl: NavController, public navParams: NavParams,private shopProvider:ShopProvider,private apartmentProvider:ApartmentsProvider,private modalProvider:ModalProvider,private errorHandler:ErrorHandlerServiceProvider,private loader:LoaderProvider,private alert:AlertProvider) {
     this.cols = [
       { field: 'apartmentId', header: 'Apartment Id' },
@@ -83,10 +85,12 @@ export class ApartmentsPage {
    this.newApartment=true;
    this.displayDialog=true; 
    this.apartment={}
+   this.apartmentFormError={};
  }
 
  /* Edit */
  editApartment(rowData){
+  this.apartmentFormError={};
   console.log(rowData);
     this.editedApartment = rowData;
     this.newApartment = false;
@@ -101,34 +105,76 @@ export class ApartmentsPage {
  }
 
  validateApartmentData(apartmentObj){
+   let validForm = true;
+   this.apartmentFormError={};
    console.log(apartmentObj)
-    if(apartmentObj.apartmentDisplayName!=null && apartmentObj.apartmentDisplayName!="" 
-      && apartmentObj.postalCode!=null && apartmentObj.postalCode!="" && apartmentObj.addressLine1!=null && apartmentObj.addressLine1!=""
-      && apartmentObj.landMark!=null && apartmentObj.landMark!="" && apartmentObj.city!=null && apartmentObj.city!="" && apartmentObj.state!=null && apartmentObj.state!=""
-      && apartmentObj.country!=null && apartmentObj.country!=""){
-    return true;
-  }else{
-    this.alert.errorAlert("Please fill the required fields !");
-    return false;
-  }
+   let latLongRegex = '^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}';
+   let postalRegex='^[1-9][0-9]{5}$';
+   if(apartmentObj.apartmentDisplayName==null || apartmentObj.apartmentDisplayName==""){
+    this.apartmentFormError.apartmentDisplayName="Apartment Name is required !";
+    validForm=false;
+   }
+   if(apartmentObj.postalCode==null || apartmentObj.postalCode==""){
+    this.apartmentFormError.postalCode="Postal Code is required !";
+    validForm=false;
+   }
+   if(apartmentObj.postalCode!=null && apartmentObj.postalCode.match(postalRegex)==null){
+    this.apartmentFormError.postalCode="Enter a valid 6 digit postal code !";
+    validForm=false;
+   }
+   if(apartmentObj.addressLine1==null || apartmentObj.addressLine1==""){
+    this.apartmentFormError.addressLine1="Address is required !";
+    validForm=false;
+   }
+   if(apartmentObj.addressLine2==null || apartmentObj.addressLine2==""){
+    this.apartmentFormError.addressLine2="Address is required !";
+    validForm=false;
+   }
+   if(apartmentObj.landMark==null || apartmentObj.landMark==""){
+    this.apartmentFormError.landMark="Landmark is required !";
+    validForm=false;
+   }
+   if(apartmentObj.city==null || apartmentObj.city==""){
+    this.apartmentFormError.city="City is required !";
+    validForm=false;
+   }
+   if(apartmentObj.state==null || apartmentObj.state==""){
+    this.apartmentFormError.state="State is required !";
+    validForm=false;
+   }
+   if(apartmentObj.country==null || apartmentObj.country==""){
+    this.apartmentFormError.country="Country is required !";
+    validForm=false;
+   }
+
+   if(apartmentObj.lat!=null && (isNaN(apartmentObj.lat))){
+    this.apartmentFormError.lat="Enter a valid latitude";
+    validForm=false;
+   }
+   if(apartmentObj.lng!=null && (isNaN(apartmentObj.lng))){
+    this.apartmentFormError.lng="Enter a valid longitude";
+    validForm=false;
+   }
+
+   return validForm;
  }
 
  addOrUpdateApartment(){
    this.msgs = [];
    this.apartmentProvider.addOrUpdateAppartment(this.apartment,this.shopSelected).subscribe((data:any)=>{
    
-    this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Apartment Added !. Refresh the table to view updated products', life: 4000 });
     this.loader.hide();
        if(this.newApartment){
     this.apartments=this.apartmentProvider.addAppartment(this.apartments,data);
+    this.msgs.push({ severity: 'success', summary: 'Success', detail: 'New Apartment Added !!', life: 4000 });
    }else{
      this.apartments = this.apartmentProvider.editAppartment(this.apartments,data);
-     
+     this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Apartment Updated !. Refresh the table to view updated apartment', life: 4000 });
    }
    console.log(this.apartments);
   },(err:any)=>{
     this.loader.hide();
-    this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Unable to add apartment!', life: 4000 });
+    this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Unable to add/update apartment!', life: 4000 });
   
   },()=>{
      this.loader.hide();
@@ -220,6 +266,16 @@ export class ApartmentsPage {
     apartment[prop] = c[prop];
   }
   return apartment;
+}
+
+onRowUnselect(event) {
+  console.log(event.data);
+  console.log(this.selectedApartments)
+  if (this.selectedApartments.length > 0) {
+    
+  } else {
+    this.selectedApartments=null;
+  }
 }
 
 

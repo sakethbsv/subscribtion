@@ -36,6 +36,28 @@ clientType:any;
    
   }
 
+  getValue(key){
+
+    let promise = new Promise((resolve,reject)=>{
+
+        this.localStorage.get(key).then((val:string)=>{
+            resolve(val)
+        },(err:any)=>{
+            reject(err)
+        });
+    })
+    
+return promise;
+
+
+}
+
+getAdmin(){
+    return this.getValue('admin').then((data:any)=>{
+        return data;
+    })
+}
+
   clearItem(){
     
       this.localStorage.clear();

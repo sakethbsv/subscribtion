@@ -15,6 +15,8 @@ import { InventoryPage } from '../pages/inventory/inventory';
 import { MenuController } from 'ionic-angular';
 import * as moment from 'moment';
 import { ApartmentsPage } from '../pages/apartments/apartments';
+import { LocalVendorOrdersPage } from '../pages/local-vendor-orders/local-vendor-orders';
+import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
 
 @Component({
   templateUrl: 'app.html'
@@ -45,12 +47,31 @@ export class MyApp {
         this.adminRoles=data.authenticationDetails.roles;
         this.rootPage=HomePage;
         this.splitPane.setSplitPane(true);
-
         // set navigation based on admin roles
-        
-        
-        
-        
+        if(data.admin.rolesMap.HO){
+          this.pages = [
+            { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
+            { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
+            { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' },
+            { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
+            { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' }
+          ];  
+        }else if(data.admin.rolesMap.LS){
+          this.pages = [
+            { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
+            { title: 'Orders', component: LocalvendorOrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
+            { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' },
+            { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
+            { title: 'Apartments', component: ApartmentsPage,icon:'home',bg_color:'secondary',color:'primary' }
+          ]; 
+        }else{
+          // this.pages = [
+          //   { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
+          //   { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
+          //   { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
+          // ];  
+        }
+              
       }else{
         this.rootPage = LoginPage;
       }
@@ -60,19 +81,7 @@ export class MyApp {
       })
 
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
-      { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
-      { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
-    ];   
-      this.HOpages =[
-        { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
-        { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' }
-      ]
-      this.LSpages=[
-        { title: 'Apartments', component: ApartmentsPage,icon:'home',bg_color:'secondary',color:'primary' }
-      ];   
+  
     // configuring date range
     this.daterangepickerOptions.settings = {
       locale: { format: 'YYYY-MM-DD' },
@@ -98,6 +107,8 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
+
+
 
   openPage(page) {
     // Reset the content nav to have just this page

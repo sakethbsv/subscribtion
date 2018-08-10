@@ -60,8 +60,10 @@
     <ion-row padding justify-content-center class="no-promotion">
       <!--CRUD Operation-->
       <ion-col col-12 *ngIf="shopSelected">
-        <button ion-button small round color="light" (click)="uploadApartment();uploadApartments=true">Upload Appartments</button>
-        <button ion-button small round (click)="deleteApartments()">Delete</button>
+        <button  ion-button small round color="light" (click)="uploadApartment();uploadApartments=!uploadApartments">
+          <span *ngIf="uploadApartments==true">Cancel</span>&nbsp;Upload Apartments
+        </button>
+        <button ion-button small round [disabled]="!selectedApartments"  (click)="deleteApartments()">Delete</button>
         <button ion-button small round color="secondary" (click)="showDialog()">Add</button>
         <button ion-button small round color="secondary" (click)="viewApartment(shopSelected)">Refresh</button>
       </ion-col>
@@ -77,10 +79,10 @@
 
 
 
-      <ion-col *ngIf="uploadApartments">
+      <ion-col *ngIf="uploadApartments==true">
         <p-fileUpload name="myfile[]" customUpload="true" accept=".csv" (uploadHandler)="bulkUploadApartment($event)">
           <ng-template pTemplate="content">
-            <a href="https://storage.cloud.google.com/perpule-1248.appspot.com/sample_file_subscription.csv">
+            <a href="https://storage.cloud.google.com/perpule-1248.appspot.com/04082017004336.149_c1290960_2096_Item.csv">
               <button ion-button small outline>Sample CSV</button>
             </a>
           </ng-template>
@@ -91,7 +93,7 @@
 
 
       <ion-col col-12 *ngIf="apartments.length>0">
-        <p-table [columns]="cols"  #dt [value]="apartments" [(selection)]="selectedApartments" [resizableColumns]="true" [scrollable]="true" [paginator]="true"
+        <p-table [columns]="cols"  #dt [value]="apartments" [(selection)]="selectedApartments" (onRowUnselect)="onRowUnselect($event)" [resizableColumns]="true" [scrollable]="true" [paginator]="true"
           [rows]="50">
           <ng-template pTemplate="caption">
             <div style="text-align: right">
@@ -136,7 +138,7 @@
 
 
 
-  <p-dialog header="Apartment Details" [(visible)]="displayDialog" [width]="600">
+  <p-dialog header="Apartment Details" [contentStyle]="{'max-height':'500px'}"  [(visible)]="displayDialog" [width]="600">
     <div class="ui-g ui-fluid">
       <div class="ui-g-12">
 
@@ -147,6 +149,7 @@
         <div class="ui-g-8">
           <input type="text" [(ngModel)]="apartment.apartmentDisplayName" required/>
         </div>
+        <p class="red">{{apartmentFormError.apartmentDisplayName}}</p>
       </div>
       <div class="ui-g-12">
         <div class="ui-g-4">
@@ -155,14 +158,16 @@
         <div class="ui-g-8">
           <input type="text" [(ngModel)]="apartment.lat" />
         </div>
+        <p class="red">{{apartmentFormError.lat}}</p>
       </div>
       <div class="ui-g-12">
         <div class="ui-g-4">
           <label for="image">Longitude</label>
         </div>
         <div class="ui-g-8">
-          <input type="text" id="image" [(ngModel)]="apartment.lng" />
+          <input type="text" [(ngModel)]="apartment.lng" />
         </div>
+        <p class="red">{{apartmentFormError.lng}}</p>
       </div>
       <div class="ui-g-12">
 
@@ -173,6 +178,7 @@
         <div class="ui-g-8">
           <input type="text" id="category" [(ngModel)]="apartment.addressLine1" required/>
         </div>
+        <p class="red">{{apartmentFormError.addressLine1}}</p>
       </div>
       <div class="ui-g-12">
 
@@ -183,6 +189,7 @@
         <div class="ui-g-8">
           <input type="text" id="subCategory" [(ngModel)]="apartment.addressLine2" required/>
         </div>
+        <p class="red">{{apartmentFormError.addressLine2}}</p>
       </div>
       <div class="ui-g-12">
 
@@ -193,6 +200,7 @@
         <div class="ui-g-8">
           <input type="text" id="subCategory" [(ngModel)]="apartment.postalCode" required/>
         </div>
+        <p class="red">{{apartmentFormError.postalCode}}</p>
       </div>
       <div class="ui-g-12">
 
@@ -202,6 +210,7 @@
         <div class="ui-g-8">
           <input type="text" [(ngModel)]="apartment.landMark" required/>
         </div>
+        <p class="red">{{apartmentFormError.landMark}}</p>
       </div>
       <div class="ui-g-12">
 
@@ -212,6 +221,7 @@
         <div class="ui-g-8">
           <input type="text" [(ngModel)]="apartment.city" required/>
         </div>
+        <p class="red">{{apartmentFormError.city}}</p>
       </div>
       <div class="ui-g-12">
 
@@ -222,6 +232,7 @@
         <div class="ui-g-8">
           <input type="text" [(ngModel)]="apartment.state" required/>
         </div>
+        <p class="red">{{apartmentFormError.state}}</p>
       </div>
       <div class="ui-g-12">
 
@@ -232,11 +243,13 @@
         <div class="ui-g-8">
           <input type="text" [(ngModel)]="apartment.country" />
         </div>
+        <p class="red">{{apartmentFormError.country}}</p>
       </div>
 
     </div>
 
     <p-footer>
+      
       <div class="ui-dialog-buttonpane ui-helper-clearfix" style="float: left;">
         <button ion-button (click)="save()">Save</button>
       </div>

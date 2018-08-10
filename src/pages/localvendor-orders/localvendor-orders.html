@@ -10,7 +10,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      <ion-icon name="cart"></ion-icon> Orders</ion-title>
+      <ion-icon name="cart"></ion-icon> Track Orders</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -77,11 +77,16 @@
 
         </div>
       </ion-col>
-      <ion-col col-12>
-        <button style="float: right" ion-button small round color="secondary" (click)="downloadReport(selectedShopIds)">Download</button>
+      <ion-col col-xs-12 col-sm-12 col-md-10 col-lg-10>
+        <button style="float: right" ion-button small round color="secondary" (click)="dt.exportCSV()">Download</button>
         <button style="float: right" ion-button small round color="secondary" (click)="filter()">Filter</button>
+        
+      </ion-col>
+      <ion-col  col-xs-12 col-sm-12 col-md-2 col-lg-2>
+         <ion-icon color="dark" name="home" style="font-size: 2em"></ion-icon> <p-dropdown [options]="apartmentList" [(ngModel)]="selectedApartment" (onChange)="filterTable()"></p-dropdown>
       </ion-col>
       <ion-col col-12>
+
         <p-table #dt [columns]="cols" [value]="fulfillmentData" [scrollable]="true" [resizableColumns]="true" [responsive]="true"
           [(selection)]="selectedFulfillment">
           <ng-template pTemplate="caption">
@@ -97,24 +102,22 @@
             </colgroup>
           </ng-template>
           <ng-template pTemplate="header" let-columns>
-            <tr>
-              <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
-                {{col.header}}
-              </th>
-              <th pResizableColumn>Detail</th>
-            </tr>
-            <tr>
-              <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                <input *ngSwitchCase="'apartmentName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-              </th>
-            </tr>
+              <tr>
+                  <th *ngFor="let col of columns">
+                      {{col.header}}
+                  </th>
+              </tr>
+              <tr>
+                  <th *ngFor="let col of columns" [ngSwitch]="col.field">                      
+                      
+                      <input *ngSwitchCase="'subCategory'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    
+                  </th>
+              </tr>
+
           </ng-template>
           <ng-template pTemplate="body" let col of columns let-fulfillment>
             <tr>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Shop Id</span>{{fulfillment.shopId}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Store Code</span>{{fulfillment.originalStoreCode}}</td>
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">ID</span>{{fulfillment.subscriptionId}}</td>
               <td class="ui-resizable-column">
@@ -123,7 +126,6 @@
                 <span class="ui-column-title" style="min-width: 40%;">Fulfillment Id</span>{{fulfillment.actualOrderId}}</td>
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">Order Amount</span>Rs.{{fulfillment.totalOrderAmount}}</td>
-
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">Customer Name</span>{{fulfillment.customerName}}</td>
               <td class="ui-resizable-column">
@@ -142,9 +144,6 @@
                 <ion-badge color="success" *ngIf="fulfillment.paymentDone">PAID</ion-badge>
                 <ion-badge color="light" *ngIf="!fulfillment.paymentDone">PENDING</ion-badge>
               </td>
-
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">City</span>{{fulfillment.city}}</td>
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">Order Sent To Merchant</span>
                 <span *ngIf="fulfillment.orderSentToMerchant">
@@ -195,7 +194,8 @@
                 </button>
                 <a *ngIf="fulfillment.confirmationLink" target="_blank" href="{{fulfillment.confirmationLink}}">View Confirmation Link</a>
               </td>
-             
+              <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Apartment Name</span>{{fulfillment.apartmentName || 'N/A'}}</td>
 
             </tr>
 
@@ -209,6 +209,7 @@
           </ng-template>
         </p-table>
       </ion-col>
+
 
     </ion-row>
 

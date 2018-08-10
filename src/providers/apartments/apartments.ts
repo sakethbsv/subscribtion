@@ -90,6 +90,7 @@ export class ApartmentsProvider {
     let rowNo:number=0;
     let apartmentJsonData:any[]=[];
     let postalRegex='^[1-9][0-9]{5}$';
+    let latLongRegex = '^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$';
 
    for(var i=1;i<jsonData.length;i++){
       rowNo=i;
@@ -133,8 +134,14 @@ export class ApartmentsProvider {
 
       if(obj.postalCode==null || obj.postalCode==""){
         apartmentCatalogErrorData.push('postal code is missing in :'+ rowNo)
-      }else if(obj.postalCode && (isNaN(obj.postalCode) || obj.postalCode < 0) && obj.postalCode.match(postalRegex)==null){
+      }else if(obj.postalCode  && obj.postalCode.match(postalRegex)==null){
         apartmentCatalogErrorData.push('enter a valid 6 digit postal code')
+      }
+      if(obj.lat && (isNaN(obj.lat))){
+        apartmentCatalogErrorData.push('Enter a valid latitude :'+rowNo)
+      }
+      if(obj.lng && (isNaN(obj.lat))){
+        apartmentCatalogErrorData.push('Enter a valid longitude :'+rowNo)
       }
       console.log(obj);
       apartmentJsonData.push(obj);

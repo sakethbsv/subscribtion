@@ -6,7 +6,7 @@ import { PromotionsPage } from '../promotions/promotions';
 import { InventoryPage } from '../inventory/inventory';
 import { ApartmentsPage } from '../apartments/apartments';
 import { StorageProvider } from '../../providers/storage/storage';
-import { MenuProvider } from '../../providers/menu/menu';
+import { LocalvendorOrdersPage } from '../localvendor-orders/localvendor-orders';
 
 
 
@@ -43,9 +43,8 @@ export class HomePage {
 
       }else if(this.admin.rolesMap.LS){
         this.navigation =[
-          {'title':'Track Orders','img':'assets/imgs/track.png','action':'trackOrders'},
+          {'title':'Track Orders','img':'assets/imgs/track.png','action':'trackLocalVendorsOrders'},
           {'title':'Upload Catalog','img':'assets/imgs/catalog.png','action':'uploadCatalog'},
-          {'title':'Banners','img':'assets/imgs/promotion.png','action':'promotions'},
           {'title':'Required Stock','img':'assets/imgs/inventory.png','action':'inventory'},
           {'title':'Apartments','img':'assets/imgs/apartment.png','action':'apartments'},
           
@@ -65,6 +64,10 @@ export class HomePage {
   trackOrders(){
      
     this.navCtrl.push(OrdersPage);
+  }
+
+  trackLocalVendorsOrders(){
+    this.navCtrl.push(LocalvendorOrdersPage);
   }
 
   uploadCatalog(){
