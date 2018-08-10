@@ -56,7 +56,6 @@ import { ApartmentsPage } from '../pages/apartments/apartments';
 import { ApartmentsProvider } from '../providers/apartments/apartments';
 import { MenuProvider } from '../providers/menu/menu';
 import {MultiSelectModule} from 'primeng/multiselect';
-import { LocalVendorOrdersPage } from '../pages/local-vendor-orders/local-vendor-orders';
 import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
 @NgModule({
   declarations: [
