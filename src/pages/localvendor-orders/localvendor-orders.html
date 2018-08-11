@@ -77,14 +77,19 @@
 
         </div>
       </ion-col>
-      <ion-col col-xs-12 col-sm-12 col-md-10 col-lg-10>
+      <ion-col  col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4>
+          <div style="float:left">
+            <div style="float: left;"><ion-icon color="dark" name="home" style="font-size: 2em"></ion-icon></div>
+            <div style="float: left;"> &nbsp; <p-dropdown [options]="apartmentList" [(ngModel)]="selectedApartment" (onChange)="filterTable()"></p-dropdown></div>
+          
+          </div>
+        </ion-col>
+      <ion-col col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8>
         <button style="float: right" ion-button small round color="secondary" (click)="dt.exportCSV()">Download</button>
         <button style="float: right" ion-button small round color="secondary" (click)="filter()">Filter</button>
         
       </ion-col>
-      <ion-col  col-xs-12 col-sm-12 col-md-2 col-lg-2>
-         <ion-icon color="dark" name="home" style="font-size: 2em"></ion-icon> <p-dropdown [options]="apartmentList" [(ngModel)]="selectedApartment" (onChange)="filterTable()"></p-dropdown>
-      </ion-col>
+      
       <ion-col col-12>
 
         <p-table #dt [columns]="cols" [value]="fulfillmentData" [scrollable]="true" [resizableColumns]="true" [responsive]="true"
