@@ -9,7 +9,6 @@ import { ScrollProvider } from '../../providers/scroll/scroll';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import { ModalProvider } from '../../providers/modal/modal';
 import { ShopProvider } from '../../providers/shop/shop';
-import { CallNumber } from '@ionic-native/call-number';
 
 /**
  * Generated class for the OrdersPage page.
@@ -32,9 +31,9 @@ export class OrdersPage {
     label: ''
   };
 
-  options : any = {
-    startDate : moment().subtract(1, 'days'),
-    endDate : moment(),
+  options: any = {
+    startDate: moment().subtract(1, 'days'),
+    endDate: moment(),
   }
 
 
@@ -45,11 +44,11 @@ export class OrdersPage {
   settings: any;
   selectedShopId: number;
   showfilter: boolean = false;
-  shopIds:any[]=[];
-  selectedShopIds:any[]=[];
-  cols:any[]=[];
-  admin:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private modal:ModalProvider,private storage:StorageProvider) {
+  shopIds: any[] = [];
+  selectedShopIds: any[] = [];
+  cols: any[] = [];
+  admin: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider, private errorHandler: ErrorHandlerServiceProvider, private modal: ModalProvider, private storage: StorageProvider) {
     this.fulfillmentData = [];
 
   }
@@ -60,10 +59,10 @@ export class OrdersPage {
   }
 
   getAllShops() {
-    this.shopIds= [];
+    this.shopIds = [];
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
-      this.admin=data.admin;
+      this.admin = data.admin;
       console.log(this.shopList);
       this.shopList.forEach(shop => {
         this.shopIds.push(shop.shopId);
@@ -85,40 +84,39 @@ export class OrdersPage {
     }
 
     // disable future fulfillment
-   
+
     this.orders.getFulfillmentDetails(obj).subscribe((data: any) => {
       this.cols = [
-        { field: 'shopId',header: 'Shop Id'},
-        { field: 'originalStoreCode',header:'Store Code'},
-        { field: 'subscriptionId', header: 'ID'},
-        { field: 'subscriptionOrderId',header:'Subscription Order Id'},
-        { field: 'actualOrderId',header:'Fulfillment Order Id'},
-        { field: 'totalOrderAmount',header:'Order Amount'},
-        { field: 'customerName', header:'Customer Name'},
-        { field: 'mobileNumber', header:'Mobile Number'},
-        { field: 'deliveryDate', header: 'Delivery Date'},
+        { field: 'shopId', header: 'Shop Id' },
+        { field: 'originalStoreCode', header: 'Store Code' },
+        { field: 'subscriptionId', header: 'ID' },
+        { field: 'subscriptionOrderId', header: 'Subscription Order Id' },
+        { field: 'actualOrderId', header: 'Fulfillment Order Id' },
+        { field: 'totalOrderAmount', header: 'Order Amount' },
+        { field: 'customerName', header: 'Customer Name' },
+        { field: 'mobileNumber', header: 'Mobile Number' },
+        { field: 'deliveryDate', header: 'Delivery Date' },
         { field: 'slot', header: 'Slot' },
-        { field: 'paymentMethod', header: 'Payment Method'},
-        { field: 'paymentDone', header: 'Payment Status'},
-        { field: 'city', header: 'City'},
-        { field: 'orderSentToMerchant', header:'Order Sent To Merchant'},
+        { field: 'paymentMethod', header: 'Payment Method' },
+        { field: 'paymentDone', header: 'Payment Status' },
+        { field: 'city', header: 'City' },
+        { field: 'orderSentToMerchant', header: 'Order Sent To Merchant' },
         { field: 'status', header: 'Status' },
-        {field:'detail',header:'Detail'},
-        {field:'confirmed',header:'Confirmation Status'},
-        {field:'confirmationLink',header:'Confirmation Link'} ,
-        {field:'apartmentName',header:'Apartment Name'}       
-    ];
+        { field: 'detail', header: 'Detail' },
+        { field: 'confirmed', header: 'Confirmation Status' },
+        { field: 'confirmationLink', header: 'Confirmation Link' }
+      ];
 
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);
-      
-      
+
+
       this.scroll.scrollTo('#order-detail');
-      
+
     }, (err: HttpErrorResponse) => {
       this.errorHandler.error(err);
       this.loader.hide();
-     // alert("Something went wrong !");
+      // alert("Something went wrong !");
     }, () => {
       this.loader.hide();
     })
@@ -140,18 +138,18 @@ export class OrdersPage {
     this.fulfillmentData = [];
   }
 
-  filter(){
+  filter() {
     this.showfilter = true;
   }
 
-  downloadReport(shopIds){
+  downloadReport(shopIds) {
     let formData = {
       "shopIds": shopIds,
       "fromDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD"),
       "toDate": moment(this.daterange.end.toDate()).format("YYYY-MM-DD")
     }
 
-    this.orders.downloadFullfillmentReport(formData).subscribe((data:any)=>{
+    this.orders.downloadFullfillmentReport(formData).subscribe((data: any) => {
       let csv = data;
       console.log(csv);
       let hiddenElement = document.createElement('a');
@@ -160,52 +158,48 @@ export class OrdersPage {
       hiddenElement.download = 'Subscription-Fulfillment.csv';
       hiddenElement.click();
 
-    },(err:HttpErrorResponse)=>{
+    }, (err: HttpErrorResponse) => {
       console.log(err.error);
       this.loader.hide();
-    },()=>{
+    }, () => {
       this.loader.hide();
     })
   }
 
 
-  onClick(fulfillment) {
-    console.log('...',fulfillment);
-    if(fulfillment.status=="PENDING"){
-      fulfillment.status="FULFILLED";
-     
+  updateFulfillmentStatus(fulfillment) {
+    console.log('...', fulfillment);
+    if (fulfillment.status == "PENDING") {
+      fulfillment.status = "FULFILLED";
+
     }
-    
-    this.orders.updateFulfillmentStatus(fulfillment).subscribe(data=>{  
+
+    this.orders.updateFulfillmentStatus(fulfillment).subscribe(data => {
       console.log(data);
-      fulfillment.status="FULFILLED";
-    },(err:HttpErrorResponse)=>{
+      fulfillment.status = "FULFILLED";
+    }, (err: HttpErrorResponse) => {
       this.errorHandler.error(err);
       console.log('err');
-      if(err.status==200){
+      if (err.status == 200) {
         console.log(err);
-        
-      }else{
-        fulfillment.status ='PENDING';
+
+      } else {
+        fulfillment.status = 'PENDING';
       }
-     
+
       this.loader.hide();
-    },()=>{
+    }, () => {
       console.log('Completed');
       this.loader.hide();
     })
-    
+
   }
 
-  onRowSelect(data){
+  viewDetail(data) {
     console.log(data)
-   this.modal.showSubscriptionDetails(data);
+    this.modal.showSubscriptionDetails(data);
   }
 
-  callCustomer(number){
-    // this.callNumber.isCallSupported().then(()=>{
-    //   this.callNumber.callNumber(number,true);
-    // })
-  }
+
 
 }
