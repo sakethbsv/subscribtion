@@ -14,6 +14,7 @@ import { PromotionsPage } from '../pages/promotions/promotions';
 import { InventoryPage } from '../pages/inventory/inventory';
 import { MenuController } from 'ionic-angular';
 import * as moment from 'moment';
+import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
 
 @Component({
   templateUrl: 'app.html'
@@ -66,7 +67,8 @@ export class MyApp {
     ];   
       this.HOpages =[
         { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
-        { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' }
+        { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' },
+       
       ]
     // configuring date range
     this.daterangepickerOptions.settings = {
@@ -110,6 +112,10 @@ export class MyApp {
       }
       
       }
+  }
+
+  deliveryStatus(){
+    this.nav.setRoot(FareyeDeliveriesPage);
   }
 
 

@@ -9,7 +9,6 @@ import { ScrollProvider } from '../../providers/scroll/scroll';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import { ModalProvider } from '../../providers/modal/modal';
 import { ShopProvider } from '../../providers/shop/shop';
-import { CallNumber } from '@ionic-native/call-number';
 
 /**
  * Generated class for the OrdersPage page.
@@ -86,6 +85,7 @@ export class OrdersPage {
    
     this.orders.getFulfillmentDetails(obj).subscribe((data: any) => {
       this.cols = [
+        { field: 'print',header: 'Bill'},
         { field: 'shopId',header: 'Shop Id'},
         { field: 'originalStoreCode',header:'Store Code'},
         { field: 'subscriptionId', header: 'ID'},
@@ -200,10 +200,15 @@ export class OrdersPage {
    this.modal.showSubscriptionDetails(data);
   }
 
-  callCustomer(number){
-    // this.callNumber.isCallSupported().then(()=>{
-    //   this.callNumber.callNumber(number,true);
-    // })
+  printBill(orderId,customerId){
+    this.orders.printBill(orderId).subscribe((data:any)=>{
+      console.log(data);
+    },(err:any)=>{
+      this.errorHandler.error(err);
+      this.loader.hide();
+    },()=>{
+      this.loader.hide();
+    })
   }
 
 }

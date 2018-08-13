@@ -31,6 +31,15 @@
            {{p.title}} </p> 
          </button>
       </span>
+
+      <!--Fae Eye Delivery status-->
+      <span *ngIf="admin.rolesMap && admin.rolesMap.HO && admin.rolesMap.BB">
+        <button  menuClose color="primary" ion-item  (click)="deliveryStatus()">
+          <p ion-text text-left color="secondary"><ion-icon name="basket"></ion-icon>
+           Delivery Status </p> 
+         </button>
+      </span>
+
       
     </ion-list>
     <ion-footer>

@@ -51,6 +51,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
 import {DataViewModule} from 'primeng/dataview';
 import {DropdownModule} from 'primeng/dropdown';
 import { CallNumber } from '@ionic-native/call-number';
+import { FareyeProvider } from '../providers/fareye/fareye';
+import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
 @NgModule({
   declarations: [
     MyApp,
@@ -65,7 +67,8 @@ import { CallNumber } from '@ionic-native/call-number';
     DeleteconfirmationPage,
     PromotionsPage,
     InventoryPage,
-    ErrorPage
+    ErrorPage,
+    FareyeDeliveriesPage
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ import { CallNumber } from '@ionic-native/call-number';
     DeleteconfirmationPage,
     PromotionsPage,
     InventoryPage,
-    ErrorPage
+    ErrorPage,
+    FareyeDeliveriesPage
 
   ],
   providers: [
@@ -130,7 +134,8 @@ import { CallNumber } from '@ionic-native/call-number';
     PromotionsProvider,
     InventoryProvider,
     ShopProvider,
-    CallNumber
+    CallNumber,
+    FareyeProvider
     
     
   ]

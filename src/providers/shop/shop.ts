@@ -24,7 +24,7 @@ export class ShopProvider {
     // }else{
     //   return [];
     // } 
-    this.stoarge.getItem('admin').then((data: any) => {
+   return this.stoarge.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
       return this.shopList
     },()=>{

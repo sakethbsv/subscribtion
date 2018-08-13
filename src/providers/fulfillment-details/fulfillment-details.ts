@@ -84,4 +84,8 @@ export class FulfillmentDetailsProvider {
     return this._http.post(Constants.URL+"/v2/dashboard/subscription/fetchFulfillments/download",data,{responseType: 'text'})
   }
 
+  printBill(orderId){
+    return this.http.get("v1/bill/generateSalesBill/"+orderId+"?printed=false&getBill=true&miniBill=false");
+  }
+
 }

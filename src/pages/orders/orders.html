@@ -106,6 +106,10 @@
           </ng-template>
           <ng-template pTemplate="body" let col of columns let-fulfillment>
             <tr>
+                <td class="ui-resizable-column">
+                    <span class="ui-column-title" style="min-width: 40%;">Bill</span>
+                    <button ion-button small [(disabled)]="!fulfillment.actualOrderId" (click)="printBill(fulfillment.actualOrderId,fulfillment.customerId)">Print</button>
+                  </td>
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">Shop Id</span>{{fulfillment.shopId}}</td>
               <td class="ui-resizable-column">
@@ -113,9 +117,9 @@
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">ID</span>{{fulfillment.subscriptionId}}</td>
               <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Subscription Id</span>{{fulfillment.subscriptionOrderId}}</td>
+                <span class="ui-column-title" style="min-width: 40%;">Subscription Order Id</span>{{fulfillment.subscriptionOrderId}}</td>
               <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Fulfillment Id</span>{{fulfillment.actualOrderId}}</td>
+                <span class="ui-column-title" style="min-width: 40%;">Fulfillment Order Id</span>{{fulfillment.actualOrderId}}</td>
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">Order Amount</span>Rs.{{fulfillment.totalOrderAmount}}</td>
 
