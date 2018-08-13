@@ -202,7 +202,19 @@ export class OrdersPage {
 
   printBill(orderId,customerId){
     this.orders.printBill(orderId).subscribe((data:any)=>{
-      console.log(data);
+      console.log(data)
+      
+        // let printContents, popupWin;
+        // //printContents = document.getElementById('print-section').innerHTML;
+        // popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+        // popupWin.document.open();
+        // popupWin.document.write(data.salesBill
+        
+        // );
+        // popupWin.document.close();
+
+        this.printElem(data.salesBill);
+     
     },(err:any)=>{
       this.errorHandler.error(err);
       this.loader.hide();
@@ -210,5 +222,26 @@ export class OrdersPage {
       this.loader.hide();
     })
   }
+
+  printElem(data) {
+    var mywindow = window.open('', 'PRINT');
+
+    if (mywindow == null || typeof(mywindow)=='undefined') {  
+      alert('Please disable your pop-up blocker present in the top right corner and click the "Print" button again.'); 
+      return;
+  } 
+
+    mywindow.document.write('<html><head>');
+    mywindow.document.write('</head><body>');
+    mywindow.document.write('<pre>' + data + '</pre>');
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+    mywindow.print();
+    mywindow.close();
+
+    return true;
+}
 
 }

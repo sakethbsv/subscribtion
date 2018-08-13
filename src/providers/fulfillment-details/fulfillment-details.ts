@@ -85,7 +85,7 @@ export class FulfillmentDetailsProvider {
   }
 
   printBill(orderId){
-    return this.http.get("v1/bill/generateSalesBill/"+orderId+"?printed=false&getBill=true&miniBill=false");
+    return this.http.get("v1/bill/generateSalesBillV2/1745310012?printed=false&getBill=true&miniBill=false");
   }
 
 }
