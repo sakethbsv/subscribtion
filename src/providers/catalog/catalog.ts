@@ -94,7 +94,7 @@ export class CatalogProvider {
       obj.categoryImage = row[4];
       obj.subCategory = row[5];
       obj.image = row[6];
-      if (row[7] && row[7] != null) {
+      if (row[7] && row[7] != null && row[7]!="") {
         obj.amount = Number(row[7]) ;
       }
       obj.shopId = shopId;
@@ -108,7 +108,7 @@ export class CatalogProvider {
       if(obj.barcodeId!=null && (isNaN(obj.barcodeId) || obj.barcodeId < 0)){
         errorData.push("Enter Numberic Barcode Id in row number :"+ (rowNo));
       }
-      if(((obj.amount)!=null && obj.amount!="")){
+      if(((obj.amount)!=null)){
         if(isNaN(obj.amount) || obj.amount < 1){
           errorData.push("Enter a valid amount in row number :"+ (rowNo));
         }                
