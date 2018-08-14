@@ -108,7 +108,7 @@
             <tr>
                 <td class="ui-resizable-column">
                     <span class="ui-column-title" style="min-width: 40%;">Bill</span>
-                    <button ion-button small [(disabled)]="!fulfillment.actualOrderId" (click)="printBill(fulfillment.actualOrderId,fulfillment.customerId)">Print</button>
+                    <button ion-button small [(disabled)]="!fulfillment.actualOrderId" (click)="printChallen(fulfillment.actualOrderId)">Print</button>
                   </td>
               <td class="ui-resizable-column">
                 <span class="ui-column-title" style="min-width: 40%;">Shop Id</span>{{fulfillment.shopId}}</td>

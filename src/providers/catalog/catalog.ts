@@ -85,18 +85,17 @@ export class CatalogProvider {
       }
       let row = data[i];
       let obj: any = {};
+      obj.isPerishable = false;
       obj.barcodeId = row[0];
       obj.sku = row[1];
       obj.name = row[2];
-      obj.amount = row[3];
-      obj.category = row[4];
-      obj.categoryImage = row[5];
-      obj.subCategory = row[6];
-      obj.image = row[7];
-      if (row[8] && row[8] != null) {
-        obj.isPerishable = row[8]
-      } else {
-        obj.isPerishable = false;
+      //obj.amount = row[3];
+      obj.category = row[3];
+      obj.categoryImage = row[4];
+      obj.subCategory = row[5];
+      obj.image = row[6];
+      if (row[7] && row[7] != null) {
+        obj.amount = Number(row[7]) ;
       }
       obj.shopId = shopId;
       rowNo=i+1;

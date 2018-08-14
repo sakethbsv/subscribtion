@@ -21,7 +21,11 @@ export class ErrorPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams ,public viewCtrl:ViewController) {
 
-    this.errors = navParams.get('errors');
+    if(navParams.get('errors') ){
+      this.errors = navParams.get('errors');
+    }else{
+      this.errors.push('Something went wrong try again later !')
+    }
     console.log(this.errors)
     if(navParams.get('catalogErr')){
       this.catalogError = JSON.parse(navParams.get('catalogErr'));

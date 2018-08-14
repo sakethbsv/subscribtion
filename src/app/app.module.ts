@@ -53,6 +53,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import { CallNumber } from '@ionic-native/call-number';
 import { FareyeProvider } from '../providers/fareye/fareye';
 import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
+import { PrintChallanPage } from '../pages/print-challan/print-challan';
 @NgModule({
   declarations: [
     MyApp,
@@ -68,7 +69,8 @@ import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveri
     PromotionsPage,
     InventoryPage,
     ErrorPage,
-    FareyeDeliveriesPage
+    FareyeDeliveriesPage,
+    PrintChallanPage
   ],
   imports: [
     BrowserModule,
@@ -107,7 +109,8 @@ import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveri
     PromotionsPage,
     InventoryPage,
     ErrorPage,
-    FareyeDeliveriesPage
+    FareyeDeliveriesPage,
+    PrintChallanPage
 
   ],
   providers: [

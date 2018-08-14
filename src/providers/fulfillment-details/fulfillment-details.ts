@@ -83,9 +83,9 @@ export class FulfillmentDetailsProvider {
   downloadFullfillmentReport(data){
     return this._http.post(Constants.URL+"/v2/dashboard/subscription/fetchFulfillments/download",data,{responseType: 'text'})
   }
-
-  printBill(orderId){
-    return this.http.get("v1/bill/generateSalesBillV2/1745310012?printed=false&getBill=true&miniBill=false");
+  
+  printBill(orderId,bags){
+    return this.http.get("v1/bill/generateSalesBill/"+orderId+"?printed=true&getBill=true&billSize=BIG&billType=HOME_DELIVERY_CHALLEN&deliveryBags="+bags);
   }
 
 }
