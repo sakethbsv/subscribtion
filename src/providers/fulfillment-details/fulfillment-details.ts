@@ -85,7 +85,7 @@ export class FulfillmentDetailsProvider {
   }
   
   printBill(orderId,bags){
-    return this.http.get("v1/bill/generateSalesBill/"+orderId+"?printed=true&getBill=true&billSize=BIG&billType=HOME_DELIVERY_CHALLEN&deliveryBags="+bags);
+    return this.http.get("v1/bill/generateSalesBillV2/"+orderId+"?printed=false&getBill=true&billSize=BIG&billType=HOME_DELIVERY_CHALLEN&deliveryBags="+bags);
   }
 
 }

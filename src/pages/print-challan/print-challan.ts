@@ -18,13 +18,17 @@ import { LoaderProvider } from '../../providers/loader/loader';
 })
 export class PrintChallanPage {
   orderId:number;
-  noOfBags:number=0;
+  noOfBags:number=1;
   passwordField: boolean;
   password: any;
   salesBill:string;
   empPassCodes:any[]=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public view:ViewController,private orders:FulfillmentDetailsProvider,private errorHandler:ErrorHandlerServiceProvider,private loader:LoaderProvider,public alert:AlertController) {
+  }
+
+  ionViewWillEnter(){
+  
   }
 
   ionViewDidLoad() {
@@ -35,14 +39,14 @@ export class PrintChallanPage {
   print(){
     this.orders.printBill(this.orderId,this.noOfBags).subscribe((data:any)=>{
       console.log(data)
-      this.salesBill = data.salesBill;
-      this.empPassCodes = data.employeePassCodes;
-        if(data.isPasscodeRequired){
+      this.salesBill = data.deliveryBill;
+      this.empPassCodes = data.deliveryEmployeePassCodes;
+        if(data.isDeliveryBillPassCodeRequired){
           this.passwordField = true;
-          this.showPrompt();
+          this.showPrompt("Please enter your passcode to print challan");
           //this.verifyPassword(this.password,data.employeePassCodes)
         }else{
-          this.printElem(data.salesBill);
+          this.printElem(data.deliveryBill);
         }
 
         
@@ -62,6 +66,7 @@ export class PrintChallanPage {
   }
 
   printElem(data) {
+    this.dismiss();
     var mywindow = window.open('', 'PRINT');
 
     if (mywindow == null || typeof(mywindow)=='undefined') {  
@@ -78,7 +83,7 @@ export class PrintChallanPage {
     mywindow.focus(); // necessary for IE >= 10*/
     mywindow.print();
     mywindow.close();
-
+   
     return true;
 }
 
@@ -86,10 +91,10 @@ export class PrintChallanPage {
     this.view.dismiss();
   }
 
-  showPrompt() {
-    let msg = "Please enter your passcode to print challan";
-    const prompt = this.alert.create({
-      title: 'Login',
+  showPrompt(msg) {
+  
+    let prompt = this.alert.create({
+      title: 'Enter Passcode',
       message: msg,
       inputs: [
         {
@@ -100,6 +105,7 @@ export class PrintChallanPage {
       buttons: [
         {
           text: 'Cancel',
+          role:'cancel',
           handler: data => {
             console.log('Cancel clicked');
           }
@@ -108,10 +114,12 @@ export class PrintChallanPage {
           text: 'Print',
           handler: data => {
             console.log('Saved clicked',data);
-            if(this.verifyPassword(data,this.empPassCodes)){
-              this.printElem(this.salesBill)
-            }else{
-              msg = "Invalid Passcode !";
+            if(this.verifyPassword(data.passcode,this.empPassCodes)){
+              this.printElem(this.salesBill);
+            }else{             
+              //this.showPrompt("Invalid Passcode !");
+              prompt.setMessage("Invalid Passcode !");
+              return false;
             }
           }
         }
