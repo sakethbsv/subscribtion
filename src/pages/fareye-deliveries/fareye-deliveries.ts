@@ -46,7 +46,7 @@ export class FareyeDeliveriesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private loader: LoaderProvider, private scroll: ScrollProvider,private errorHandler:ErrorHandlerServiceProvider,private fareyeProvider:FareyeProvider) {
     this.cols =[
-      { field: 'fulfillmentId', header: 'Fulfillment Order Id' },
+      { field: 'fulfillmentId', header: 'FarEye ID' },
       { field: 'name', header: 'Name' },
       { field: 'creationTime', header: 'Date' },
       { field: 'status', header: 'Status' },

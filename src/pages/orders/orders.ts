@@ -88,7 +88,7 @@ export class OrdersPage {
         { field: 'print', header: 'Bill' },
         { field: 'shopId', header: 'Shop Id' },
         { field: 'originalStoreCode', header: 'Store Code' },
-        { field: 'subscriptionId', header: 'ID' },
+        { field: 'subscriptionId', header: 'FarEye ID' },
         { field: 'subscriptionOrderId', header: 'Subscription Order Id' },
         { field: 'actualOrderId', header: 'Fulfillment Order Id' },
         { field: 'totalOrderAmount', header: 'Order Amount' },
