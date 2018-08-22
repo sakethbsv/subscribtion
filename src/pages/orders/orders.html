@@ -10,7 +10,8 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      <ion-icon name="cart"></ion-icon> Orders</ion-title>
+      <ion-icon name="cart"></ion-icon> Orders
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -20,14 +21,16 @@
   <ion-grid id="shoplist">
     <div class="header-bar">
       <ion-title ion-text>
-        <ion-icon name="pin"></ion-icon>&nbsp; Track Orders</ion-title>
+        <ion-icon name="pin"></ion-icon>&nbsp; Track Orders
+      </ion-title>
     </div>
 
     <ion-row padding *ngIf="showfilter==true">
       <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
         <div>
           <p class="sub-heading" ion-text color="secondary">
-            <ion-icon name="calendar"></ion-icon> &nbsp; Select Date</p>
+            <ion-icon name="calendar"></ion-icon> &nbsp; Select Date
+          </p>
         </div>
         <div class="form-group">
           <div class="input-group" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event)">
@@ -51,13 +54,14 @@
               <ion-item>
                 <ion-radio style="margin: 0px;padding: 1px;" item-start value="{{shop.shopId}}"></ion-radio>
                 <ion-label>
-                  <p class="shop-text" ion-text text-left>{{shop.originalStoreNumber}}- {{shop.shopName}}, {{shop.shopAddress}} , {{shop.shopCity}}-[{{shop.shopId}}]
-                    </p>
+                  <p class="shop-text" ion-text text-left>{{shop.originalStoreNumber}}- {{shop.shopName}}, {{shop.shopAddress}}
+                    , {{shop.shopCity}}-[{{shop.shopId}}]
+                  </p>
                 </ion-label>
               </ion-item>
             </ion-col>
             <ion-col col-12>
-              <button  ion-button (click)="search([selectedShopId])" [disabled]="!selectedShopId" margin-top>SEARCH</button>
+              <button ion-button (click)="search([selectedShopId])" [disabled]="!selectedShopId" margin-top>SEARCH</button>
             </ion-col>
           </ion-row>
 
@@ -82,94 +86,95 @@
         <button style="float: right" ion-button small round color="secondary" (click)="filter()">Filter</button>
       </ion-col>
       <ion-col col-12>
-        <p-table #dt [columns]="cols" [value]="fulfillmentData" [scrollable]="true"   [resizableColumns]="true"
-          [responsive]="true" [(selection)]="selectedFulfillment">
-          <ng-template pTemplate="caption">
-            <div style="text-align: right">
-              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
-                style="max-width:50%">
-            </div>
-          </ng-template>
-          <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-              <col *ngFor="let col of columns" style="width:100px">
-            </colgroup>
-          </ng-template>
-          <ng-template pTemplate="header" let-columns>
-            <tr>
-              <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
-                {{col.header}}
-              </th>
-              <th pResizableColumn>Detail</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let col of columns let-fulfillment>
-            <tr>
+          <p-table #dt [columns]="cols" [value]="fulfillmentData" [scrollable]="true" scrollHeight="500px" [resizableColumns]="true" [responsive]="true"
+            [(selection)]="selectedFulfillment">
+            <ng-template pTemplate="caption">
+              <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
+                  style="max-width:50%">
+              </div>
+            </ng-template>
+            <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                <col *ngFor="let col of columns" style="width:100px">
+              </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn>
+                  {{col.header}}
+                </th>
+                <th pResizableColumn>Detail</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let col of columns let-fulfillment>
+              <tr>
                 <td class="ui-resizable-column">
-                    <span class="ui-column-title" style="min-width: 40%;">Bill</span>
-                    <button ion-button small [(disabled)]="!fulfillment.actualOrderId" (click)="printChallen(fulfillment.actualOrderId)">Print</button>
-                  </td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Shop Id</span>{{fulfillment.shopId}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Store Code</span>{{fulfillment.originalStoreCode}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">ID</span>{{fulfillment.fulfillmentId}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Subscription Order Id</span>{{fulfillment.subscriptionOrderId}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Fulfillment Order Id</span>{{fulfillment.actualOrderId}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Order Amount</span>Rs.{{fulfillment.totalOrderAmount}}</td>
+                  <span class="ui-column-title" style="min-width: 40%;">Bill</span>
+                  <button ion-button small [(disabled)]="!fulfillment.actualOrderId" (click)="printChallen(fulfillment.actualOrderId)">Print</button>
+                </td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Shop Id</span>{{fulfillment.shopId}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Store Code</span>{{fulfillment.originalStoreCode}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">ID</span>{{fulfillment.fulfillmentId}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Subscription Order ID</span>{{fulfillment.subscriptionOrderId}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Fulfillment Order ID</span>{{fulfillment.actualOrderId}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Order Amount</span>Rs.{{fulfillment.totalOrderAmount}}</td>
 
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Customer Name</span>{{fulfillment.customerName}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Mobile No</span>
-                {{fulfillment.mobileNumber}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Delivery Date</span>{{fulfillment.deliveryDate | date}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Slot</span>{{fulfillment.slot}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Payment Method</span>
-                <ion-badge color="secondary">{{fulfillment.paymentMethod}}</ion-badge>
-              </td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Payment Status</span>
-                <ion-badge color="success" *ngIf="fulfillment.paymentDone">PAID</ion-badge>
-                <ion-badge color="light" *ngIf="!fulfillment.paymentDone">PENDING</ion-badge>
-              </td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">City</span>{{fulfillment.city}}</td>
-              <td class="ui-resizable-column">
-                <span class="ui-column-title" style="min-width: 40%;">Order Sent To Merchant</span>
-                <span *ngIf="fulfillment.orderSentToMerchant">
-                  <ion-icon name="checkmark-circle" color="success"></ion-icon>
-                </span>
-                <span *ngIf="!fulfillment.orderSentToMerchant">
-                  <ion-icon name="close-circle" color="danger"></ion-icon>
-                </span>
-               </td> 
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Customer Name</span>{{fulfillment.customerName}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Mobile No</span>
+                  {{fulfillment.mobileNumber}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Delivery Date</span>{{fulfillment.deliveryDate |
+                  date}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Slot</span>{{fulfillment.slot}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Payment Method</span>
+                  <ion-badge color="secondary">{{fulfillment.paymentMethod}}</ion-badge>
+                </td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Payment Status</span>
+                  <ion-badge color="success" *ngIf="fulfillment.paymentDone">PAID</ion-badge>
+                  <ion-badge color="light" *ngIf="!fulfillment.paymentDone">PENDING</ion-badge>
+                </td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">City</span>{{fulfillment.city}}</td>
+                <td class="ui-resizable-column">
+                  <span class="ui-column-title" style="min-width: 40%;">Order Sent To Merchant</span>
+                  <span *ngIf="fulfillment.orderSentToMerchant">
+                    <ion-icon name="checkmark-circle" color="success"></ion-icon>
+                  </span>
+                  <span *ngIf="!fulfillment.orderSentToMerchant">
+                    <ion-icon name="close-circle" color="danger"></ion-icon>
+                  </span>
+                </td>
                 <td class="ui-resizable-column" *ngIf="shopList[0].subsidiaryCompany != 'BIGBAZAAR'">
                   <span class="ui-column-title" style="min-width: 40%;">Status</span>
                   <button *ngIf="fulfillment.status=='PENDING'" ion-button [color]="fulfillment.status=='FULFILLED'?'dark':'secondary'" [disabled]="fulfillment.disable"
                     (click)="onClick(fulfillment)">
                     <ion-badge>{{fulfillment.status}}</ion-badge>
-                    
+
                   </button>
 
-                  <button pTooltip="{{fulfillment.reason}}t" tooltipPosition="right"  ion-button clear *ngIf="fulfillment.status!='PENDING'">
-                      <ion-badge color="secondary">{{fulfillment.status}}</ion-badge>
-                    
+                  <button pTooltip="{{fulfillment.reason}}t" tooltipPosition="right" ion-button clear *ngIf="fulfillment.status!='PENDING'">
+                    <ion-badge color="secondary">{{fulfillment.status}}</ion-badge>
+
                   </button>
                 </td>
                 <td class="ui-resizable-column" *ngIf="shopList[0].subsidiaryCompany == 'BIGBAZAAR'">
                   <span class="ui-column-title" style="min-width: 40%;">Status</span>
                   <span>
-                      <ion-badge pTooltip="{{fulfillment.reason || 'N/A'}}" tooltipPosition="right">{{fulfillment.status}}</ion-badge>
-                   
+                    <ion-badge pTooltip="{{fulfillment.reason || 'N/A'}}" tooltipPosition="right">{{fulfillment.status}}</ion-badge>
+
                   </span>
                 </td>
                 <td class="ui-resizable-column">
@@ -190,21 +195,22 @@
                   <span class="ui-column-title" style="min-width: 40%;">Confirmation</span>
                   <button *ngIf="!fulfillment.confirmationLink" icon-left ion-button small clear>
                     N/A
-                    </button>
-                    <a *ngIf="fulfillment.confirmationLink" target="_blank" href="{{fulfillment.confirmationLink}}">View Confirmation Link</a>
+                  </button>
+                  <a *ngIf="fulfillment.confirmationLink" target="_blank" href="{{fulfillment.confirmationLink}}">View Confirmation
+                    Link</a>
                 </td>
-                
-            </tr>
 
-            <tr showWhen="android,ios">
-              <td showWhen="android,ios" style="background: #15112f">
-                <a class="button" color="secondary" style="margin: auto" ion-fab mini right href="tel:{{fulfillment.mobileNumber}}">
-                  <ion-icon name="call"></ion-icon>
-                </a>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
+              </tr>
+
+              <tr showWhen="android,ios">
+                <td showWhen="android,ios" style="background: #15112f">
+                  <a class="button" color="secondary" style="margin: auto" ion-fab mini right href="tel:{{fulfillment.mobileNumber}}">
+                    <ion-icon name="call"></ion-icon>
+                  </a>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
       </ion-col>
 
     </ion-row>

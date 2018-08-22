@@ -47,6 +47,7 @@ export class OrdersPage {
   shopIds: any[] = [];
   selectedShopIds: any[] = [];
   cols: any[] = [];
+  selectedFulfillment : any  = {};
   constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider, private errorHandler: ErrorHandlerServiceProvider, private modal: ModalProvider, private storage: StorageProvider) {
     this.fulfillmentData = [];
 

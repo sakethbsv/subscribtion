@@ -24,3 +24,11 @@
     border-right: 1px solid #dedede;
     border-left: 0;
   }
+
+  body{
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+
