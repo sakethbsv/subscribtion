@@ -21,7 +21,7 @@ export class InventoryProvider {
     if(admin && admin.rolesMap.LS){
       return this.http.get("v2/dashboard/subscription/shop/"+shopId+"/inventoryRequired?from="+from+"&to="+to+"&page=1&apartment="+true,null)
     }else{
-      return this.http.get("v2/dashboard/subscription/shop/"+shopId+"/inventoryRequired?from="+from+"&to="+to+"&page=1&apartment="+false,null)
+      return this.http.get("v2/dashboard/subscription/shop/"+shopId+"/inventoryRequired?from="+from+"&to="+to+"&page=1&apartment="+true,null)
     }
    
    

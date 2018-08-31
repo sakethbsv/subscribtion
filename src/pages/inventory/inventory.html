@@ -14,12 +14,12 @@
 
 
 <ion-content no-padding>
- 
-  <ion-grid >
-      <div class="header-bar">
-          <ion-title ion-text>
-            <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
-        </div>
+
+  <ion-grid>
+    <div class="header-bar">
+      <ion-title ion-text>
+        <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
+    </div>
     <ion-row padding>
       <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
         <div>
@@ -41,25 +41,27 @@
         </div>
       </ion-col>
       <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding>
-          <ion-list radio-group [(ngModel)]="shopSelected">
-  
-            <ion-row>
-              <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
-                <ion-item >
-                  <ion-radio style="margin: 0px;padding: 1px;" item-start value="{{shop.shopId}}"></ion-radio>
-                  <ion-label>
-                    <p class="shop-text" ion-text text-left>{{shop.originalStoreNumber}}- {{shop.shopName}}, {{shop.shopAddress}} , {{shop.shopCity}}-[{{shop.shopId}}] </p>
-                  </ion-label>
-                </ion-item>
-              </ion-col>
-              <ion-col col-12>
-                <button margin-left ion-button (click)="viewInventoryFlag = true; viewInventory(shopSelected)" [disabled]="!shopSelected" margin-top>View Inventory</button>
-              </ion-col>
-            </ion-row>
-  
-  
-          </ion-list>
-        </ion-col>
+        <ion-list radio-group [(ngModel)]="shopSelected">
+
+          <ion-row>
+            <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
+              <ion-item>
+                <ion-radio style="margin: 0px;padding: 1px;" item-start value="{{shop.shopId}}"></ion-radio>
+                <ion-label>
+                  <p class="shop-text" ion-text text-left>{{shop.originalStoreNumber}}- {{shop.shopName}}, {{shop.shopAddress}} , {{shop.shopCity}}-[{{shop.shopId}}]
+                  </p>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12>
+              <button margin-left ion-button (click)="viewInventoryFlag = true; viewInventory(shopSelected)" [disabled]="!shopSelected"
+                margin-top>View Inventory</button>
+            </ion-col>
+          </ion-row>
+
+
+        </ion-list>
+      </ion-col>
     </ion-row>
   </ion-grid>
 
@@ -74,12 +76,15 @@
 
     <ion-row justify-content-center padding>
       <ion-col col-12>
-          <button hideWhen="android,ios" [disabled] ="!viewInventoryFlag" ion-button small round (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
-          <button float-left showWhen="android,ios" [disabled] ="!viewInventoryFlag" ion-button small round outline (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon>&nbsp;Download</button> 
+        <button hideWhen="android,ios" [disabled]="!viewInventoryFlag" ion-button small round (click)="dt.exportCSV()">
+          <ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
+        <button float-left showWhen="android,ios" [disabled]="!viewInventoryFlag" ion-button small round outline (click)="dt.exportCSV()">
+          <ion-icon name="cloud-download"></ion-icon>&nbsp;Download</button>
+          <p-dropdown [options]="groupByApartment"></p-dropdown>
       </ion-col>
-      
+
       <ion-col col-12>
-      <!--  <p-table #dt [columns]="cols" dataKey="category"  sortMode="multiple" [value]="inventoryList" [paginator]="true" [rows]="20" [responsive]="true">
+        <!--  <p-table #dt [columns]="cols" dataKey="category"  sortMode="multiple" [value]="inventoryList" [paginator]="true" [rows]="20" [responsive]="true">
               <ng-template pTemplate="caption">
                             
                 <div style="text-align: right">
@@ -123,41 +128,84 @@
                   There are {{inventoryList?.length}} products
               </ng-template>
         </p-table>-->
-        <p-table #dt [columns]="cols" [value]="inventoryList" [paginator]="true" [rows]="10">
+        <p-table #dt [columns]="cols" [value]="inventoryList" hideWhen="android,ios">
           <ng-template pTemplate="caption">
-              <div style="text-align: right">        
-                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                  <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-              </div>
+            <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                style="width:50%">
+            </div>
           </ng-template>
           <ng-template pTemplate="header" let-columns>
-              <tr>
-                  <th *ngFor="let col of columns">
-                      {{col.header}}
-                  </th>
-              </tr>
-              <tr>
-                  <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                      
-                      <p-dropdown *ngSwitchCase="'category'" [options]="category" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
-                      <input *ngSwitchCase="'subCategory'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                      <p-dropdown *ngSwitchCase="'apartmentName'" [options]="groupByApartment" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
-                  </th>
-              </tr>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+            <tr hideWhen="android">
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <p-dropdown *ngSwitchCase="'category'" [options]="category" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                <input *ngSwitchCase="'subCategory'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                <p-dropdown *ngSwitchCase="'apartmentName'" [options]="groupByApartment" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+              </th>
+            </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-columns="columns">
-              <tr [pSelectableRow]="rowData">
-                  <td *ngFor="let col of columns">
-                      {{rowData[col.field]}}
-                  </td>
-              </tr>
+            <tr [pSelectableRow]="rowData">
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
           </ng-template>
-      </p-table>
-      
+        </p-table>
+
+
+
+        <p-table #dt1 [columns]="cols" [value]="inventoryList" showWhen="android,ios" [scrollable]="true">
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" style="width:250px">
+            </colgroup>
+          </ng-template>
+          <ng-template pTemplate="caption">
+            <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                style="width:50%">
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData">
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
       </ion-col>
-     
-   
+
+
     </ion-row>
 
   </ion-grid>
+
 </ion-content>
+<ion-footer>
+  <ion-fab right bottom>
+    <button ion-fab color="primary">
+      <ion-icon name="options"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-footer>
+<ion-footer>
+  
+<button ion-button (click)="download()"></button>
+</ion-footer>

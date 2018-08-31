@@ -57,6 +57,9 @@ import { ApartmentsProvider } from '../providers/apartments/apartments';
 import { MenuProvider } from '../providers/menu/menu';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
+import { File } from '@ionic-native/file';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { NgSpinKitModule } from 'ng-spin-kit'
 @NgModule({
   declarations: [
     MyApp,
@@ -95,7 +98,8 @@ import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-o
     AutoCompleteModule,
     DataViewModule,
     DropdownModule,
-    MultiSelectModule
+    MultiSelectModule,
+    NgSpinKitModule
     
   ],
   bootstrap: [IonicApp],
@@ -143,7 +147,9 @@ import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-o
     ShopProvider,
     CallNumber,
     ApartmentsProvider,
-    MenuProvider
+    MenuProvider,
+    File,
+    FileTransfer, FileTransferObject
     
     
   ]
