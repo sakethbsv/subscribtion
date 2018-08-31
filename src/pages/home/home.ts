@@ -6,6 +6,7 @@ import { PromotionsPage } from '../promotions/promotions';
 import { InventoryPage } from '../inventory/inventory';
 import { StorageProvider } from '../../providers/storage/storage';
 import { FareyeDeliveriesPage } from '../fareye-deliveries/fareye-deliveries';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 
 
@@ -20,13 +21,15 @@ export class HomePage {
   settings:any;
   data:any;
   admin:any;
-  constructor(public navCtrl: NavController,public storage:StorageProvider) {
+  
+  constructor(public navCtrl: NavController,public storage:StorageProvider,private iab:InAppBrowser) {
  
   }
 
   ionViewDidLoad() {
     this.setAdmin().then((data:any)=>{
       this.admin = data;
+     
     },(err:any)=>{
   
     })

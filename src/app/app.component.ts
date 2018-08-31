@@ -15,6 +15,7 @@ import { InventoryPage } from '../pages/inventory/inventory';
 import { MenuController } from 'ionic-angular';
 import * as moment from 'moment';
 import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,7 @@ export class MyApp {
   pages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>;
   HOpages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig,private app:App,private menuCtrl:MenuController) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig,private app:App,private menuCtrl:MenuController,private iab:InAppBrowser) {
     this.initializeApp();
     this.admin={};
     this.navCtrl = app.getActiveNav();
@@ -42,14 +43,12 @@ export class MyApp {
         console.log(this.admin);
         console.log(data);
         this.adminRoles=data.authenticationDetails.roles;
+        const browser = this.iab.create('https://bb-dot-subscription-qa-dot-perpule-preprod.appspot.com/','_self');
         this.rootPage=HomePage;
         this.splitPane.setSplitPane(true);
 
         // set navigation based on admin roles
-        
-        
-        
-        
+             
       }else{
         this.rootPage = LoginPage;
       }
@@ -93,6 +92,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+     
+      
     });
   }
 

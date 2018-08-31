@@ -54,6 +54,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { FareyeProvider } from '../providers/fareye/fareye';
 import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
 import { PrintChallanPage } from '../pages/print-challan/print-challan';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 @NgModule({
   declarations: [
     MyApp,
@@ -91,7 +92,8 @@ import { PrintChallanPage } from '../pages/print-challan/print-challan';
     TooltipModule,
     AutoCompleteModule,
     DataViewModule,
-    DropdownModule
+    DropdownModule,
+    
     
   ],
   bootstrap: [IonicApp],
@@ -138,7 +140,8 @@ import { PrintChallanPage } from '../pages/print-challan/print-challan';
     InventoryProvider,
     ShopProvider,
     CallNumber,
-    FareyeProvider
+    FareyeProvider,
+    InAppBrowser
     
     
   ]
