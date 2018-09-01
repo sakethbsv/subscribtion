@@ -60,6 +60,7 @@ import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-o
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { NgSpinKitModule } from 'ng-spin-kit'
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 @NgModule({
   declarations: [
     MyApp,
@@ -149,8 +150,8 @@ import { NgSpinKitModule } from 'ng-spin-kit'
     ApartmentsProvider,
     MenuProvider,
     File,
-    FileTransfer, FileTransferObject
-    
+    FileTransfer, FileTransferObject,
+    InAppBrowser
     
   ]
 })

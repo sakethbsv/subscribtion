@@ -5,6 +5,8 @@
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-navigation href="*" />
+    <allow-intent href="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -86,4 +88,5 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <engine name="android" spec="~7.0.0" />
     <engine name="browser" spec="~5.0.3" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
 </widget>
