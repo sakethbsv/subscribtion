@@ -128,7 +128,7 @@
                   There are {{inventoryList?.length}} products
               </ng-template>
         </p-table>-->
-        <p-table #dt [columns]="cols" [value]="inventoryList" hideWhen="android,ios">
+        <!-- <p-table #dt [columns]="cols" [value]="inventoryList" hideWhen="android,ios">
           <ng-template pTemplate="caption">
             <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -157,11 +157,11 @@
               </td>
             </tr>
           </ng-template>
-        </p-table>
+        </p-table> -->
 
 
 
-        <p-table #dt1 [columns]="cols" [value]="inventoryList" showWhen="android,ios" [scrollable]="true">
+        <p-table #dt1 [columns]="cols" [value]="inventoryList" [scrollable]="true">
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
               <col *ngFor="let col of columns" style="width:250px">

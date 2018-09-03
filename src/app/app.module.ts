@@ -56,11 +56,11 @@ import { ApartmentsPage } from '../pages/apartments/apartments';
 import { ApartmentsProvider } from '../providers/apartments/apartments';
 import { MenuProvider } from '../providers/menu/menu';
 import {MultiSelectModule} from 'primeng/multiselect';
-import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { NgSpinKitModule } from 'ng-spin-kit'
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { TabsPage } from '../pages/tabs/tabs';
 @NgModule({
   declarations: [
     MyApp,
@@ -77,7 +77,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     InventoryPage,
     ErrorPage,
     ApartmentsPage,
-    LocalvendorOrdersPage
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -119,7 +119,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     InventoryPage,
     ErrorPage,
     ApartmentsPage,
-    LocalvendorOrdersPage
+    TabsPage
 
   ],
   providers: [

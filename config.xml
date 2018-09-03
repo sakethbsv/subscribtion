@@ -86,7 +86,7 @@
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.1" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
     <engine name="android" spec="~7.0.0" />
     <engine name="browser" spec="~5.0.3" />
-    <plugin name="cordova-plugin-inappbrowser" spec="~3.0.0" />
 </widget>

@@ -175,7 +175,11 @@ export class OrdersPage {
       hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
       console.log(csv);
       if(this.platform.is('android')){
-        this.downloadReportInDevice(hiddenElement.href)
+       this.downloadReportInDevice(hiddenElement.href)
+        // external url
+        var ref = window.open(hiddenElement.href, '_blank', 'location=yes');
+        // relative document
+       // ref = window.open('Subscription-Fulfillment.csv', '_self');
       }else{
       
       hiddenElement.target = '_blank';

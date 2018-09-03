@@ -23,8 +23,14 @@ export class HomePage {
   data:any;
   admin:any;
   navigation:any[]=[];
+  tab1: any;
+  tab2: any;
+  tab3: any;
   constructor(public navCtrl: NavController,private storage:StorageProvider) {
    this.getNavigation();
+   this.tab1 = HomePage;
+    this.tab2 = OrdersPage;
+    this.tab3 = InventoryPage
     
   }
 

@@ -45,7 +45,7 @@ export class MyApp {
         console.log(this.admin);
         console.log(data);
         this.adminRoles = data.authenticationDetails.roles;
-        const browser = this.iab.create('https://bb-dot-subscription-qa-dot-perpule-preprod.appspot.com/','_self');
+        //const browser = this.iab.create('https://bb-dot-subscription-qa-dot-perpule-preprod.appspot.com/','_self');
         this.rootPage = HomePage;
         this.splitPane.setSplitPane(true);
         // set navigation based on admin roles
