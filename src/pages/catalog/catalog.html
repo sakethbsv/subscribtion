@@ -138,6 +138,11 @@
         <p-table #dt [columns]="cols" [value]="productList" sortMode="multiple" selectionMode="multiple"
           [(selection)]="selectedProduct" [paginator]="true" [rows]="50" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
           [scrollable]="true">
+          <ng-template pTemplate="colgroup" let-columns>
+              <colgroup>
+                  <col *ngFor="let col of columns" style="width:250px">
+              </colgroup>
+          </ng-template>
           <ng-template pTemplate="caption">
             <div  style="text-align: left">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>

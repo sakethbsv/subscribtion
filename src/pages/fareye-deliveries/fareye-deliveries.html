@@ -52,12 +52,12 @@
                 <ion-radio style="margin: 0px;padding: 1px;" item-start value="{{shop.shopId}}"></ion-radio>
                 <ion-label>
                   <p class="shop-text" ion-text text-left>{{shop.originalStoreNumber}}- {{shop.shopName}}, {{shop.shopAddress}} , {{shop.shopCity}}-[{{shop.shopId}}]
-                    </p>
+                  </p>
                 </ion-label>
               </ion-item>
             </ion-col>
             <ion-col col-12>
-              <button  ion-button (click)="fetchDeliveryStatus([selectedShopId])" [disabled]="!selectedShopId" margin-top margin-left>View Status</button>
+              <button ion-button (click)="fetchDeliveryStatus([selectedShopId])" [disabled]="!selectedShopId" margin-top margin-left>View Status</button>
             </ion-col>
           </ion-row>
 
@@ -79,39 +79,45 @@
       </ion-col>
       <ion-col col-12>
         <button style="float: right" ion-button small round color="secondary" (click)="dt.exportCSV()">Download</button>
-        
+
       </ion-col>
       <ion-col col-12>
-        <p-table #dt [columns]="cols" [value]="failedDeliveryData">
-            <ng-template pTemplate="caption">
-                <div style="text-align: right">        
-                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
-                </div>
-            </ng-template>
+        <p-table #dt [columns]="cols" [value]="failedDeliveryData" [scrollable]="true" [paginator]="true" [rows]="20">
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+              <col *ngFor="let col of columns" style="width:250px">
+            </colgroup>
+          </ng-template>
+          <ng-template pTemplate="caption">
+            <div style="text-align: right">
+              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              style="max-width:50%">
+            </div>
+          </ng-template>
           <ng-template pTemplate="header" let-columns>
-              <tr>
-                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                      {{col.header}}
-                      <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-                  </th>
-              </tr>
-              <tr>
-                  <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                      <input *ngSwitchCase="'fulfillmentId'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                      <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
-                      
-                  </th>
-              </tr>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+            <tr>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <input *ngSwitchCase="'fulfillmentId'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+              </th>
+            </tr>
           </ng-template>
           <ng-template pTemplate="body" let-car let-columns="columns">
-              <tr>
-                  <td *ngFor="let col of columns">
-                          {{car[col.field]}}
-                  </td>
-              </tr>
+            <tr>
+              <td *ngFor="let col of columns">
+                {{car[col.field]}}
+              </td>
+            </tr>
           </ng-template>
-      </p-table>
+        </p-table>
       </ion-col>
 
     </ion-row>

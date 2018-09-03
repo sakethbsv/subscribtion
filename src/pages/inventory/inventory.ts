@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
 import { StorageProvider } from '../../providers/storage/storage';
 import { InventoryProvider } from '../../providers/inventory/inventory';
 import { DaterangePickerComponent } from 'ng2-daterangepicker';
@@ -9,14 +9,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import 'rxjs/add/observable/fromEvent';
 import { ShopProvider } from '../../providers/shop/shop';
-import { writeToNodes } from 'ionic-angular/umd/components/virtual-scroll/virtual-util';
+import { File } from '@ionic-native/file';
+import { PapaParseService } from 'ngx-papaparse';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 /**
  * Generated class for the InventoryPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+declare var cordova: any;
 @IonicPage()
 @Component({
   selector: 'page-inventory',
@@ -62,10 +64,32 @@ export class InventoryPage {
 
     selectedAppartment:any;
   inventoryType:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private shop:ShopProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider,public storage:StorageProvider) {
+  storageDirectory: string = '';
+  storageDirectory1: any;
+  storageDirectory2: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private shop:ShopProvider,public inventoryProvider:InventoryProvider,private loader:LoaderProvider,private errorHandler:ErrorHandlerServiceProvider,public storage:StorageProvider,private transfer: FileTransfer, private file: File, private papa: PapaParseService,public platform:Platform) {
             //SelectItem API with label-value pairs
             
           //An array of cities
+
+          this.platform.ready().then(() => {
+            // make sure this is on a device, not an emulation (e.g. chrome tools device mode)
+            if(!this.platform.is('cordova')) {
+              return false;
+            }
+      
+            if (this.platform.is('ios')) {
+              this.storageDirectory = cordova.file.documentsDirectory;
+            }
+            else if(this.platform.is('android')) {
+              this.storageDirectory = cordova.file.externalDataDirectory;
+              
+            }
+            else {
+              // exit otherwise, but you could add further types here e.g. Windows
+              return false;
+            }
+          });
          
   }
 
@@ -185,5 +209,43 @@ this.appartments = [
       if(key){
         this.inventoryList= this.inventoryListCopy.filter(word =>  word.appartment==key)
       }
+  }
+
+  download() {
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    let csv = this.papa.unparse(this.inventoryList);
+    console.log(csv);
+    let date = new Date();
+    let fileName: any = "Required_Stocks_"+date.getDate()+"-"+date.getMonth()+"-"+date.getMinutes()+".csv";
+    let path = this.storageDirectory;
+    this.writeFile(this.storageDirectory,fileName,csv)
+   
+   
+
+  }
+
+  writeFile(path,fileName,csv){
+    this.file.writeFile(path, fileName, csv)
+    .then(
+      _ => {
+        alert('Success ;-)'+fileName)
+      }
+    )
+    .catch(
+      err => {
+
+        this.file.writeExistingFile(path, fileName, csv)
+          .then(
+            _ => {
+              alert('Success ;-) second')
+            }
+          )
+          .catch(
+            err => {
+              alert('Failure'+fileName)
+            }
+          )
+      }
+    )
   }
 }

@@ -25,6 +25,8 @@
     "@handsontable/angular": "^2.0.0",
     "@ionic-native/call-number": "^4.10.1",
     "@ionic-native/core": "4.7.0",
+    "@ionic-native/file": "^4.12.2",
+    "@ionic-native/file-transfer": "^4.12.2",
     "@ionic-native/native-storage": "^4.7.0",
     "@ionic-native/screen-orientation": "^4.9.2",
     "@ionic-native/splash-screen": "4.7.0",
@@ -77,7 +79,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-nativestorage": {},
       "cordova-plugin-screen-orientation": {},
-      "mx.ferreyra.callnumber": {}
+      "mx.ferreyra.callnumber": {},
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "android",

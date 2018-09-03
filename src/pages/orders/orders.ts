@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, Platform } from 'ionic-angular';
 import { StorageProvider } from '../../providers/storage/storage';
 import { FulfillmentDetailsProvider } from '../../providers/fulfillment-details/fulfillment-details';
 import * as moment from 'moment';
@@ -9,6 +9,8 @@ import { ScrollProvider } from '../../providers/scroll/scroll';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import { ModalProvider } from '../../providers/modal/modal';
 import { ShopProvider } from '../../providers/shop/shop';
+import { FileTransfer, FileUploadOptions, FileTransferObject, FileTransferError } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 /**
  * Generated class for the OrdersPage page.
@@ -16,7 +18,7 @@ import { ShopProvider } from '../../providers/shop/shop';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+declare var cordova: any;
 @IonicPage()
 @Component({
   selector: 'page-orders',
@@ -47,8 +49,26 @@ export class OrdersPage {
   shopIds: any[] = [];
   selectedShopIds: any[] = [];
   cols: any[] = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider, private errorHandler: ErrorHandlerServiceProvider, private modal: ModalProvider, private storage: StorageProvider) {
+  storageDirectory: string = '';
+  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider, private errorHandler: ErrorHandlerServiceProvider, private modal: ModalProvider, private storage: StorageProvider,private platform:Platform,private transfer:FileTransfer,public file:File) {
     this.fulfillmentData = [];
+    this.platform.ready().then(() => {
+      // make sure this is on a device, not an emulation (e.g. chrome tools device mode)
+      if(!this.platform.is('cordova')) {
+        return false;
+      }
+
+      if (this.platform.is('ios')) {
+        this.storageDirectory = cordova.file.documentsDirectory;
+      }
+      else if(this.platform.is('android')) {
+        this.storageDirectory = cordova.file.externalDataDirectory;
+      }
+      else {
+        // exit otherwise, but you could add further types here e.g. Windows
+        return false;
+      }
+    });
 
   }
 
@@ -151,13 +171,21 @@ export class OrdersPage {
 
     this.orders.downloadFullfillmentReport(formData).subscribe((data: any) => {
       let csv = data;
-      console.log(csv);
       let hiddenElement = document.createElement('a');
       hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+      console.log(csv);
+      if(this.platform.is('android')){
+       this.downloadReportInDevice(hiddenElement.href)
+        // external url
+        //var ref = window.open(hiddenElement.href, '_blank', 'location=yes');
+        // relative document
+       // ref = window.open('Subscription-Fulfillment.csv', '_self');
+      }else{
+      
       hiddenElement.target = '_blank';
       hiddenElement.download = 'Subscription-Fulfillment.csv';
       hiddenElement.click();
-
+      }
     }, (err: HttpErrorResponse) => {
       console.log(err.error);
       this.loader.hide();
@@ -207,5 +235,35 @@ export class OrdersPage {
   printChallen(orderId) {
     this.modal.showPrintChallan(orderId);
   }
+
+  downloadReportInDevice(data) {
+    this.platform.ready().then(() => {
+     // create dir
+      let perc=0; 
+      let targetPath = this.storageDirectory;
+      //const data = "https://www.treesaregood.org/portals/0/docs/treecare/benefits_trees.pdf";
+      this.file.createDir(targetPath,'document',true)
+      .then((res) => console.log('createDir video res',res))
+      .catch((err) => console.log('createDir video err',err));
+
+      const fileTransfer: FileTransferObject = this.transfer.create();
+      fileTransfer.onProgress((progressEvent)=>{
+        perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+	      
+      })
+        
+
+      fileTransfer.download(data, this.file.externalDataDirectory+"document/" + "data.csv", true).then((entry) => {  
+        //here logging our success downloaded file path in mobile.  
+        
+        alert('download completed: ' + entry.toURL());  
+    }, (error) => {  
+        //here logging our error its easier to find out what type of error occured.  
+        alert('download failed: ' + error);  
+    });  
+
+    });
+  }
+
 
 }
