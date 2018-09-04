@@ -78,7 +78,7 @@ import { PrintChallanPage } from '../pages/print-challan/print-challan';
     InventoryPage,
     ErrorPage,
     ApartmentsPage,
-    TabsPage
+    TabsPage,
     FareyeDeliveriesPage,
     PrintChallanPage
   ],
@@ -121,7 +121,7 @@ import { PrintChallanPage } from '../pages/print-challan/print-challan';
     InventoryPage,
     ErrorPage,
     ApartmentsPage,
-    TabsPage
+    TabsPage,
     FareyeDeliveriesPage,
     PrintChallanPage
 

@@ -33,7 +33,7 @@ export class MyApp {
   HOpages: Array<{ title: string, component: any, icon: any, bg_color: any, color: any }>
   LSpages: Array<{ title: string, component: any, icon: any, bg_color: any, color: any }>
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: StorageProvider, public splitPane: SplitpaneProvider, private daterangepickerOptions: DaterangepickerConfig, private app: App, private menuCtrl: MenuController,private iab:InAppBrowser) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: StorageProvider, public splitPane: SplitpaneProvider, private daterangepickerOptions: DaterangepickerConfig, private app: App, private menuCtrl: MenuController) {
     this.pages=[];
     this.admin = {};
     this.navCtrl = app.getActiveNav();
@@ -45,7 +45,6 @@ export class MyApp {
         console.log(this.admin);
         console.log(data);
         this.adminRoles = data.authenticationDetails.roles;
-        //const browser = this.iab.create('https://bb-dot-subscription-qa-dot-perpule-preprod.appspot.com/','_self');
         this.rootPage = HomePage;
         this.splitPane.setSplitPane(true);
         // set navigation based on admin roles
