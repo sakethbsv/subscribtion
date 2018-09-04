@@ -85,9 +85,9 @@
           </div>
         </ion-col>
       <ion-col col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8>
-        <button style="float: left" ion-button small round color="secondary" (click)="dt.exportCSV()">Download</button>
+        <button style="float: left" ion-button small round color="secondary" (click)="dt.exportCSV()"><ion-icon name="cloud-download"></ion-icon> &nbsp; Fulfillment Report</button>
         <button style="float: left" ion-button small round color="secondary" (click)="filter()">Filter</button>
-        
+        <button style="float: left" [(disabled)]="!selectedApartment" ion-button small round color="primary" (click)="download(selectedShopIds)"><ion-icon name="cloud-download"></ion-icon> &nbsp; Delivery Report</button>
       </ion-col>
       
       <!-- Primeng View for desktop-->
@@ -213,12 +213,15 @@
               </td>
             </tr>
           </ng-template>
+          <ng-template pTemplate="summary">
+            There are {{fulfillmentData?.length}} Orders
+        </ng-template>
         </p-table>
       </ion-col>
 
 
       <!--Primeng View for mobile-->
-      <ion-col col-12 ahowWhen="android,ios">
+      <ion-col col-12 showWhen="android,ios">
 
         <p-table #dt [columns]="cols" [value]="fulfillmentData" [responsive]="true"
           [(selection)]="selectedFulfillment">

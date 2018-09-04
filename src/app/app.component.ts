@@ -76,7 +76,7 @@ export class MyApp {
       locale: { format: 'YYYY-MM-DD' },
       alwaysShowCalendars: false,
       ranges: {
-        'Today': [moment().startOf('day'), moment().startOf('day').add(1, 'day').subtract(1, 'minute')],
+        'Today': [moment().startOf('day'), moment().startOf('day')],
         'Yesterday': [moment().startOf('day').subtract(1, 'days'), moment().startOf('day').subtract(1, 'minute')],
         'Last 7 Days': [moment().startOf('day').subtract(6, 'days'), moment().startOf('day').add(1, 'days').subtract(1, 'minute')],
         'Last 30 Days': [moment().startOf('day').subtract(29, 'days'), moment().startOf('day').add(1, 'days').subtract(1, 'minute')],

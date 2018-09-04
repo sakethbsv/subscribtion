@@ -126,8 +126,6 @@ export class OrdersPage {
         { field: 'detail', header: 'Detail' },
         { field: 'confirmed', header: 'Confirmation Status' },
         { field: 'confirmationLink', header: 'Confirmation Link' },
-
-
       ];
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);

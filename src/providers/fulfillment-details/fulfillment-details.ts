@@ -80,6 +80,7 @@ export class FulfillmentDetailsProvider {
       obj.paymentDone = data.fulfillment.paymentDone;
       obj.reason = data.fulfillment.reason;
       obj.apartmentName = data.apartmentName;
+      obj.apartmentId = data.apartmentId;
       if(moment(data.fulfillment.deliveryDate).isAfter(now)){
         obj.disable = true;
        }else{
@@ -100,6 +101,10 @@ export class FulfillmentDetailsProvider {
   downloadFullfillmentReport(data){
     return this._http.post(Constants.URL+"/v2/dashboard/subscription/fetchFulfillments/download",data,{responseType: 'text'})
   }
+
+  getFulfilmentDetailsByApartments(data){
+    return this._http.post(Constants.URL+"v2/dashboard/subscription/fetchApartmentFulfillments",data,{responseType: 'json'})
+  }
   
   printBill(orderId,bags){
     return this.http.get("v1/bill/generateSalesBillV2/"+orderId+"?printed=false&getBill=true&billSize=BIG&billType=HOME_DELIVERY_CHALLEN&deliveryBags="+bags);
@@ -118,5 +123,35 @@ export class FulfillmentDetailsProvider {
 
     return apartment;
  }
+ generateFulfillmentDataByApartment(fulfilmentList){
+   
+  this.ordersTableData = [];
+  console.log(fulfilmentList);
+  fulfilmentList.forEach(data => {
+    let amount = 0;
+    let obj:any = {};
+    obj.customerName = data.customerName;
+    obj.mobileNumber = data.mobileNumber;
+    obj.deliveryDate = data.deliveryDate;
+    obj.slot = data.slotFrom +" to "+data.slotTo;
+    obj.apartmentName = data.apartmentName;
+    obj.flatAndBlock = data.flatAndBlock;
+    obj.addressLine1 = data.addressLine1;
+    obj.addressLine2 = data.addressLine2;
+    obj.landMark = data.landMark;
+    obj.city = data.city;
+    obj.state = data.state;
+    obj.paymentMethod = data.paymentMethod;
+    obj.amount = data.amount;
+    obj.productName = data.name;
+    obj.weightOrUnit = data.weightOrUnits;
+    obj.quantity = data.quantity;
+  
+  
+    this.ordersTableData.push(obj);
 
+  });
+
+  return this.ordersTableData;
+}
 }

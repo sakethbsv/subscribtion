@@ -154,4 +154,10 @@ export class ApartmentsProvider {
    }
   }
 
+  getApartmentDetails(shopId){
+    return this.http.get("/v2/dashboard/subscription/shop/"+shopId+"/fetchApartments")
+  }
+
+  
+
 }

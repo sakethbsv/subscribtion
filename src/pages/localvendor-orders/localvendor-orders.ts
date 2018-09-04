@@ -9,6 +9,8 @@ import { ModalProvider } from '../../providers/modal/modal';
 import { StorageProvider } from '../../providers/storage/storage';
 import { ScrollProvider } from '../../providers/scroll/scroll';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PapaParseService } from 'ngx-papaparse';
+import { ApartmentsProvider } from '../../providers/apartments/apartments';
 /**
  * Generated class for the LocalvendorOrdersPage page.
  *
@@ -48,19 +50,43 @@ export class LocalvendorOrdersPage {
   selectedShopIds: any[] = [];
   cols: any[] = [];
   admin: any;
-  apartmentList:any[]=[];
-  selectedApartmen:any;
+  apartmentList: any[] = [];
+  selectedApartmen: any;
   selectedApartment: any;
   copyOfFulfilmentData: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider, private errorHandler: ErrorHandlerServiceProvider, private modal: ModalProvider, private storage: StorageProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider, private errorHandler: ErrorHandlerServiceProvider, private modal: ModalProvider, private storage: StorageProvider, private papa: PapaParseService,private apartmentProvider:ApartmentsProvider) {
     this.fulfillmentData = [];
-    this.apartmentList = [{label:'All Apartments',value:null}]
+    this.apartmentList = [{ label: 'All Apartments', value: null }]
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrdersPage');
     this.getAllShops();
+    this.setApartmentDropDown(1);
+    
+  }
+
+  setApartmentDropDown(shopId){
+    
+    this.apartmentProvider.getApartmentDetails(1).subscribe((data: any) => {
+    console.log(data);
+    data.forEach(element => {
+      let apartmentMap:any ={};
+      apartmentMap.label = element.apartmentDisplayName;
+      apartmentMap.value = element.apartmentId;
+      this.apartmentList.push(apartmentMap);
+    });
+     
+
+    }, (err: HttpErrorResponse) => {
+      this.errorHandler.error(err);
+      this.loader.hide();
+      // alert("Something went wrong !");
+    }, () => {
+      this.loader.hide();
+    })
+    
   }
 
   getAllShops() {
@@ -91,7 +117,7 @@ export class LocalvendorOrdersPage {
     // disable future fulfillment
 
     this.orders.getFulfillmentDetails(obj).subscribe((data: any) => {
-      this.apartmentList = this.apartmentList.concat(this.orders.getListOfApartment(data));
+      //this.apartmentList = this.apartmentList.concat(this.orders.getListOfApartment(data));
       console.log(this.apartmentList);
       this.cols = [
         { field: 'subscriptionId', header: 'ID' },
@@ -206,21 +232,51 @@ export class LocalvendorOrdersPage {
     this.modal.showSubscriptionDetails(data);
   }
 
-  callCustomer(number) {
-    // this.callNumber.isCallSupported().then(()=>{
-    //   this.callNumber.callNumber(number,true);
-    // })
-  }
+ 
 
-  filterTable(){
-   
-    if(this.selectedApartment!=null){
-      this.fulfillmentData = this.copyOfFulfilmentData.filter(value=>{ return value.apartmentName ==this.selectedApartment})
-    }else{
+  filterTable() {
+    if (this.selectedApartment != null) {
+      this.fulfillmentData = this.copyOfFulfilmentData.filter(value => { return value.apartmentId == this.selectedApartment })
+    } else {
       this.fulfillmentData = this.copyOfFulfilmentData;
     }
-    console.log(this.fulfillmentData,this.copyOfFulfilmentData);
-   
+    console.log(this.fulfillmentData, this.copyOfFulfilmentData);
+
+  }
+
+  download(shopIds) {
+    let formData = {
+      "shopIds": shopIds,
+      "fromDate": moment(this.daterange.start.toDate()).format("YYYY-MM-DD"),
+      "toDate": moment(this.daterange.end.toDate()).format("YYYY-MM-DD"),
+      "apartmentId":this.selectedApartment
+    }
+    this.orders.getFulfilmentDetailsByApartments(formData).subscribe((data:any)=>{
+        let csv = this.papa.unparse(this.orders.generateFulfillmentDataByApartment(data));
+        var blob = new Blob([csv]);
+        if (window.navigator.msSaveOrOpenBlob)  // IE hack; see http://msdn.microsoft.com/en-us/library/ie/hh779016.aspx
+          window.navigator.msSaveBlob(blob, "filename.csv");
+        else {
+          var a = window.document.createElement("a");
+          a.href = window.URL.createObjectURL(blob);
+          a.download = "filename.csv";
+          document.body.appendChild(a);
+          a.click();  // IE: "Access is denied"; see: https://connect.microsoft.com/IE/feedback/details/797361/ie-10-treats-blob-url-as-cross-origin-and-denies-access
+          document.body.removeChild(a);
+        }
+    },(err:HttpErrorResponse)=>{
+      this.errorHandler.error(err.error)
+      this.loader.hide();
+    },()=>{
+      this.loader.hide();
+    })
+  
+    
+
+  }
+
+  setDeliveryData() {
+
   }
 
 }

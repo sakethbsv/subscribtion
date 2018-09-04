@@ -62,6 +62,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { FareyeProvider } from '../providers/fareye/fareye';
 import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
 import { PrintChallanPage } from '../pages/print-challan/print-challan';
+import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
 @NgModule({
   declarations: [
     MyApp,
@@ -80,7 +81,8 @@ import { PrintChallanPage } from '../pages/print-challan/print-challan';
     ApartmentsPage,
     TabsPage,
     FareyeDeliveriesPage,
-    PrintChallanPage
+    PrintChallanPage,
+    LocalvendorOrdersPage
   ],
   imports: [
     BrowserModule,
@@ -123,7 +125,8 @@ import { PrintChallanPage } from '../pages/print-challan/print-challan';
     ApartmentsPage,
     TabsPage,
     FareyeDeliveriesPage,
-    PrintChallanPage
+    PrintChallanPage,
+    LocalvendorOrdersPage
 
   ],
   providers: [

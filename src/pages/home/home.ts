@@ -47,7 +47,7 @@ export class HomePage {
           
         ]
 
-      }else if(this.admin.rolesMap.LS){
+      }else if(this.admin.rolesMap && this.admin.rolesMap.LS){
         this.navigation =[
           {'title':'Track Orders','img':'assets/imgs/track.png','action':'trackLocalVendorsOrders'},
           {'title':'Upload Catalog','img':'assets/imgs/catalog.png','action':'uploadCatalog'},
