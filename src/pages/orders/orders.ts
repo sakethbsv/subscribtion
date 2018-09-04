@@ -107,9 +107,10 @@ export class OrdersPage {
 
     this.orders.getFulfillmentDetails(obj).subscribe((data: any) => {
       this.cols = [
+        { field: 'print', header: 'Bill' },
         { field: 'shopId', header: 'Shop Id' },
         { field: 'originalStoreCode', header: 'Store Code' },
-        { field: 'subscriptionId', header: 'ID' },
+        { field: 'fulfillmentId', header: 'FarEye ID' },
         { field: 'subscriptionOrderId', header: 'Subscription Order Id' },
         { field: 'actualOrderId', header: 'Fulfillment Order Id' },
         { field: 'totalOrderAmount', header: 'Order Amount' },
@@ -124,9 +125,10 @@ export class OrdersPage {
         { field: 'status', header: 'Status' },
         { field: 'detail', header: 'Detail' },
         { field: 'confirmed', header: 'Confirmation Status' },
-        { field: 'confirmationLink', header: 'Confirmation Link' }
-      ];
+        { field: 'confirmationLink', header: 'Confirmation Link' },
 
+
+      ];
       this.fulfillmentData = this.orders.generateFulfillmentTableData(data);
       console.log(this.fulfillmentData);
 

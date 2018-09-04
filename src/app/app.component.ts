@@ -16,7 +16,7 @@ import { MenuController } from 'ionic-angular';
 import * as moment from 'moment';
 import { ApartmentsPage } from '../pages/apartments/apartments';
 import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
 
 @Component({
   templateUrl: 'app.html'
@@ -61,6 +61,17 @@ export class MyApp {
 
    
 
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
+      { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
+      { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
+    ];   
+      this.HOpages =[
+        { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
+        { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' },
+       
+      ]
     // configuring date range
     this.daterangepickerOptions.settings = {
       locale: { format: 'YYYY-MM-DD' },
@@ -129,6 +140,10 @@ setMenu(){
       }
 
     }
+  }
+
+  deliveryStatus(){
+    this.nav.setRoot(FareyeDeliveriesPage);
   }
 
 

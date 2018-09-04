@@ -58,9 +58,10 @@ import { MenuProvider } from '../providers/menu/menu';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
-import { NgSpinKitModule } from 'ng-spin-kit'
-import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { TabsPage } from '../pages/tabs/tabs';
+import { FareyeProvider } from '../providers/fareye/fareye';
+import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
+import { PrintChallanPage } from '../pages/print-challan/print-challan';
 @NgModule({
   declarations: [
     MyApp,
@@ -78,6 +79,8 @@ import { TabsPage } from '../pages/tabs/tabs';
     ErrorPage,
     ApartmentsPage,
     TabsPage
+    FareyeDeliveriesPage,
+    PrintChallanPage
   ],
   imports: [
     BrowserModule,
@@ -99,8 +102,7 @@ import { TabsPage } from '../pages/tabs/tabs';
     AutoCompleteModule,
     DataViewModule,
     DropdownModule,
-    MultiSelectModule,
-    NgSpinKitModule
+    MultiSelectModule
     
   ],
   bootstrap: [IonicApp],
@@ -120,6 +122,8 @@ import { TabsPage } from '../pages/tabs/tabs';
     ErrorPage,
     ApartmentsPage,
     TabsPage
+    FareyeDeliveriesPage,
+    PrintChallanPage
 
   ],
   providers: [
@@ -151,7 +155,9 @@ import { TabsPage } from '../pages/tabs/tabs';
     MenuProvider,
     File,
     FileTransfer, FileTransferObject,
-    InAppBrowser
+    
+    FareyeProvider
+    
     
   ]
 })

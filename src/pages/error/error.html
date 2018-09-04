@@ -13,7 +13,7 @@
     </ion-col>
 
     <ion-col>
-        <ion-list *ngIf="productList.length>0">
+        <ion-list *ngIf="productList?.length>0">
             <h3>{{catalogError.message}}</h3>
             <i>These barcode are not mapped to selected store</i>
             <ion-item *ngFor="let product of productList">
@@ -27,7 +27,7 @@
 
             </ion-item>
         </ion-list>
-        <ion-list *ngIf="productList.length<=0">
+        <ion-list *ngIf="productList?.length<=0">
             <ion-item >
                     <h3>{{catalogError.message}}</h3>
             </ion-item>

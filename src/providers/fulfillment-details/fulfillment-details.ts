@@ -100,6 +100,10 @@ export class FulfillmentDetailsProvider {
   downloadFullfillmentReport(data){
     return this._http.post(Constants.URL+"/v2/dashboard/subscription/fetchFulfillments/download",data,{responseType: 'text'})
   }
+  
+  printBill(orderId,bags){
+    return this.http.get("v1/bill/generateSalesBillV2/"+orderId+"?printed=false&getBill=true&billSize=BIG&billType=HOME_DELIVERY_CHALLEN&deliveryBags="+bags);
+  }
 
   getListOfApartment(list){
     var apartment=[];

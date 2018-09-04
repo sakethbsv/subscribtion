@@ -21,8 +21,9 @@ export class ErrorPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams ,public viewCtrl:ViewController) {
 
-    this.errors = navParams.get('errors');
-    console.log(this.errors)
+  
+      this.errors = navParams.get('errors');
+      console.log(this.errors)
     if(navParams.get('catalogErr')){
       this.catalogError = JSON.parse(navParams.get('catalogErr'));
       this.productList = this.catalogError.subscriptionProducts;

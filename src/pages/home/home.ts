@@ -7,7 +7,7 @@ import { InventoryPage } from '../inventory/inventory';
 import { ApartmentsPage } from '../apartments/apartments';
 import { StorageProvider } from '../../providers/storage/storage';
 import { LocalvendorOrdersPage } from '../localvendor-orders/localvendor-orders';
-
+import { FareyeDeliveriesPage } from '../fareye-deliveries/fareye-deliveries';
 
 
 
@@ -90,6 +90,17 @@ export class HomePage {
 
   apartments(){
     this.navCtrl.push(ApartmentsPage);
+  }
+  deliveryStatus(){
+    this.navCtrl.push(FareyeDeliveriesPage);
+  }
+
+  setAdmin(){
+   return this.storage.getItem('admin').then((data:any)=>{
+      return this.admin = data.admin;
+    },err=>{
+      return null
+    })
   }
 
 }
