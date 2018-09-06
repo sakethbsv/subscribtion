@@ -93,6 +93,9 @@ export class ApartmentsProvider {
     let latLongRegex = '^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$';
 
    for(var i=1;i<jsonData.length;i++){
+    if (jsonData[i] == "") {
+      continue;
+    }
       rowNo=i;
       let row = jsonData[i];
       let obj: any = {};

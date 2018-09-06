@@ -246,8 +246,10 @@ export class ApartmentsPage {
     this.apartmentCatalogErrorData = [];
     this.apartmentProvider.convertCatalogCsvToJson(event.files[0], this.shopSelected, this.apartmentCatalogErrorData).then((data: any) => {
       console.log(data);
+      let newApartmentData = data;
       this.apartmentProvider.addAppartments(data, this.shopSelected).subscribe((data: any) => {
-        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Apartments updloaded !!', life: 4000 });
+     
+        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Apartments updloaded !!. Refresh the table.', life: 4000 });
       }, (err: HttpErrorResponse) => {
         this.errorHandler.error(err);
         this.loader.hide();
