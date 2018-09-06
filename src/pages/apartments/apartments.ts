@@ -128,10 +128,10 @@ export class ApartmentsPage {
       this.apartmentFormError.addressLine2 = "Address is required !";
       validForm = false;
     }
-    if (apartmentObj.landMark == null || apartmentObj.landMark == "") {
+    /*if (apartmentObj.landMark == null || apartmentObj.landMark == "") {
       this.apartmentFormError.landMark = "Landmark is required !";
       validForm = false;
-    }
+    }*/
     if (apartmentObj.city == null || apartmentObj.city == "") {
       this.apartmentFormError.city = "City is required !";
       validForm = false;

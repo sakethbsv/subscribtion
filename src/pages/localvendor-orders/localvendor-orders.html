@@ -93,12 +93,12 @@
       <!-- Primeng View for desktop-->
       <ion-col col-12 hideWhen="android,ios">
 
-        <p-table #dt [columns]="cols" [value]="fulfillmentData" [scrollable]="true" [resizableColumns]="true" [responsive]="true"
+        <p-table #dt1 [columns]="cols" [value]="fulfillmentData" [scrollable]="true" [resizableColumns]="true" [responsive]="true"
           [(selection)]="selectedFulfillment">
           <ng-template pTemplate="caption">
             <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt1.filterGlobal($event.target.value,'contains')"
                 style="max-width:50%">
             </div>
           </ng-template>
