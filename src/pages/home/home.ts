@@ -38,6 +38,7 @@ export class HomePage {
     this.storage.getItem('admin').then((data:any)=>{
       this.admin = data.admin;
       this.storage.admin=data.admin;
+      console.log(this.admin)
       if(this.admin.rolesMap.HO){
         this.navigation =[
           {'title':'Track Orders','img':'assets/imgs/track.png','action':'trackOrders'},

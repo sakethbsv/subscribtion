@@ -24,9 +24,9 @@ clientType:any;
         
   }
 
-  getItem(key){
+   async getItem(key){
    
-        return this.localStorage.get(key).then((val:string)=>{
+        return await this.localStorage.get(key).then((val:string)=>{
             this.admin = val;
           return val
         });
@@ -35,7 +35,7 @@ clientType:any;
    
   }
 
-  getValue(key){
+ async getValue(key){
 
     let promise = new Promise((resolve,reject)=>{
 
@@ -46,7 +46,7 @@ clientType:any;
         });
     })
     
-return promise;
+return await promise;
 
 
 }

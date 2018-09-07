@@ -166,7 +166,7 @@
           </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th>Action</th>
+             
               <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                 {{col.header}}
               </th>
@@ -188,29 +188,31 @@
               <td>{{rowData.barcodeId}}</td>
               <td>{{rowData.sku}}</td>
               <td> {{rowData.name}}</td>
-              <td *ngIf="rowData.image!=null && rowData.image!=''">
-                <ion-item>
+              <td >
+                <ion-item *ngIf="rowData.image!=null && rowData.image!=''">
                   <ion-thumbnail item-start>
 
                     <img src="{{rowData.image}}">
                   </ion-thumbnail>
                 </ion-item>
+                <span *ngIf="rowData.image==null || rowData.image==''">N/A</span>
               </td>
-              <td *ngIf="rowData.image==null || rowData.image==''">
+              <!-- <td *ngIf="rowData.image==null || rowData.image==''">
                 N/A
 
 
-              </td>
+              </td> -->
               <td> {{rowData.category}}</td>
               <td> {{rowData.subCategory}}</td>
-              <td *ngIf="rowData.categoryImage==null || rowData.categoryImage==''">N/A</td>
-              <td *ngIf="rowData.categoryImage!=null && rowData.categoryImage!=''">
-                <ion-item>
+              <!-- <td *ngIf="rowData.categoryImage==null || rowData.categoryImage==''">N/A</td> -->
+              <td >
+                <ion-item *ngIf="rowData.categoryImage!=null && rowData.categoryImage!=''">
                   <ion-thumbnail item-start>
                     <img src="{{rowData.categoryImage}}">
                   </ion-thumbnail>
                 </ion-item>
                 <!-- <a target="_blank" href="{{rowData.categoryImage}}">View Image</a> -->
+                <span *ngIf="rowData.categoryImage==null || rowData.categoryImage==''">N/A</span>
               </td>
               <td>Rs.{{rowData.amount}}</td>
               <td>
