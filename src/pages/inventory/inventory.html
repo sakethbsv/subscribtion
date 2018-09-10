@@ -80,34 +80,37 @@
           <ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
         <button float-left showWhen="android,ios" [disabled]="!viewInventoryFlag" ion-button small round outline (click)="dt.exportCSV()">
           <ion-icon name="cloud-download"></ion-icon>&nbsp;Download</button>
-          <!-- <p-dropdown [options]="groupByApartment" [(ngModel)]="selectedApartment" (onChange)="filterTable()"></p-dropdown> -->
+       
       </ion-col>
 
+      <!-- Filter for android,ios-->
+
       <ion-col col-12>
-        <p-table #dt [columns]="cols" [value]="inventoryList" [scrollable]="true">
+        <p-table #dt [columns]="cols" [value]="inventoryList" [paginator]="true" [rows]="50">
           <ng-template pTemplate="caption">
             <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
               <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
                 style="width:50%">
             </div>
+            
           </ng-template>
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
-                <col *ngFor="let col of columns" style="width:150px">
+              <col *ngFor="let col of columns" style="width:150px">
             </colgroup>
-        </ng-template>
+          </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th *ngFor="let col of columns">
                 {{col.header}}
               </th>
             </tr>
-            <tr>
+            <tr >
               <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                <p-dropdown *ngSwitchCase="'category'" [options]="category" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                <p-dropdown   *ngSwitchCase="'category'" [options]="category" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
                 <input *ngSwitchCase="'subCategory'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                <p-dropdown *ngSwitchCase="'apartmentName'" [options]="groupByApartment" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                <p-dropdown   *ngSwitchCase="'apartmentName'" [options]="groupByApartment" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
               </th>
             </tr>
           </ng-template>
@@ -120,44 +123,12 @@
           </ng-template>
           <ng-template pTemplate="summary">
             There are {{inventoryList?.length}} items
-        </ng-template>
-        </p-table> 
+          </ng-template>
+        </p-table>
 
 
 
-        <!-- <p-table #dt [columns]="cols" [value]="inventoryList" [scrollable]="true">
-          <ng-template pTemplate="colgroup" let-columns>
-            <colgroup>
-              <col *ngFor="let col of columns" style="width:250px">
-            </colgroup>
-          </ng-template>
-          <ng-template pTemplate="caption">
-            <div style="text-align: right">
-              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt1.filterGlobal($event.target.value, 'contains')"
-                style="width:50%">
-            </div>
-          </ng-template>
-          <ng-template pTemplate="header" let-columns>
-            <tr>
-              <th *ngFor="let col of columns">
-                {{col.header}}
-              </th>
-              <th *ngFor="let col of columns" [ngSwitch]="col.field">
-                <p-dropdown *ngSwitchCase="'category'" [options]="category" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
-                <input *ngSwitchCase="'subCategory'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-                <p-dropdown *ngSwitchCase="'apartmentName'" [options]="groupByApartment" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
-              </th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData">
-              <td *ngFor="let col of columns">
-                {{rowData[col.field]}}
-              </td>
-            </tr>
-          </ng-template>
-        </p-table> -->
+
 
       </ion-col>
 

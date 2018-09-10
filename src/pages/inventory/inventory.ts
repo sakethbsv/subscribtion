@@ -70,7 +70,11 @@ export class InventoryPage {
   apartments: any = [];
   admin: any;
 
+  showApartmentFilter:boolean=false;
+  shopMap:any={};
+
   selectedApartment: any;
+  selectedCategory: any;
   
   storageDirectory: string = '';
   storageDirectory1: any;
@@ -136,7 +140,11 @@ export class InventoryPage {
       this.admin = data.admin;
       if (this.shopList != undefined && this.shopList != null && this.shopList.length > 0) {
         this.shopSelected = this.shopList[0].shopId;
+        
       }
+      this.shopList.forEach(element => {
+        this.shopMap[element.shopId]=element;
+      });
     })
 
   }
@@ -155,6 +163,10 @@ export class InventoryPage {
     console.log('shopid...')
     let from = moment(this.daterange.start.toDate()).format("YYYY-MM-DD");
     let to = moment(this.daterange.end.toDate()).format("YYYY-MM-DD");
+    // Set/Reset apartment filter based on shop subscription configuration
+    if(this.shopMap[shopId].subscriptionConfig && this.shopMap[shopId].subscriptionConfig.apartmentVendor){
+      this.showApartmentFilter=true;
+    }
     this.inventoryProvider.getInventory(shopId, from, to, this.admin).subscribe((data: any) => {
       this.cols = [
         { field: 'category', header: 'Category' },
@@ -167,6 +179,7 @@ export class InventoryPage {
 
 
       ];
+      
       //this.cols = this.inventoryProvider.generateDynamicHeader(data);
       this.inventoryList = data;
       this.inventoryListCopy = this.inventoryList;
@@ -220,13 +233,5 @@ export class InventoryPage {
     )
   }
 
-  filterTable(){
-    if (this.selectedApartment != null) {
-      this.inventoryList = this.inventoryListCopy.filter(value => { return value.apartmentName == this.selectedApartment })
-    } else {
-      this.inventoryList = this.inventoryListCopy;
-    }
-    console.log(this.inventoryList, this.inventoryListCopy);
-  }
-
+ 
 }
