@@ -11,6 +11,7 @@ import 'rxjs/add/observable/fromEvent';
 import { File } from '@ionic-native/file';
 import { PapaParseService } from 'ngx-papaparse';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { ApartmentsProvider } from '../../providers/apartments/apartments';
 /**
  * Generated class for the InventoryPage page.
  *
@@ -68,11 +69,13 @@ export class InventoryPage {
   groupByApartment: any = [];
   apartments: any = [];
   admin: any;
+
+  selectedApartment: any;
   
   storageDirectory: string = '';
   storageDirectory1: any;
   storageDirectory2: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public inventoryProvider: InventoryProvider, private loader: LoaderProvider, private errorHandler: ErrorHandlerServiceProvider, public storage: StorageProvider, private transfer: FileTransfer, private file: File, private papa: PapaParseService,public platform:Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public inventoryProvider: InventoryProvider, private loader: LoaderProvider, private errorHandler: ErrorHandlerServiceProvider, public storage: StorageProvider, private transfer: FileTransfer, private file: File, private papa: PapaParseService,public platform:Platform,private apartmentProvider:ApartmentsProvider) {
 
     this.category = [{ label: 'All Category', value: null }];
     this.groupByApartment = [{ label: 'All Apartments', value: null }]
@@ -100,8 +103,30 @@ export class InventoryPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad InventoryPage');
     this.getAllShops();
-    
+    this.setApartmentDropDown(1);
 
+  }
+
+  setApartmentDropDown(shopId){
+    
+    this.apartmentProvider.getApartmentDetails(1).subscribe((data: any) => {
+    console.log(data);
+    data.forEach(element => {
+      let apartmentMap:any ={};
+      apartmentMap.label = element.apartmentDisplayName;
+      apartmentMap.value = element.apartmentDisplayName;
+      this.groupByApartment.push(apartmentMap);
+    });
+     
+
+    }, (err: HttpErrorResponse) => {
+      this.errorHandler.error(err);
+      this.loader.hide();
+      // alert("Something went wrong !");
+    }, () => {
+      this.loader.hide();
+    })
+    
   }
 
 
@@ -138,6 +163,7 @@ export class InventoryPage {
         { field: 'sku', header: 'SKU' },
         { field: 'name', header: 'Product Name' },
         { field: 'quantity', header: 'Quantity' },
+        { field:'apartmentName',header:'Apartment Name'}
 
 
       ];
@@ -147,7 +173,7 @@ export class InventoryPage {
       this.vendorList = data;
       console.log(data);
       this.category = this.category.concat((this.inventoryProvider.getListOfCategory(this.inventoryList)));
-      this.groupByApartment = this.groupByApartment.concat(this.inventoryProvider.getListOfApartment(this.inventoryList))
+     // this.groupByApartment = this.groupByApartment.concat(this.inventoryProvider.getListOfApartment(this.inventoryList))
       console.log(this.category)
       this.loader.hide();
     }, (err: HttpErrorResponse) => {
@@ -192,6 +218,15 @@ export class InventoryPage {
           )
       }
     )
+  }
+
+  filterTable(){
+    if (this.selectedApartment != null) {
+      this.inventoryList = this.inventoryListCopy.filter(value => { return value.apartmentName == this.selectedApartment })
+    } else {
+      this.inventoryList = this.inventoryListCopy;
+    }
+    console.log(this.inventoryList, this.inventoryListCopy);
   }
 
 }

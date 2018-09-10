@@ -80,55 +80,11 @@
           <ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
         <button float-left showWhen="android,ios" [disabled]="!viewInventoryFlag" ion-button small round outline (click)="dt.exportCSV()">
           <ion-icon name="cloud-download"></ion-icon>&nbsp;Download</button>
-          <p-dropdown [options]="groupByApartment"></p-dropdown>
+          <!-- <p-dropdown [options]="groupByApartment" [(ngModel)]="selectedApartment" (onChange)="filterTable()"></p-dropdown> -->
       </ion-col>
 
       <ion-col col-12>
-        <!--  <p-table #dt [columns]="cols" dataKey="category"  sortMode="multiple" [value]="inventoryList" [paginator]="true" [rows]="20" [responsive]="true">
-              <ng-template pTemplate="caption">
-                            
-                <div style="text-align: right">
-                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                  <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
-                    style="max-width:50%">
-                </div>
-              </ng-template>
-              <ng-template pTemplate="header" let-columns>
-                  
-                  <tr>
-                      <th *ngFor="let col of columns">
-                          {{col.header}}
-                      </th>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex" let-expanded="expanded">
-                  <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.category].index === rowIndex">
-                     
-                    <td *ngFor="let col of columns">
-                          <span class="ui-column-title">{{col.header}}</span>
-                          {{rowData[col.field]}}
-                      </td>
-                      <td colspan="3">
-                        <a href="#" [pRowToggler]="rowData">
-                            <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
-                            <span>{{rowData.category}}</span>
-                        </a>
-                    </td>
-                  </tr>
-              </ng-template>
-              <ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex">
-                <tr>
-                     <td *ngFor="let col of columns">
-                          <span class="ui-column-title">{{col.header}}</span>
-                          {{rowData[col.field]}}
-                      </td>
-                </tr>
-            </ng-template>
-              <ng-template pTemplate="summary">
-                  There are {{inventoryList?.length}} products
-              </ng-template>
-        </p-table>-->
-        <!-- <p-table #dt [columns]="cols" [value]="inventoryList" hideWhen="android,ios">
+        <p-table #dt [columns]="cols" [value]="inventoryList" [scrollable]="true">
           <ng-template pTemplate="caption">
             <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -136,13 +92,18 @@
                 style="width:50%">
             </div>
           </ng-template>
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" style="width:150px">
+            </colgroup>
+        </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th *ngFor="let col of columns">
                 {{col.header}}
               </th>
             </tr>
-            <tr hideWhen="android">
+            <tr>
               <th *ngFor="let col of columns" [ngSwitch]="col.field">
                 <p-dropdown *ngSwitchCase="'category'" [options]="category" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
                 <input *ngSwitchCase="'subCategory'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
@@ -157,11 +118,14 @@
               </td>
             </tr>
           </ng-template>
-        </p-table> -->
+          <ng-template pTemplate="summary">
+            There are {{inventoryList?.length}} items
+        </ng-template>
+        </p-table> 
 
 
 
-        <p-table #dt1 [columns]="cols" [value]="inventoryList" [scrollable]="true">
+        <!-- <p-table #dt [columns]="cols" [value]="inventoryList" [scrollable]="true">
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
               <col *ngFor="let col of columns" style="width:250px">
@@ -179,6 +143,11 @@
               <th *ngFor="let col of columns">
                 {{col.header}}
               </th>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <p-dropdown *ngSwitchCase="'category'" [options]="category" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+                <input *ngSwitchCase="'subCategory'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                <p-dropdown *ngSwitchCase="'apartmentName'" [options]="groupByApartment" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>
+              </th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -188,7 +157,7 @@
               </td>
             </tr>
           </ng-template>
-        </p-table>
+        </p-table> -->
 
       </ion-col>
 
@@ -198,14 +167,3 @@
   </ion-grid>
 
 </ion-content>
-<ion-footer>
-  <ion-fab right bottom>
-    <button ion-fab color="primary">
-      <ion-icon name="options"></ion-icon>
-    </button>
-  </ion-fab>
-</ion-footer>
-<ion-footer>
-  
-<button ion-button (click)="download()"></button>
-</ion-footer>

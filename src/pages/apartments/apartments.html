@@ -93,7 +93,7 @@
 
 
       <ion-col col-12 *ngIf="apartments.length>0">
-        <p-table [columns]="cols"  #dt [value]="apartments" [(selection)]="selectedApartments" (onRowUnselect)="onRowUnselect($event)" [resizableColumns]="true" [scrollable]="true" [paginator]="true"
+        <p-table [columns]="cols" [scrollable]="true" #dt [value]="apartments" [(selection)]="selectedApartments" (onRowUnselect)="onRowUnselect($event)" [resizableColumns]="true" [scrollable]="true" [paginator]="true"
           [rows]="50">
           <ng-template pTemplate="caption">
             <div style="text-align: right">
@@ -102,6 +102,13 @@
                 style="max-width:50%">
             </div>
           </ng-template>
+          
+          <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <col *ngFor="let col of columns" style="width:100px">
+            </colgroup>
+        </ng-template>
+
           <ng-template pTemplate="header">
             <tr>
               <th style="width: 3em" >
@@ -131,6 +138,9 @@
               </td>
             </tr>
           </ng-template>
+          <ng-template pTemplate="summary">
+            There are {{apartments?.length}} apartments
+        </ng-template>
         </p-table>
       </ion-col>
     </ion-row>
