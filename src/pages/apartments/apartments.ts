@@ -70,6 +70,7 @@ export class ApartmentsPage {
     this.apartmentProvider.getApartments(shopSelected).subscribe((data: any) => {
       this.apartments = data;
       this.apartmentProvider.setApartments(data);
+      this.uploadApartments=false;
     }, (err: HttpErrorResponse) => {
       this.errorHandler.error(err);
       this.loader.hide();
@@ -248,8 +249,9 @@ export class ApartmentsPage {
       console.log(data);
       let newApartmentData = data;
       this.apartmentProvider.addAppartments(data, this.shopSelected).subscribe((data: any) => {
-     
-        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Apartments updloaded !!. Refresh the table.  ', life: 4000 });
+        this.uploadApartments = false;
+        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Apartments updloaded !!. Refresh the table.  ', life: 6000 });
+        
       }, (err: HttpErrorResponse) => {
         this.errorHandler.error(err);
         this.loader.hide();
