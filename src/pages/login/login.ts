@@ -81,7 +81,7 @@ export class LoginPage {
       ];
     } else if (admin.rolesMap.LS) {
       admin.pages = [
-        { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+        { title: 'Dashboard', component:  HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
         { title: 'Orders', component: LocalvendorOrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
         { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
         { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
