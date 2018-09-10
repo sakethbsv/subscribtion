@@ -7,17 +7,19 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { StorageProvider } from '../providers/storage/storage';
 import { SplitpaneProvider } from '../providers/splitpane/splitpane';
-import { OrdersPage } from '../pages/orders/orders';
 import { DaterangepickerConfig } from 'ng2-daterangepicker';
-import { CatalogPage } from '../pages/catalog/catalog';
-import { PromotionsPage } from '../pages/promotions/promotions';
-import { InventoryPage } from '../pages/inventory/inventory';
+
 import { MenuController } from 'ionic-angular';
 import * as moment from 'moment';
-import { ApartmentsPage } from '../pages/apartments/apartments';
-import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
+
 import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
 import { AuthProvider } from '../providers/auth/auth';
+import { OrdersPage } from '../pages/orders/orders';
+import { CatalogPage } from '../pages/catalog/catalog';
+import { InventoryPage } from '../pages/inventory/inventory';
+import { PromotionsPage } from '../pages/promotions/promotions';
+import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
+import { ApartmentsPage } from '../pages/apartments/apartments';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,25 +32,22 @@ export class MyApp {
   color: any;
   adminRoles: any;
   navCtrl: NavController
-  pages:any[]=[]
-  
+  pages: any[] = []
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: StorageProvider, public splitPane: SplitpaneProvider, private daterangepickerOptions: DaterangepickerConfig, private app: App, private menuCtrl: MenuController,private auth:AuthProvider) {
-    
+
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: StorageProvider, public splitPane: SplitpaneProvider, private daterangepickerOptions: DaterangepickerConfig, private app: App, private menuCtrl: MenuController, private auth: AuthProvider) {
+
     this.admin = {};
     this.navCtrl = app.getActiveNav();
     this.storage.getValue('admin').then((data: any) => {
       console.log(data);
       if (data != null) {
         this.admin = data.admin;
-        
+        this.admin.pages = this.setMenu(this.admin) 
         this.adminRoles = data.authenticationDetails.roles;
         this.rootPage = HomePage;
         this.splitPane.setSplitPane(true);
         // set navigation based on admin roles
-
-
-
       } else {
         this.rootPage = LoginPage;
       }
@@ -57,7 +56,7 @@ export class MyApp {
       this.rootPage = LoginPage;
     })
 
-   
+
 
     // used for an example of ngFor and navigation
 
@@ -89,15 +88,40 @@ export class MyApp {
     });
   }
 
-setMenu(admin){
-  console.log(admin)
-  console.log(admin.rolesMap.LS)
-  console.log(admin.pages)
-}
+
+    setMenu(admin){
+      if (admin.rolesMap.HO) {
+        admin.pages = [
+          { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+          { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+          { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
+          { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
+          { title: 'Banners', component: PromotionsPage, icon: 'list', bg_color: 'secondary', color: 'primary' }
+        ];
+      } else if (admin.rolesMap.LS) {
+        admin.pages = [
+          { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+          { title: 'Orders', component: LocalvendorOrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+          { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
+          { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
+          { title: 'Apartments', component: ApartmentsPage, icon: 'home', bg_color: 'secondary', color: 'primary' }
+        ];
+      } else if(admin) {
+        admin.pages = [
+          { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+          { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+          { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' }
+        ];
+      }
+  
+      return admin.pages;
+    }
+  
 
 
 
   openPage(page) {
+    console.log(page)
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
@@ -113,7 +137,7 @@ setMenu(admin){
     }
   }
 
-  deliveryStatus(){
+  deliveryStatus() {
     this.nav.setRoot(FareyeDeliveriesPage);
   }
 
@@ -124,6 +148,10 @@ setMenu(admin){
     this.menuCtrl.close();
     this.app.getRootNav().setRoot(LoginPage)
 
+  }
+
+  hideMenu() {
+    this.menuCtrl.close();
   }
 
 
