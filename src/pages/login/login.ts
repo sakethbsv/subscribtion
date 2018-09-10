@@ -9,6 +9,13 @@ import 'rxjs/add/operator/map';
 import { MyApp } from '../../app/app.component';
 import { SplitpaneProvider } from '../../providers/splitpane/splitpane';
 import { LoaderProvider } from '../../providers/loader/loader';
+import { AuthProvider } from '../../providers/auth/auth';
+import { OrdersPage } from '../orders/orders';
+import { InventoryPage } from '../inventory/inventory';
+import { CatalogPage } from '../catalog/catalog';
+import { PromotionsPage } from '../promotions/promotions';
+import { LocalvendorOrdersPage } from '../localvendor-orders/localvendor-orders';
+import { ApartmentsPage } from '../apartments/apartments';
 
 /**
  * Generated class for the LoginPage page.
@@ -27,9 +34,9 @@ export class LoginPage {
   password:string;
   admin:any;
 
-  constructor(public navCtrl:NavController, public loginService:LoginServiceProvider,public errorService:ErrorHandlerServiceProvider,public storage:StorageProvider,public app:MyApp,public splitPane:SplitpaneProvider,public loader:LoaderProvider) {
-    this.username='subscription@future.com'
-    this.password='future';
+  constructor(public navCtrl:NavController, public loginService:LoginServiceProvider,public errorService:ErrorHandlerServiceProvider,public storage:StorageProvider,public app:MyApp,public splitPane:SplitpaneProvider,public loader:LoaderProvider,private auth:AuthProvider) {
+    this.username='focus@perpule.com'
+    this.password='focus';
   }
 
   ionViewDidLoad() {
@@ -49,7 +56,8 @@ export class LoginPage {
     this.loginService.login(loginData)
     .subscribe((response:any)=>{
       console.log('response',response); 
-     
+      
+      response.admin.pages=this.setMenu(response.admin);
       this.storage.setItem('admin',response);
       this.navCtrl.setRoot(MyApp);
       this.app.admin = response.admin;
@@ -60,6 +68,34 @@ export class LoginPage {
     },()=>{
         this.loader.hide();
     })
+  }
+
+  setMenu(admin){
+    if (admin.rolesMap.HO) {
+      admin.pages = [
+        { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+        { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+        { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
+        { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
+        { title: 'Banners', component: PromotionsPage, icon: 'list', bg_color: 'secondary', color: 'primary' }
+      ];
+    } else if (admin.rolesMap.LS) {
+      admin.pages = [
+        { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+        { title: 'Orders', component: LocalvendorOrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+        { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
+        { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
+        { title: 'Apartments', component: ApartmentsPage, icon: 'home', bg_color: 'secondary', color: 'primary' }
+      ];
+    } else if(admin) {
+      admin.pages = [
+        { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
+        { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
+        { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' }
+      ];
+    }
+
+    return admin.pages;
   }
 
 }

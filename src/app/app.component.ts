@@ -17,6 +17,7 @@ import * as moment from 'moment';
 import { ApartmentsPage } from '../pages/apartments/apartments';
 import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
 import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
+import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
   templateUrl: 'app.html'
@@ -29,26 +30,24 @@ export class MyApp {
   color: any;
   adminRoles: any;
   navCtrl: NavController
-  pages: Array<{ title: string, component: any, icon: any, bg_color: any, color: any }>;
-  HOpages: Array<{ title: string, component: any, icon: any, bg_color: any, color: any }>
-  LSpages: Array<{ title: string, component: any, icon: any, bg_color: any, color: any }>
+  pages:any[]=[]
+  
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: StorageProvider, public splitPane: SplitpaneProvider, private daterangepickerOptions: DaterangepickerConfig, private app: App, private menuCtrl: MenuController) {
-    this.pages=[];
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: StorageProvider, public splitPane: SplitpaneProvider, private daterangepickerOptions: DaterangepickerConfig, private app: App, private menuCtrl: MenuController,private auth:AuthProvider) {
+    
     this.admin = {};
     this.navCtrl = app.getActiveNav();
     this.storage.getValue('admin').then((data: any) => {
       console.log(data);
       if (data != null) {
-        //this.openPage(HomePage)
         this.admin = data.admin;
-        console.log(this.admin);
-        console.log(data);
+        
         this.adminRoles = data.authenticationDetails.roles;
         this.rootPage = HomePage;
         this.splitPane.setSplitPane(true);
         // set navigation based on admin roles
-        this.setMenu();
+
+
 
       } else {
         this.rootPage = LoginPage;
@@ -61,16 +60,7 @@ export class MyApp {
    
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
-      { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
-      { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
-    ];   
-      this.HOpages =[
-        { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
-        { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' },
-       
-      ]
+
     // configuring date range
     this.daterangepickerOptions.settings = {
       locale: { format: 'YYYY-MM-DD' },
@@ -91,6 +81,7 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      console.log('i am called first');
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
@@ -98,32 +89,13 @@ export class MyApp {
     });
   }
 
-setMenu(){
-  console.log(this.admin)
-  if (this.admin.rolesMap.HO) {
-    this.pages = [
-      { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
-      { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
-      { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
-      { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
-      { title: 'Banners', component: PromotionsPage, icon: 'list', bg_color: 'secondary', color: 'primary' }
-    ];
-  } else if (this.admin.rolesMap.LS) {
-    this.pages = [
-      { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
-      { title: 'Orders', component: LocalvendorOrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
-      { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' },
-      { title: 'Catalog', component: CatalogPage, icon: 'list', bg_color: 'secondary', color: 'primary' },
-      { title: 'Apartments', component: ApartmentsPage, icon: 'home', bg_color: 'secondary', color: 'primary' }
-    ];
-  } else {
-    this.pages = [
-      { title: 'Dashboard', component: HomePage, icon: 'home', bg_color: 'secondary', color: 'primary' },
-      { title: 'Orders', component: OrdersPage, icon: 'cart', bg_color: 'secondary', color: 'primary' },
-      { title: 'Required Stock', component: InventoryPage, icon: 'cube', bg_color: 'secondary', color: 'primary' }
-    ];
-  }
+setMenu(admin){
+  console.log(admin)
+  console.log(admin.rolesMap.LS)
+  console.log(admin.pages)
 }
+
+
 
   openPage(page) {
     // Reset the content nav to have just this page
@@ -153,4 +125,6 @@ setMenu(){
     this.app.getRootNav().setRoot(LoginPage)
 
   }
+
+
 }

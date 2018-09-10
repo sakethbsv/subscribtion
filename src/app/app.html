@@ -20,12 +20,13 @@
             <p ion-text text-center color="secondary"><b>{{admin.adminName}}</b></p>
             <p ion-text text-center color="light"><b>{{admin.emailId}}</b></p>
           </ion-toolbar>
-         
-      <button menuClose color="{{p.color}}" ion-item *ngFor="let p of pages" (click)="openPage(p)">
+    <span *ngIf="admin">    
+      <button  menuClose color="{{p.color}}" ion-item *ngFor="let p of admin.pages" (click)="openPage(p)">
        <p ion-text text-left color="secondary"><ion-icon name="{{p.icon}}"></ion-icon>&nbsp;
         {{p.title}} </p> 
       </button>
-      
+    </span> 
+   
       <!-- <span *ngIf="admin.rolesMap && admin.rolesMap.HO">
         <button  menuClose color="{{p.color}}" ion-item *ngFor="let p of HOpages" (click)="openPage(p)">
           <p ion-text text-left color="secondary"><ion-icon name="{{p.icon}}"></ion-icon>&nbsp;

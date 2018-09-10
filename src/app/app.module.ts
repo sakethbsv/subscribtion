@@ -63,6 +63,7 @@ import { FareyeProvider } from '../providers/fareye/fareye';
 import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
 import { PrintChallanPage } from '../pages/print-challan/print-challan';
 import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-orders';
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -160,7 +161,8 @@ import { LocalvendorOrdersPage } from '../pages/localvendor-orders/localvendor-o
     File,
     FileTransfer, FileTransferObject,
     
-    FareyeProvider
+    FareyeProvider,
+    AuthProvider
     
     
   ]
