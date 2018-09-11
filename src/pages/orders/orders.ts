@@ -47,6 +47,7 @@ export class OrdersPage {
   shopIds: any[] = [];
   selectedShopIds: any[] = [];
   cols: any[] = [];
+  selectedFulfillment : any  = {};
   constructor(public navCtrl: NavController, public navParams: NavParams, public shop: ShopProvider, private orders: FulfillmentDetailsProvider, private loader: LoaderProvider, private scroll: ScrollProvider, private errorHandler: ErrorHandlerServiceProvider, private modal: ModalProvider, private storage: StorageProvider) {
     this.fulfillmentData = [];
 
@@ -89,8 +90,8 @@ export class OrdersPage {
         { field: 'shopId', header: 'Shop Id' },
         { field: 'originalStoreCode', header: 'Store Code' },
         { field: 'fulfillmentId', header: 'FarEye ID' },
-        { field: 'subscriptionOrderId', header: 'Subscription Order Id' },
-        { field: 'actualOrderId', header: 'Fulfillment Order Id' },
+        { field: 'subscriptionOrderId', header: 'Subscription Order ID' },
+        { field: 'actualOrderId', header: 'Fulfillment Order ID' },
         { field: 'totalOrderAmount', header: 'Order Amount' },
         { field: 'customerName', header: 'Customer Name' },
         { field: 'mobileNumber', header: 'Mobile Number' },
