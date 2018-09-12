@@ -77,6 +77,7 @@ export class CatalogPage {
   viewProduct(shopId) {
     this.catalogService.getAllProducts(shopId).subscribe((data: any) => {
       this.cols = [
+        { field: 'action', header: 'Action' },
         { field: 'shopId', header: 'Shop Id' },
         { field: 'barcodeId', header: 'BarcodeId' },
         { field: 'sku', header: 'sku' },

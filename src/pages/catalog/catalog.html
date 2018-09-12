@@ -157,7 +157,7 @@
           </ng-template>
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th>Action</th>
+              
               <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                 {{col.header}}
               </th>
