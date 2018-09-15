@@ -140,7 +140,7 @@
           [scrollable]="true">
           <ng-template pTemplate="colgroup" let-columns>
               <colgroup>
-                  <col *ngFor="let col of columns" style="width:250px">
+                  <col *ngFor="let col of columns">
               </colgroup>
           </ng-template>
           <ng-template pTemplate="caption">
@@ -156,8 +156,9 @@
             </div>          
           </ng-template>
           <ng-template pTemplate="header" let-columns>
+           
             <tr>
-              
+              <th>Action</th>
               <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                 {{col.header}}
               </th>
