@@ -26,10 +26,15 @@ export class ErrorPage {
       console.log(this.errors)
     if(navParams.get('catalogErr')){
       this.catalogError = JSON.parse(navParams.get('catalogErr'));
-      this.productList = this.catalogError.subscriptionProducts;
+      if(this.catalogError.subscriptionProducts){
+        this.productList = this.catalogError.subscriptionProducts;
+      }
+      
     }else{
       this.catalogError = this.errors;
     }
+
+    console.log('Catalog Error',this.catalogError)
     
   }
 

@@ -11,7 +11,6 @@
             </ion-label>
         </ion-item>
     </ion-col>
-
     <ion-col>
         <ion-list *ngIf="productList?.length>0">
             <h3>{{catalogError.message}}</h3>
@@ -27,9 +26,9 @@
 
             </ion-item>
         </ion-list>
-        <ion-list *ngIf="productList?.length<=0">
-            <ion-item >
-                    <h3>{{catalogError.message}}</h3>
+        <ion-list *ngIf="productList?.length==0">
+            <ion-item text-wrap>
+                    <p >{{catalogError.message}}</p>
             </ion-item>
         </ion-list>
     </ion-col>
