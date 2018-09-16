@@ -74,6 +74,7 @@ export class CatalogProvider {
   generateProductData(data, shopId, errorData) {
     this.loader.showWithContent("Processing your file..");
     var imageRegex =/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
+    var barcodeRegex = "^[0-9]";
     let jsonData = [];
     let rowNo=0;
     let errorFlag = false;
@@ -86,7 +87,7 @@ export class CatalogProvider {
       let row = data[i];
       let obj: any = {};
       obj.isPerishable = false;
-      obj.barcodeId = row[0];
+      obj.barcodeId = Number(row[0]);
       obj.sku = row[1];
       obj.name = row[2];
       //obj.amount = row[3];
@@ -99,13 +100,11 @@ export class CatalogProvider {
       }
       obj.shopId = shopId;
       rowNo=i+1;
-
-     
-      
+  
       if(obj.barcodeId==null || obj.barcodeId==""){
         errorData.push("BarcodeId is missing in row number :"+ (rowNo));
       }
-      if(obj.barcodeId!=null && (isNaN(obj.barcodeId) || obj.barcodeId < 0)){
+      if((isNaN(obj.barcodeId) || obj.barcodeId < 0)){
         errorData.push("Enter Numberic Barcode Id in row number :"+ (rowNo));
       }
       if(((obj.amount)!=null)){
