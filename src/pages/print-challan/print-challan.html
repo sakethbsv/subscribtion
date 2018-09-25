@@ -1,0 +1,39 @@
+<!--
+  Generated template for the PrintChallanPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title><ion-icon name="print"></ion-icon> &nbsp;Print Challan</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-list>
+ <ion-item>
+   <ion-label fixed >Order Id</ion-label>
+   <ion-input type="text" readonly [(ngModel)]="orderId"></ion-input>
+ </ion-item>
+ <ion-item>
+   <ion-label fixed >No.of bags</ion-label>
+   <ion-input type="number" [(ngModel)]="noOfBags"></ion-input>
+ </ion-item>
+ <ion-item *ngIf="passwordField">
+  <ion-label fixed >Enter Password</ion-label>
+  <ion-input type="password" [(ngModel)]="password"></ion-input>
+</ion-item>
+ <ion-item >
+   <button ion-button small round color="secondary" (click)="print()">Print</button>
+   <button ion-button small round color="light" (click)="dismiss()">Cancel</button>
+ </ion-item>
+</ion-list>
+</ion-content>
+
+<ion-footer>
+  <button ion-button block  (click)="dismiss()">Close</button>
+</ion-footer>

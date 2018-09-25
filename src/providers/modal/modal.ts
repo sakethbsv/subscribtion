@@ -5,6 +5,7 @@ import { DeleteconfirmationPage } from '../../pages/deleteconfirmation/deletecon
 import { CatalogProvider } from '../catalog/catalog';
 import { FulfillmentDetailPage } from '../../pages/fulfillment-detail/fulfillment-detail';
 import { ErrorPage } from '../../pages/error/error';
+import { PrintChallanPage } from '../../pages/print-challan/print-challan';
 
 /*
   Generated class for the ModalProvider provider.
@@ -57,6 +58,14 @@ export class ModalProvider {
     })
 
     subscriptionModal.present();
+  }
+
+  // Print Challan
+  showPrintChallan(orderId){
+    let challanModal = this.modal.create(PrintChallanPage,{'orderId':orderId});
+    challanModal.onDidDismiss(() => {
+    })
+    challanModal.present();
   }
 
 }

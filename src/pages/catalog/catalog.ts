@@ -9,6 +9,7 @@ import { ModalProvider } from '../../providers/modal/modal';
 import { ErrorHandlerServiceProvider } from '../../providers/error-handler-service/error-handler-service';
 import { ErrorPage } from '../error/error';
 import { ShopProvider } from '../../providers/shop/shop';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 /**
  * Generated class for the CatalogPage page.
  *
@@ -27,7 +28,7 @@ export class CatalogPage {
   shopList: any[] = [];
   settings: any;
   errorData: any[] = [];
-  val:any;
+  val: any;
 
   shopSelected: any;
   viewProductSelected: boolean = false;
@@ -46,7 +47,9 @@ export class CatalogPage {
   rowData: any;
   uploadCatalog: boolean = false;
   activateDeleteButton: boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private shop: ShopProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider, public modalCtrl: ModalController,public storage:StorageProvider) {
+  catalog: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private shop: ShopProvider, public catalogService: CatalogProvider, private loader: LoaderProvider, public modal: ModalProvider, private errorHandler: ErrorHandlerServiceProvider, private alert: AlertProvider, public modalCtrl: ModalController, public storage: StorageProvider, private formBuilder: FormBuilder) {
+
   }
 
   ionViewDidLoad() {
@@ -66,7 +69,7 @@ export class CatalogPage {
     this.storage.getItem('admin').then((data: any) => {
       this.shopList = data.admin.shopList;
       // if (this.shopList != undefined && this.shopList != null && this.shopList.length > 0) {
-        this.shopSelected = this.shopList[0].shopId;
+      this.shopSelected = this.shopList[0].shopId;
       // }
     })
   }
@@ -74,6 +77,8 @@ export class CatalogPage {
   viewProduct(shopId) {
     this.catalogService.getAllProducts(shopId).subscribe((data: any) => {
       this.cols = [
+        
+        { field: 'shopId', header: 'Shop Id' },
         { field: 'barcodeId', header: 'BarcodeId' },
         { field: 'sku', header: 'sku' },
         { field: 'name', header: 'Name' },
@@ -113,13 +118,13 @@ export class CatalogPage {
         resolve();
       }, (err: HttpErrorResponse) => {
         console.log(err);
-        if(err.status==400){
-          let profileModal = this.modalCtrl.create(ErrorPage, {'catalogErr': err.error });
+        if (err.status == 400) {
+          let profileModal = this.modalCtrl.create(ErrorPage, { 'catalogErr': err.error });
           profileModal.present();
-        }else{
+        } else {
           this.errorHandler.error(err);
         }
-       
+
         this.loader.hide();
         reject(err);
       })
@@ -132,15 +137,45 @@ export class CatalogPage {
   }
 
 
-  checkData(element) {
 
-    if (element.barcodeId != null && element.sku != null && element.category != null && element.subCategory != null && element.amount != null
-      && (element.barcodeId + "").length != 0 && element.sku.length != 0 && element.category.length != 0 && element.subCategory.length != 0
-      && (element.amount + "").length != 0) {
-      return true;
+  checkData(element) {
+    var imageRegex =/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g;
+
+
+    if (element.barcodeId != null  && element.sku != null && element.category != null && element.subCategory != null
+      && element.sku.length != 0 && element.category.length != 0 && element.subCategory.length != 0
+    ) {
+
+      if (isNaN(element.barcodeId) || element.barcodeId < 0) {
+        this.alert.errorAlert('Enter a valid barcode');
+        return false;
+      }else if ((element.amount)!=null && isNaN(element.amount) || element.amount < 1) {
+        this.alert.errorAlert('Enter a valid amount');
+        return false;
+      }else if(element.image!=null && element.image.match(imageRegex) == null ){
+        this.alert.errorAlert('Enter a valid image url. Ex.https://productImages/image-not-available-min.png')
+        return false;
+      }else if(element.categoryImage!=null && element.image.match(imageRegex)==null){
+        this.alert.errorAlert('Enter a valid category image url. Ex.https://productImages/image-not-available-min.png')
+        return false;
+      } else {
+        return true;
+      }
+
+
+      
+
+
     } else {
-      this.alert.errorAlert('Please fill all the required details')
-      return false;
+      if (element.barcodeId == null) {
+        this.alert.errorAlert('Enter A Valid Barcode');
+        return false;
+      }
+      else {
+        this.alert.errorAlert('Please fill all the required details.')
+        return false;
+      }
+
     }
   }
   refresh() {
@@ -161,9 +196,13 @@ export class CatalogPage {
       if (this.checkData(this.product)) {
 
         this.updateProductList([this.product]).then(() => {
+          this.product.shopId=this.shopSelected;
+          // if(this.product.amount==null){
+          //   this.product.amount=0;
+          // }
           products.push(this.product);
           this.displayDialog = false;
-          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Added !', life: 3000 });
+          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Added !. Refresh the table to view updated products', life: 4000 });
 
         }, (err) => {
           console.log(err);
@@ -175,17 +214,20 @@ export class CatalogPage {
       }
 
     } else {
-      this.updateProductList([this.product]).then(() => {
-        console.log(this.editedProduct);
-        console.log(this.product, this.productList.indexOf(this.editedProduct))
-        products[this.productList.indexOf(this.editedProduct)] = this.product;
-        this.displayDialog = false;
-        this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Edited !', life: 3000 });
-        this.activateDeleteButton = false;
-      }, (err) => {
-        console.log(err);
-
-      })
+      if(this.checkData(this.product)){
+        this.updateProductList([this.product]).then(() => {
+          console.log(this.editedProduct);
+          console.log(this.product, this.productList.indexOf(this.editedProduct))
+          products[this.productList.indexOf(this.editedProduct)] = this.product;
+          this.displayDialog = false;
+          this.msgs.push({ severity: 'success', summary: 'Success', detail: 'Product Edited !', life: 3000 });
+          this.activateDeleteButton = false;
+        }, (err) => {
+          console.log(err);
+  
+        })
+      }
+     
 
     }
 
@@ -351,20 +393,20 @@ export class CatalogPage {
     }
   }
 
-  search(event){
+  search(event) {
     console.log(event);
-    return this.filter(event.query,this.shopList)
+    return this.filter(event.query, this.shopList)
   }
-  filter(query, shopList: any[]):any[] {
+  filter(query, shopList: any[]): any[] {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    let filtered : any[] = [];
-    for(let i = 0; i < shopList.length; i++) {
-        let shop = shopList[i];
-        if(shop.shopName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            filtered.push(shop);
-        }
+    let filtered: any[] = [];
+    for (let i = 0; i < shopList.length; i++) {
+      let shop = shopList[i];
+      if (shop.shopName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(shop);
+      }
     }
     return filtered;
-}
+  }
 
 }

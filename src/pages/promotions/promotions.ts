@@ -28,15 +28,16 @@ export class PromotionsPage {
   create: boolean = false;
   edit:boolean = false;
   deactivate:boolean=false;
-  promotionData:any;
+  promotionData:any={};
   showEditPanel = false;
   viewPromotionsFlag : boolean = false;
   private todo : FormGroup;
   constructor(public navCtrl: NavController, public navParams: NavParams,private promotionsProvider:PromotionsProvider,private shop:ShopProvider,private loader:LoaderProvider, public alert : AlertProvider,private formBuilder: FormBuilder,private storage:StorageProvider) {
+    var imageRegex =/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png|jpeg)/g;
     this.todo = this.formBuilder.group({
       text: ['', Validators.required],
       subText: [''],
-      imageUrl:['']
+      imageUrl:[Validators.required,Validators.pattern(imageRegex)]
     });
   }
 
@@ -162,10 +163,14 @@ export class PromotionsPage {
 
 
 addPromotion(){
+  this.promotionData={};
   this.create = true;
   this.showEditPanel = !this.showEditPanel;
-  this.promotionData={};
+  this.clearPromoion(this.promotionData);
+  
 }
+
+
 
 
 

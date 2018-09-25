@@ -4,6 +4,8 @@ import { NavController, Content } from 'ionic-angular';
 import { CatalogPage } from '../catalog/catalog';
 import { PromotionsPage } from '../promotions/promotions';
 import { InventoryPage } from '../inventory/inventory';
+import { StorageProvider } from '../../providers/storage/storage';
+import { FareyeDeliveriesPage } from '../fareye-deliveries/fareye-deliveries';
 
 
 
@@ -17,8 +19,17 @@ export class HomePage {
   ordersList : any[];
   settings:any;
   data:any;
-  constructor(public navCtrl: NavController) {
+  admin:any;
+  constructor(public navCtrl: NavController,public storage:StorageProvider) {
+ 
+  }
+
+  ionViewDidLoad() {
+    this.setAdmin().then((data:any)=>{
+      this.admin = data;
+    },(err:any)=>{
   
+    })
   }
 
   getOrderDetails(){
@@ -36,6 +47,18 @@ export class HomePage {
 
   inventory(){
     this.navCtrl.push(InventoryPage);
+  }
+
+  deliveryStatus(){
+    this.navCtrl.push(FareyeDeliveriesPage);
+  }
+
+  setAdmin(){
+   return this.storage.getItem('admin').then((data:any)=>{
+      return this.admin = data.admin;
+    },err=>{
+      return null
+    })
   }
 
 }

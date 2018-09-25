@@ -53,10 +53,16 @@ export class FulfillmentDetailsProvider {
       obj.actualOrderId = data.fulfillment.actualOrderId;
       obj.paymentMethod = data.paymentMethod;
       obj.subscriptionOrderId = data.subscriptionOrderId;
+      obj.originalStoreCode = data.fulfillment.originalStoreCode;
+      obj.confirmationLink = data.confirmationLink;
+      obj.confirmed = data.fulfillment.confirmed;
       obj.subscriptionOrderItems.forEach(element => {
         amount += element.amount*element.quantity
       });
       obj.totalOrderAmount = amount;
+      obj.paymentDone = data.fulfillment.paymentDone;
+      obj.reason = data.fulfillment.reason;
+
       if(moment(data.fulfillment.deliveryDate).isAfter(now)){
         obj.disable = true;
        }else{
@@ -76,6 +82,10 @@ export class FulfillmentDetailsProvider {
 
   downloadFullfillmentReport(data){
     return this._http.post(Constants.URL+"/v2/dashboard/subscription/fetchFulfillments/download",data,{responseType: 'text'})
+  }
+  
+  printBill(orderId,bags){
+    return this.http.get("v1/bill/generateSalesBillV2/"+orderId+"?printed=false&getBill=true&billSize=BIG&billType=HOME_DELIVERY_CHALLEN&deliveryBags="+bags);
   }
 
 }

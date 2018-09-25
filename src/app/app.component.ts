@@ -13,6 +13,8 @@ import { CatalogPage } from '../pages/catalog/catalog';
 import { PromotionsPage } from '../pages/promotions/promotions';
 import { InventoryPage } from '../pages/inventory/inventory';
 import { MenuController } from 'ionic-angular';
+import * as moment from 'moment';
+import { FareyeDeliveriesPage } from '../pages/fareye-deliveries/fareye-deliveries';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,13 +25,14 @@ export class MyApp {
   rootPage: any;
   admin:any;
   color:any;
-
+  adminRoles:any;
   navCtrl: NavController
   pages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>;
+  HOpages: Array<{title: string, component: any,icon:any,bg_color:any,color:any}>
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,public storage:StorageProvider,public splitPane:SplitpaneProvider,private daterangepickerOptions: DaterangepickerConfig,private app:App,private menuCtrl:MenuController) {
     this.initializeApp();
-    this.admin={}
+    this.admin={};
     this.navCtrl = app.getActiveNav();
     this.storage.getItem('admin').then((data:any)=>{
       console.log(data);
@@ -38,8 +41,14 @@ export class MyApp {
         this.admin=data.admin;
         console.log(this.admin);
         console.log(data);
+        this.adminRoles=data.authenticationDetails.roles;
         this.rootPage=HomePage;
         this.splitPane.setSplitPane(true);
+
+        // set navigation based on admin roles
+        
+        
+        
         
       }else{
         this.rootPage = LoginPage;
@@ -49,33 +58,31 @@ export class MyApp {
         this.rootPage = LoginPage;
       })
 
-    // if(window.localStorage && localStorage.length>0){
-    //   this.admin = JSON.parse(localStorage.getItem('admin'));
-    //   console.log('admin',this.admin);
-    //   if(this.admin!=null){
-    //     this.rootPage=HomePage;
-    //     this.splitPane.setSplitPane(true);
-    //   }else{
-    //     window.location.href='../v2/index.html';
-    //   }
-    // }else{
-    //   window.location.href='../v2/index.html';
-    // }
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Dashboard', component: HomePage,icon:'home',bg_color:'secondary',color:'primary' },
       { title: 'Orders', component: OrdersPage,icon:'cart',bg_color:'secondary',color:'primary' },
-      { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
-      { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' },
       { title: 'Required Stock', component: InventoryPage,icon:'cube',bg_color:'secondary',color:'primary' }
-    ];
-
-
+    ];   
+      this.HOpages =[
+        { title: 'Catalog', component: CatalogPage,icon:'list',bg_color:'secondary',color:'primary' },
+        { title: 'Banners', component: PromotionsPage,icon:'list',bg_color:'secondary',color:'primary' },
+       
+      ]
     // configuring date range
     this.daterangepickerOptions.settings = {
       locale: { format: 'YYYY-MM-DD' },
-      alwaysShowCalendars: false
+      alwaysShowCalendars: false,
+      ranges: {
+        'Today': [moment().startOf('day'), moment().startOf('day').add(1, 'day').subtract(1, 'minute')],
+        'Yesterday': [moment().startOf('day').subtract(1, 'days'), moment().startOf('day').subtract(1, 'minute')],
+        'Last 7 Days': [moment().startOf('day').subtract(6, 'days'), moment().startOf('day').add(1, 'days').subtract(1, 'minute')],
+        'Last 30 Days': [moment().startOf('day').subtract(29, 'days'), moment().startOf('day').add(1, 'days').subtract(1, 'minute')],
+        'This Month': [moment().startOf('day').startOf('month'), moment().startOf('day').add(1, 'day').subtract(1, 'minute')],
+        'Last Month': [moment().startOf('day').subtract(1, 'month').startOf('month'), moment().startOf('day').subtract(1, 'month').endOf('month')]
+    }
+
   };
 
   }
@@ -105,6 +112,10 @@ export class MyApp {
       }
       
       }
+  }
+
+  deliveryStatus(){
+    this.nav.setRoot(FareyeDeliveriesPage);
   }
 
 

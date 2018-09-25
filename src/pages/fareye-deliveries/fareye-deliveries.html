@@ -1,25 +1,28 @@
 <!--
-  Generated template for the InventoryPage page.
+  Generated template for the OrdersPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Inventory</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <ion-icon name="cart"></ion-icon> &nbsp; Delivery Status</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content no-padding>
+<ion-content>
 
-  <ion-grid>
+  <ion-grid id="shoplist">
     <div class="header-bar">
       <ion-title ion-text>
-        <ion-icon name="search"></ion-icon>&nbsp; Select Shop</ion-title>
+        <ion-icon name="pin"></ion-icon>&nbsp; Track Orders</ion-title>
     </div>
+
     <ion-row padding>
       <ion-col col-md-4 col-lg-4 col-sm-12 col-xs-12>
         <div>
@@ -41,7 +44,7 @@
         </div>
       </ion-col>
       <ion-col col-lg-12 col-md-12 col-sm-12 col-xs-12 no-padding>
-        <ion-list radio-group [(ngModel)]="shopSelected">
+        <ion-list radio-group [(ngModel)]="selectedShopId">
 
           <ion-row>
             <ion-col col-lg-6 col-md-6 col-sm-12 *ngFor="let shop of shopList">
@@ -54,8 +57,7 @@
               </ion-item>
             </ion-col>
             <ion-col col-12>
-              <button margin-left ion-button (click)="viewInventoryFlag = true; viewInventory(shopSelected)" [disabled]="!shopSelected"
-                margin-top>View Inventory</button>
+              <button ion-button (click)="fetchDeliveryStatus([selectedShopId])" [disabled]="!selectedShopId" margin-top margin-left>View Status</button>
             </ion-col>
           </ion-row>
 
@@ -63,66 +65,70 @@
         </ion-list>
       </ion-col>
     </ion-row>
-  </ion-grid>
-
-  <ion-grid>
-    <div class="header-bar">
-      <ion-title ion-text>
-        <ion-icon name="list-box"></ion-icon>&nbsp; Inventory Details
-      </ion-title>
-    </div>
 
 
-
-    <ion-row justify-content-center padding>
+    <ion-row padding id="order-detail">
       <ion-col col-12>
-        <button hideWhen="android,ios" [disabled]="!viewInventoryFlag" ion-button small round (click)="dt.exportCSV()">
-          <ion-icon name="cloud-download"></ion-icon>&nbsp; Download Report</button>
-        <button float-left showWhen="md" [disabled]="!viewInventoryFlag" ion-button small round outline (click)="dt.exportCSV()">
-          <ion-icon name="cloud-download"></ion-icon>&nbsp;Download</button>
-          <button float-left showWhen="android,ios" [disabled]="!viewInventoryFlag" ion-button small round outline (click)="download()">
-              <ion-icon name="cloud-download"></ion-icon>&nbsp;Download</button>
+        <div class="header-bar">
+          <ion-title ion-text>
+            <ion-icon name="list-box"></ion-icon>&nbsp; Delivery Details
+
+          </ion-title>
+
+        </div>
       </ion-col>
-
       <ion-col col-12>
-        <p-table #dt [columns]="cols" sortMode="multiple" [value]="inventoryList" [scrollable]="true" [paginator]="true" [rows]="20">
+        <button style="float: right" ion-button small round color="secondary" (click)="dt.exportCSV()">Download</button>
+
+      </ion-col>
+      <ion-col col-12>
+        <p-table #dt [columns]="cols" [value]="failedDeliveryData" [scrollable]="true" [paginator]="true" [rows]="20">
           <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
               <col *ngFor="let col of columns" style="width:250px">
             </colgroup>
           </ng-template>
           <ng-template pTemplate="caption">
-
             <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value,'contains')"
-                style="max-width:50%">
+              <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              style="max-width:50%">
             </div>
           </ng-template>
           <ng-template pTemplate="header" let-columns>
-
             <tr>
-              <th *ngFor="let col of columns">
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                 {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+              </th>
+            </tr>
+            <tr>
+              <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                <input *ngSwitchCase="'fulfillmentId'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+                <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+
               </th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <ng-template pTemplate="body" let-car let-columns="columns">
             <tr>
               <td *ngFor="let col of columns">
-                <span class="ui-column-title"> {{rowData[col.field]}}</span>
-               
+                {{car[col.field]}}
               </td>
             </tr>
-          </ng-template>
-          <ng-template pTemplate="summary">
-            There are {{inventoryList?.length}} products
           </ng-template>
         </p-table>
       </ion-col>
 
-
     </ion-row>
 
   </ion-grid>
+
+
+
+
+
+
+
+
 </ion-content>
