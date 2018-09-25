@@ -110,8 +110,8 @@
           <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr>
               <td *ngFor="let col of columns">
-                <span class="ui-column-title">{{col.header}}</span>
-                {{rowData[col.field]}}
+                <span class="ui-column-title"> {{rowData[col.field]}}</span>
+               
               </td>
             </tr>
           </ng-template>
